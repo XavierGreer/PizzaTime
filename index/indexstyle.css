@@ -1,0 +1,44 @@
+body, html {
+  height: 100%
+}
+.bgimg
+{
+  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(coming-soon-pizza.jpg);
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 25px;
+}
+.top
+{
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  text-align: justify;
+}
+.middle
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.bottom
+{
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  text-align: Justify;
+}
+hr
+{
+  margin: auto;
+  width: 100%;
+  color: white;
+}
