@@ -3,7 +3,7 @@ body, html {
 }
 .bgimg
 {
-  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../images/coming-soon-pizza.jpg);
+  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../media/coming-soon-pizza.jpg);
   height: 100%;
   background-position: center;
   background-size: cover;
