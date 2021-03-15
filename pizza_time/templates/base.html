@@ -1,4 +1,6 @@
 <html lang="en">
+
+<div class="flex-wrapper">
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -7,6 +9,8 @@
 
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Load font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
@@ -14,17 +18,58 @@
 
 <!-- Image and text -->
 {% block navbar %}
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    <img src="/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-    Pizza Time
-  </a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"><div style="width:70%"><img src="/static/images/Logo.png" class="img-responsive" alt="Responsive image" style="width:100%"></div></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="#">Menu</a>
+    </div>
+  </div>
+</nav>
 </nav>
 {% endblock %}
 
     {% block content %}
     {% endblock %}
+<footer>
+    <div class="container-fluid" style="padding-left:13%; padding-right:13%; background-color: rgba(246, 245, 243, 1);">
+    <div>
+        <div class="row" id="contact" name="contact">
+            <div class="col-sm-12 col-md-10 col-lg-10" style="padding-top:2%;  padding-left:0;  padding-right:0;">
+                <ul style="list-style-type:none;">
+                    <li>About Us</li>
+                    <li>Contact Us</li>
+                    <li>We are Hiring...Apply Online</li>
+                    <li>Copyright</li>
+                </ul>
 
+            </div>
+            <div class="col-sm-12 col-md-2 col-lg-2" style="padding-top:2%; padding-bottom:2%; padding-left:0; padding-right:0;">
+                <div class="row">
+                    <div class="col-6 text-center" style="width:100%">
+                        <div style="width:100%">
+                            <div class="footerlink" style="width:100%">
+                                <a href="" class="icon"><i class="fa fa-twitter-square fa-3x" aria-hidden="true" style="width:100%"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                   <div class="col-6 text-center" style="width:100%">
+                      <div style="width:100%">
+                            <div class="footerlink" style="width:100%;">
+                                <a href="" target="_blank" class="icon"><i class="fa fa-facebook-square fa-3x" aria-hidden="true" style="width:100%"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</footer>
+</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

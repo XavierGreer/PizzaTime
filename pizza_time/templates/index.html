@@ -1,31 +1,8 @@
-<html>
-<head>
-<title>COMING SOON!!!</title>
-	{% load static %}
-	<link href="/css/style.css" rel="stylesheet" type="text/css">
+{% extends "base.html" %}
 
-	<!-- Required Bootstrap meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-</head>
-<body>
-		<div class="bgimg">
-			<div class="top">
-				<p>Pizza Time Logo | Order Online | Menu | Promotions | About Us/Contact Us | Cart</p>
-			</div>
-			<div class="middle">
-				<h1>COMING SOON!</h1>
-				<h2>Pizzeria Soon Offering Online Orders and Delivery!!!</h2>
-				<hr>
-				<p>Under Construction</p>
-			</div>
-			<div class="bottom">
-				<p>Pizza Time Logo | Follow Us On... | We are Hiring...Apply Online | About Us | Contact Us | Copyright</p>
-			</div>
-		</div>
-</body>
-</html>
+{% block title %}
+    COMING SOON!!!
+{% endblock %}
+{% load static %}
+{% block content %}
+{% endblock%}

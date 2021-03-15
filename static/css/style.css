@@ -3,15 +3,18 @@ body, html {
 }
 .bgimg
 {
-  background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("bgimage/coming-soon-pizza.jpg");
-  height: 100%;
+  background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url("bgimage/coming-soon-pizza.jpg");
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   position: relative;
   color: white;
   font-family: "Courier New", Courier, monospace;
-  font-size: 25px;
+  width: 100%;
+  height: 100%;
 }
+
 .top
 {
   position: absolute;
@@ -20,14 +23,14 @@ body, html {
   right: 15%;
   text-align: justify;
 }
+
 .middle
 {
   position: absolute;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
 }
+
 .bottom
 {
   position: absolute;
@@ -36,9 +39,34 @@ body, html {
   right: 10%;
   text-align: Justify;
 }
+
 hr
 {
   margin: auto;
   width: 100%;
   color: white;
+}
+
+.footerlink a {
+  color: #3d3d3f;
+  width: 100%;
+  align: center;
+  transition: all 0.3s ease;
+  font-size: 20px;
+  margin-top: auto;
+}
+
+.flex-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  align: center;
 }
