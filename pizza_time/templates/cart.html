@@ -1,10 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Pizza Time Cart and Checkout</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}
+    Pizza Time | Cart
+{% endblock %}
+{% load static %}
+
+
+{% block content %}
+<h1>Shopping Cart</h1>
+<table class="cart">
+    <thread>
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+            <th>Unit Price</th>
+            <th>Product</th>
+        </tr>
+    </thread>
+    <tbody>
+    {% for item in cart %}
+    {% with product = item.product %}
+    <tr>
+        <td>
+            <a href="{{ if product.get_absolute_url }}">
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% end if %}">
+            </a>
+        </td>
+        <td> {{ product.name }} </td>
+        <td> {{ item.quantity }} </td>
+        <td>
+            <form action="{% url "cart:cart_remove" product.id %}" method="post">
+            <input type="submit" value="Remove">
+            {% csrf_token %}
+            </form>
+        </td>
+        <td class="num">${{ item.price }}</td>
+        <td class="num">${{ item.total_price }}</td>
+    </tr>
+    <tr class="total">
+        <td>Total</td>
+        <td colspan="4"></td>
+        <td class="num">${{ cart.get_total_price }}</td>
+    </tr>
+    </tbody>
+</table>
+<p class="text-right">
+    <a href="{% url "web_pizza:product_list" %}" class="buttonlight">Continue Shopping</a>
+    <a href="#" class="button">Check Out</a>
+</p>
+{% endblock %}
