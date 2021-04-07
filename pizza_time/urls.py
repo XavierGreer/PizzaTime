@@ -19,9 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # path('web_pizza/', include('web_pizza.urls')),
     path('admin/', admin.site.urls),
-    path('', include('web_pizza.urls')),
+    path('cart/',include('cart.urls')),
+    path('', include('web_pizza.urls',namespace='webpizza')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
