@@ -80,7 +80,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-'''
+
     def get_absolute_url(self):
-        return reverse('web_pizza:product_detail_by_category',args=[self.id,self.slug])'''
+        return reverse('web_pizza:product_detail_by_category',args=[self.id,self.slug])
 

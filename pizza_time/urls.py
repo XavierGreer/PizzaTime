@@ -21,8 +21,8 @@ from django.conf.urls.static import static
 urlpatterns = [
 
     path('admin/', admin.site.urls),
-    path('cart/',include('cart_urls')),
-    path('', include('web_pizza.urls')),
+    path('cart/',include('cart.urls')),
+    path('', include('web_pizza.urls',namespace='webpizza')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

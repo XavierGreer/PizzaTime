@@ -16,6 +16,7 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Topping)
 class ToppingAdmin(admin.ModelAdmin):
     list_display = ['name']
+
 '''
 Admin test account information.
 Username: Test
