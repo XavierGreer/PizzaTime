@@ -7,15 +7,15 @@ class Category(models.Model):
     slug = models.SlugField(max_length=200,unique=True)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('name','slug',)
         verbose_name = 'category'
         verbose_name_plural = 'categories'
 
     def __str__(self):
         return self.name
 
-    '''def get_absolute_url(self):
-        return reverse('web_pizza:product_list_by_category',args=[self.slug])'''
+    def get_absolute_url(self):
+        return reverse('product_list:product_list_by_category',args=[self.slug])
 
 
 class Topping(models.Model):
@@ -82,5 +82,5 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('web_pizza:product_detail_by_category',args=[self.id,self.slug])
+        return reverse('product_list:product_detail',args=[self.id,self.slug])
 
