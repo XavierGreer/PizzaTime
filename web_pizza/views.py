@@ -40,4 +40,3 @@ class ArticleCounterRedirectView(RedirectView):
         article = get_object_or_404(product_list, pk=kwargs['pk'])
         article.update_counter()
         return super().get_redirect_url(*args, **kwargs)
-
