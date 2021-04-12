@@ -11,6 +11,10 @@ def index(request):
     template = loader.get_template('home.html')  # getting our template
     return HttpResponse(template.render())  # rendering the template in HttpResponse
 
+<<<<<<< Updated upstream
+=======
+def menu(request, category_slug = None):
+>>>>>>> Stashed changes
 
 def product_list(request, category_slug=None):
     category = None
@@ -19,7 +23,11 @@ def product_list(request, category_slug=None):
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
+<<<<<<< Updated upstream
     return render(request, 'menu.html', {'category': category, 'categories': categories, 'products': products})
+=======
+    return render(request,'menu.html', {'category':category,'categories':categories,'products':products})
+>>>>>>> Stashed changes
 
     '''template = loader.get_template('menu.html')  getting our template
     return HttpResponse(template.render())        rendering the template in HttpResponse'''
@@ -38,7 +46,7 @@ class ArticleCounterRedirectView(RedirectView):
     pattern_name = 'product_list'
 
     def get_redirect_url(self, *args, **kwargs):
-        article = get_object_or_404(product_list, pk=kwargs['pk'])
+        article = get_object_or_404(menu, pk=kwargs['pk'])
         article.update_counter()
         return super().get_redirect_url(*args, **kwargs)
 
