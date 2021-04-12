@@ -11,7 +11,7 @@ Pizza Time | List
     <h3>Categories</h3>
     <ul>
         <li {% if not category %}class="'selected"{% endif %}>
-            <a hre="{% url "webpizza:product_list" %}">All</a>
+            <a href="{% url "webpizza:product_list" %}">All</a>
         </li>
         {% for c in categories %}
         <li {% if not category.slug == c.slug %}class="selected"{% endif %}>
