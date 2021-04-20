@@ -11,6 +11,10 @@ def index(request):
     template = loader.get_template('home.html')  # getting our template
     return HttpResponse(template.render())  # rendering the template in HttpResponse
 
+def about(request):
+    template = loader.get_template('about.html')
+    return HttpResponse(template.render('about.html'))
+    return render(request, 'about.html')
 
 def product_list(request, category_slug=None):
     category = None
