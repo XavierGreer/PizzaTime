@@ -18,10 +18,15 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cart/',include('cart.urls')),
-    path('', include('web_pizza.urls',namespace='webpizza')),
+    path('cart/', include('cart.urls')),
+    path('login/', include('login.urls')),
+    path('about/', include('web_pizza.urls')),
+    path('contact/', include('contact.urls')),
+    path('', include('web_pizza.urls', namespace='web_pizza')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

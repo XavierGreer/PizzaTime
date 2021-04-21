@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web_pizza',
+    'contact',
     'cart.apps.CartConfig',
 ]
 
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'pizza_time.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["pizza_time/templates/"],
+        'DIRS': ["pizza_time/templates/", "contact/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
