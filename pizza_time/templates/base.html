@@ -22,7 +22,19 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <li><a href="menu"><i class="fa fa-fw fa-bars"></i> Menu</a></li>
-                <li><a href="cart"><i class="fa fa-fw fa-shopping-cart"></i> Cart</a></li>
+                <li><a href="cart/"><i class="fa fa-fw fa-shopping-cart"></i></a>
+                    {% with total_items=cart|length %}
+                    {% if total_items > 0 %}
+                    Your Cart:
+                    <a href={% url "cart:cart_detail" %}">
+                    {{ total_items }} item {{ total_items|pluralize }},
+                    ${{ cart.get_total_price }}
+                    </a>
+                    {% else %}
+                    Your Cart is Empty.
+                    {% endif %}
+                    {% endwith %}
+                </li>
                 <li><a href="login"><i class="fa fa-fw fa-login"></i> Sign In</a></li>
             </div>
         </div>

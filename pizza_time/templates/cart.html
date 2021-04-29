@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+% extends "base.html" %}
 
 {% block title %}
     Pizza Time | Cart
@@ -25,7 +25,7 @@
     <tr>
         <td>
             <a href="{{ if product.get_absolute_url }}">
-                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% end if %}">
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.jpg" %}{% end if %}">
             </a>
         </td>
         <td> {{ product.name }} </td>
@@ -47,7 +47,7 @@
     </tbody>
 </table>
 <p class="text-right">
-    <a href="{% url "web_pizza:product_list" %}" class="buttonlight">Continue Shopping</a>
+    <a href="{% url "web_pizza:menu" %}" class="buttonlight">Continue Shopping</a>
     <a href="#" class="button">Check Out</a>
 </p>
 {% endblock %}
