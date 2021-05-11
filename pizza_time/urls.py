@@ -17,17 +17,28 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from user import views as user_view
+from web_pizza import views as pizza_view
+from django.contrib.auth import views as auth
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('login', include('login.urls')),
-    path('register', include('login.urls')),
-    path('about/', include('web_pizza.urls')),
-    path('contact/', include('contact.urls')),
-    path('cart/', include('cart.urls', namespace='cart')),
-    path('menu/', include('web_pizza.urls', namespace='menu')),
-    path('', include('web_pizza.urls', namespace='web_pizza')),
+    #path('', include('user.urls')),
+    path('login', user_view.Login, name='login'),
+    path('logout', auth.LogoutView.as_view(template_name='user/index.html'), name='logout'),
+    path('register', user_view.register, name='register'),
+
+    path('', include('web_pizza.urls', namespace='pizza')),
+    #path('menu', pizza_view.menu, namespace='name')),
+
+    #path('menu', pizza.menu(), name='menu'),
+    #path('login',include('user.urls'),user_view.Login, name ='login'),
+    #path('logout', auth.LogoutView.as_view(template_name='index.html'), name='logout'),
+    #path('register', user_view.register, name='register'),
+    #path('admin', admin.site.urls),
+    #path('about', include('web_pizza.urls', namespace='about')),
+    #path('contact', include('contact.urls', namespace='contact')),
+    #path('cart', include('cart.urls', namespace='cart')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

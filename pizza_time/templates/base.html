@@ -3,30 +3,55 @@
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
     <title>{% block title %}{% endblock %}</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!-- Load font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'Javascript/contact.js' %}"></script>
+
+
+  {% if messages %}
+  {% for message in messages %}
+
+  <script>
+    alert("{{ message }}");
+  </script>
+
+  {% endfor %}
+  {% endif %}
+
+
 </head>
 
 <body>
 <!-- Image and text -->
     {% block navbar %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/"><img src="/static/images/Logo.png" alt="Responsive image" width="180" height="70"></a>
+
+        <a class="navbar-brand" href="{% url "pizza:index" %}"><img src="/static/images/Logo.png" alt="Responsive image" width="180" height="70"></a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <li><a href="menu"><i class="fa fa-fw fa-bars"></i> Menu</a></li>
-                <li><a href="cart/"><i class="fa fa-fw fa-shopping-cart"></i></a>
+
+                <li><a href=""><i class="fa fa-fw fa-bars"></i> Menu</a></li>
+
+                <li><a href=""><i class="fa fa-fw fa-shopping-cart"></i></a>
                     {% with total_items=cart|length %}
                     {% if total_items > 0 %}
                     Your Cart:
-                    <a href={% url "cart:cart_detail" %}">
+                    <a href="">
                     {{ total_items }} item {{ total_items|pluralize }},
                     ${{ cart.get_total_price }}
                     </a>
@@ -35,20 +60,30 @@
                     {% endif %}
                     {% endwith %}
                 </li>
-                <li><a href="login"><i class="fa fa-fw fa-login"></i> Sign In</a></li>
+
+                <ul class="nav navbar-nav navbar-right">
+
+            {% if user.is_authenticated %}
+            <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out"></span> &nbsp; Logout</a></li>
+            {% else %}
+            <li><a href="{% url "register" %}"><span class="glyphicon glyphicon-user"></span> &nbsp; Sign up</a></li>
+            <li><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Log in</a></li>
+            {% endif %}
+
+          </ul>
             </div>
         </div>
     </nav>
-    {% endblock %}
 
+    {% endblock %}
     {% block content %}
     {% endblock %}
     <div class="footer" style="padding-left:0%; padding-right:7%;">
         <div class="row" id="contact" name="contact">
             <div class="col-sm-12 col-md-8 col-lg-10" style="padding-top:2%;">
                 <ul style="list-style-type:none;">
-                    <li><a href="about"> About Us</a></li>
-                    <li><a href="contact"> Contact Us</a></li>
+                    <li><a href=""> About Us</a></li>
+                    <li><a href=""> Contact Us</a></li>
                     <li><a href="#"> Copyright</a></li>
                 </ul>
             </div>

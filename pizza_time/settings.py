@@ -32,16 +32,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'web_pizza',
-    'login',
+    'web_pizza.apps.WebPizzaConfig',
     'contact',
+    'user.apps.UserConfig',
     'cart.apps.CartConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'pizza_time.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["pizza_time/templates/", "cart/templates/"],
+        'DIRS': ["pizza_time/templates/", "cart/templates/", "contact/templates/", "user/templates/", "web_pizza/templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pizza_time.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -85,7 +86,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -129,8 +129,22 @@ STATICFILES_DIRS = (
 )
 
 # Media files (media, videos, etc.)
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 CART_SESSION_ID = 'cart'
 
+LOGIN_REDIRECT_URL = "login"
+
+EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = "your email"
+EMAIL_HOST_PASSWORD = "your password"
+
 #mimetypes.add_type("text/css", ".css", True)
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

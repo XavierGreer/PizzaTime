@@ -1,12 +1,20 @@
-/*General */
-html{    
-	background:url('bgimage/pizza.jpg') no-repeat;
-	background-size: cover;
-	height:100%;
-}
 body
 {
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}
+
+.bgimg
+{
+  background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url("bgimage/pizza.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  width: 100%;
+  height: 100%;
 }
 
 #feedback-page{
