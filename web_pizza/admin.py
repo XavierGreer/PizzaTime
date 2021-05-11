@@ -1,17 +1,19 @@
 from django.contrib import admin
-from .models import Category, Product, Topping, Pizza, ToppingAmount, Soda, Sides, Order, Customer
+from .models import Category, Product, Topping, Pizza, ToppingAmount, Soda, Side, Order, Customer
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name','slug']
     prepopulated_fields = {'slug':('name',)}
 
-@admin.register(Product)
+
+
+'''@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name','slug','price','available','created','updated']
-    list_filter = ['available','created','updated']
-    list_editable = ['price','available']
-    prepopulated_fields = {'slug': ('name',)}
+    list_display = ['name','slug','available']
+    list_filter = ['available']
+    list_editable = ['available']
+    prepopulated_fields = {'slug': ('name',)}'''
 
 class ToppingAmountInline(admin.TabularInline):
     model = ToppingAmount
@@ -22,16 +24,16 @@ class ToppingAdmin(admin.ModelAdmin):
 
 @admin.register(Pizza)
 class PizzaAdmin(admin.ModelAdmin):
-    list_display = ['name','size','price']
-    inlines = [ToppingAmountInline, ]
+    fields = ('category','name','image','available','priceSm','priceMd','priceLg')
+    inlines = [ToppingAmountInline,]
 
 @admin.register(Soda)
 class SodaAdmin(admin.ModelAdmin):
-    list_display = ['name','size','price']
+    fields = ('category','name','image','available','priceSodaSm','priceSodaLg')
 
-@admin.register(Sides)
+@admin.register(Side)
 class SidesAdmin(admin.ModelAdmin):
-    list_display = ['name','price']
+    fields = ('category','name','image','available','priceSide')
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):

@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 import uuid
 from django.core.validators import RegexValidator
+from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 
 class Category(models.Model):
@@ -17,65 +18,129 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('product_list:product_list_by_category',args=[self.slug])
+        return reverse('web_pizza:product_list_by_category',args=[self.slug])
 
-class Pizza(models.Model):
-    name = models.CharField(max_length=60)
-    topping = models.ManyToManyField('Topping', through='ToppingAmount')
-    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
+class Product(models.Model):
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
+    TYPE_CHOICES = [
+        ('Pizza', 'Pizza'),
+        ('Soda', 'Soda'),
+        ('Side', 'Side'),
+    ]
+    product_type = models.CharField(max_length=25, choices=TYPE_CHOICES)
+
+    # Common Fields
+    name = models.CharField(max_length=200,db_index=True)
+    slug = models.SlugField(max_length=200, db_index=True)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
+
+    # Pizza fields
     PIZZA_SIZES = (
         (12, 'Small'),
         (14, 'Medium'),
         (16, 'Large'),
     )
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    size = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False)
+    topping = models.ManyToManyField('Topping', through='ToppingAmount')
+    priceSm = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    priceMd = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    priceLg = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    sizePizza = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False)
+
+    # Sodas fields
+    SODA_SIZES = (
+        (1, '12 Oz'),
+        (2, '2 Liter'),
+    )
+
+    priceSodaSm = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    priceSodaLg = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    sizeSoda = models.IntegerField(choices=SODA_SIZES, default=1, blank=False)
+
+    #Sides Fields
+    priceSide = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
     class Meta:
-        ordering = ('name','size')
+        ordering = ('name',)
+        index_together = (('id','slug'),)
+        verbose_name = 'product'
+        verbose_name_plural = 'products'
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Product, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('web_pizza:product_detail',args={self.id, self.slug})
+
+class Pizza(Product):
+
+    class Meta:
+        proxy = True
         verbose_name = 'pizza'
         verbose_name_plural = 'pizzas'
 
     def __str__(self):
         return self.name
 
-class ToppingAmount(models.Model):
-    Nothing = 0
-    Regular = 1
-    Double = 2
-    CHOICES = (
-        (Nothing, 'Nothing'),
-        (Regular, 'Regular'),
-        (Double, 'Double'),
-    )
+    def save(self, *args, **kwargs):
+        self.product_type = 'Pizza'
+        return super(Pizza, self).save(self.id, self.slug)
 
-    pizza = models.ForeignKey('Pizza', on_delete=models.CASCADE, null=True, blank=True)
-    topping = models.ForeignKey('Topping', on_delete=models.CASCADE, null=True, blank=True)
-    amount = models.IntegerField(choices=CHOICES, default=Nothing)
 
-class Product(models.Model):
-    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
-    name = models.CharField(max_length=200,db_index=True)
-    slug = models.SlugField(max_length=200, db_index=True)
-    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
-    description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    available = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+class SodaManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(product_type='Soda')
+
+class Soda(Product):
+    objects = SodaManager()
 
     class Meta:
-        ordering = ('name',)
-        index_together = (('id','slug'),)
+        proxy = True
+        verbose_name = 'soda'
+        verbose_name_plural = 'sodas'
 
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('product_list:product_detail',args=[self.id,self.slug])
+    def save(self, *args, **kwargs):
+        self.product_type = 'Soda'
+        return super(Soda, self).save(*args, **kwargs)
+
+class SidesManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(product_type='Side')
+
+class Side(Product):
+    objects = SidesManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = 'side'
+        verbose_name_plural = 'sides'
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.product_type = 'Side'
+        return super(Side, self).save(*args, **kwargs)
+
+class ToppingAmount(models.Model):
+    Regular = 1
+    Double = 2
+    CHOICES = (
+        (Regular, 'Regular'),
+        (Double, 'Double'),
+    )
+    pizza = models.ForeignKey('Product', on_delete=models.CASCADE, null=True, blank=True)
+    topping = models.ForeignKey('Topping', on_delete=models.CASCADE, null=True, blank=True)
+    amount = models.IntegerField(choices=CHOICES, default=Regular)
 
 class Topping(models.Model):
     name = models.CharField(max_length=20, db_index=True)
@@ -84,43 +149,6 @@ class Topping(models.Model):
         ordering = ('name',)
         verbose_name = 'topping'
         verbose_name_plural = 'toppings'
-
-    def __str__(self):
-        return self.name
-
-class Soda(models.Model):
-    name = models.CharField(max_length=20, db_index=True)
-    SODA_SIZES = (
-        (1, '12 Oz'),
-        (2, '2 Liter'),
-    )
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    size = models.IntegerField(choices=SODA_SIZES, default=12, blank=False)
-    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
-    available = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ('name', 'size', 'price')
-        verbose_name = 'soda'
-        verbose_name_plural = 'sodas'
-
-    def __str__(self):
-        return self.name
-
-class Sides(models.Model):
-    name = models.CharField(max_length=20, db_index=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
-    available = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ('name', 'price',)
-        verbose_name = 'side'
-        verbose_name_plural = 'sides'
 
     def __str__(self):
         return self.name

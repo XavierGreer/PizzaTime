@@ -59,7 +59,7 @@ ROOT_URLCONF = 'pizza_time.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["pizza_time/templates/", "contact/"],
+        'DIRS': ["pizza_time/templates/", "cart/templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -129,7 +130,7 @@ STATICFILES_DIRS = (
 
 # Media files (media, videos, etc.)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 CART_SESSION_ID = 'cart'
 
 #mimetypes.add_type("text/css", ".css", True)
