@@ -9,6 +9,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
 
+
 def index(request):
 	return render(request, 'home.html')
 
