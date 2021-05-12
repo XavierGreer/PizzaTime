@@ -49,8 +49,7 @@
                 <li><a href="{% url "cart:cart_detail" %}"><i class="fa fa-fw fa-shopping-cart"></i>
                     {% with total_items=cart|length %}
                     {% if total_items > 0 %}
-                    Your Cart:
-                    {{ total_items }} item {{ total_items|pluralize }},
+                    {{ total_items }} item{{ total_items|pluralize }},
                     ${{ cart.get_total_price }}
                     {% else %}
                     Empty
