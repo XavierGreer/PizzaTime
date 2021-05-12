@@ -76,7 +76,7 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('web_pizza:product_detail',args={self.id, self.slug})
+        return reverse('web_pizza:product_detail',args=[self.id, self.slug])
 
 class Pizza(Product):
 

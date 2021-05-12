@@ -13,7 +13,7 @@ def index(request):
     #return HttpResponse(template.render())  # rendering the template in HttpResponse
     return render(request, 'home.html')
 
-def menu(request, category_slug=None):
+"""def menu(request, category_slug=None):
     category = None
     categories = Category.objects.all()
     products = Product.objects.filter(available=True)
@@ -21,6 +21,13 @@ def menu(request, category_slug=None):
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
+    return render(request,'menu.html', context)"""
+
+def menu(request):
+    category = None
+    categories = Category.objects.all()
+    products = Product.objects.filter(available=True)
+    context = {'cartegories':categories,'products':products}
     return render(request,'menu.html', context)
 
 def product_detail(request, id, slug):
@@ -38,3 +45,6 @@ class ArticleCounterRedirectView(RedirectView):
         article = get_object_or_404(menu, pk=kwargs['pk'])
         article.update_counter()
         return super().get_redirect_url(*args, **kwargs)
+
+def aboutus(request):
+    return render(request, 'about.html')

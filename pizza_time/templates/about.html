@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Pizza Time Pizzeria | About Us</title>
-    <link rel="stylesheet" href="../../static/css/style2.css"/>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+Pizza Time | About Us
+{% endblock %}
+{% load static %}
+{% block content %}
+
 	<div class="container">
 		<logo>
 			<div class="image"></div>
@@ -39,5 +38,4 @@
 	from a successful online order. <br>
 	Our delivery cost is only a $2.00 additional charge.</p3>
 	</div>
-</body>
-</html>
+{% endblock %}
