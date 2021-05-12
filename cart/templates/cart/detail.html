@@ -6,7 +6,7 @@
 {% load static %}
 
 {% block content %}
-<center>
+
     <div style="padding-top: 15px; padding-right:5%; padding-left:5%;">
         <h1>Shopping Cart</h1>
         <table class="cart">
@@ -26,7 +26,7 @@
             <tr>
                 <td>
                     <a href="{{ product.get_absolute_url }}">
-                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/Logo.png" %}{% endif %}">
                     </a>
                 </td>
                 <td> {{ product.name }} </td>
@@ -60,6 +60,5 @@
             <a href="#" class="button">Check Out</a>
         </p>
     </div>
-</center>
 
 {% endblock %}
