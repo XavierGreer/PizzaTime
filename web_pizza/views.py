@@ -48,3 +48,4 @@ class ArticleCounterRedirectView(RedirectView):
 
 def aboutus(request):
     return render(request, 'about.html')
+

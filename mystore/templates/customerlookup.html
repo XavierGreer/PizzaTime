@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pizza Time | My Store | Admin Results
+{% endblock %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <p>Edit Customer {{result}}</p>
+        <br>
+        <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
+	</div>
+{% endblock %}

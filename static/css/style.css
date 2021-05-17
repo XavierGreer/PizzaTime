@@ -7,7 +7,7 @@ body, html {
 
 .bgimg
 {
-  background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url("bgimage/coming-soon-pizza.jpg");
+  background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url("bgimage/pizza.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

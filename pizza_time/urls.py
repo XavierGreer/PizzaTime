@@ -24,13 +24,13 @@ from django.contrib.auth import views as auth
 urlpatterns = [
 
     path('admin', admin.site.urls),
-    path('login', user_view.Login, name='login'),
+    path('login/', user_view.Login, name='login'),
     path('logout', auth.LogoutView.as_view(template_name='home.html'), name='logout'),
     path('register', user_view.register, name='register'),
     path('contact', include('contact.urls', namespace='contact')),
     path('', include('cart.urls', namespace='cart')),
     path('', include('web_pizza.urls', namespace='pizza')),
-
+    path('', include('mystore.urls', namespace='mystore')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

@@ -3,7 +3,7 @@ from django.urls import reverse
 import uuid
 from django.core.validators import RegexValidator
 from django.utils.text import slugify
-from django.contrib.auth import get_user_model
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200,db_index=True)

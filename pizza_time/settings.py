@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'contact',
     'user.apps.UserConfig',
     'cart.apps.CartConfig',
-
+    'mystore.apps.MystoreConfig',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +61,7 @@ ROOT_URLCONF = 'pizza_time.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["pizza_time/templates/", "cart/templates/", "contact/templates/", "user/templates/", "web_pizza/templates/"],
+        'DIRS': ["pizza_time/templates/", "cart/templates/", "contact/templates/", "user/templates/", "web_pizza/templates/", "mystore/templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,13 +136,12 @@ CART_SESSION_ID = 'cart'
 
 LOGIN_REDIRECT_URL = "login"
 
-EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
-EMAIL_HOST_USER = "your email"
-EMAIL_HOST_PASSWORD = "your password"
+EMAIL_HOST_USER = "greenteamproject2021a@gmail.com"
+EMAIL_HOST_PASSWORD = "2021aGreenTeamRocks!@"
 
 #mimetypes.add_type("text/css", ".css", True)
 
