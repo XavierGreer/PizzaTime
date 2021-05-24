@@ -7,10 +7,15 @@ Pizza Time | My Store | Admin Results
 {% block content %}
     <div class="container">
         <br>
-        Welcome {{user}}!!!!!
+        <p>Welcome {{user}}!!!!!</p>
         <br>
-        Result : {{result}}
+        <h1>Toppings</h1>
+        <br>
+        {% for toppings in toppings %}
+            <li>{{ toppings.name }}</li>
+        {% endfor %}
         <br>
         <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
+        <br>
 	</div>
 {% endblock %}

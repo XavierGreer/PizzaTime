@@ -6,8 +6,15 @@ Pizza Time | My Store | Admin Results
 {% load static %}
 {% block content %}
     <div class="container">
-        <p>Edit Order Number {{result}}</p>
         <br>
-        <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
+        <p>Edit Order</p>
+        <br>
+        <form method='POST'>
+            {% csrf_token %}
+            {{form.as_p}}<br><br><br><br><br><br><br><br><br><br><br><br>
+            <input type='submit' value='Save' />
+        </form>
+        <br>
+        <p><li><a href="{% url "mystore:mystore" %}"> My Store</a></li></p>
 	</div>
 {% endblock %}

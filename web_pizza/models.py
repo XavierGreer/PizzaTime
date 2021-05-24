@@ -155,26 +155,26 @@ class Topping(models.Model):
 
 class Customer(models.Model):
     customerID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
-    firstname = models.CharField(max_length=50, db_index=True)
-    lastname = models.CharField(max_length=50, db_index=True)
-    phone = models.CharField(max_length=10, null=True, validators=[RegexValidator(r'^\d{3}-\d{3}-\d{4}$')])
-    email = models.EmailField(max_length = 254)
-    address = models.CharField("Address line 1", max_length=1024,)
-    zipcode = models.CharField("ZIP / Postal code", max_length=12, editable=False)
+    firstname = models.CharField(max_length=50, db_index=True, editable=True)
+    lastname = models.CharField(max_length=50, db_index=True, editable=True)
+    phone = models.CharField("Phone", max_length=12, null=True, validators=[RegexValidator(r'^\d{3}(-)?\d{3}(-)?\d{4}$')], editable=True)
+    email = models.EmailField("Email", max_length = 254, editable=True)
+    address = models.CharField("Address line 1", max_length=1024, editable=True)
+    zipcode = models.CharField("ZIP / Postal code", max_length=12, editable=True)
 
 class Order(models.Model):
     orderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
-    customer = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True, blank=True, editable=False)
-    total = models.DecimalField(max_digits=10, decimal_places=2, editable=False)
-    tax = models.DecimalField(max_digits=4, decimal_places=2, editable=False)
-    discount = models.DecimalField(max_digits=2, decimal_places=0,)
+    customer = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True, blank=True, editable=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, editable=True)
+    tax = models.DecimalField(max_digits=4, decimal_places=2, editable=True)
+    discount = models.DecimalField(max_digits=2, decimal_places=0, editable=True)
     STATUSES = (
         (0, 'Order Received'),
         (1, 'Baking'),
         (2, 'On The Way'),
         (3, 'Delivered'),
     )
-    status = models.IntegerField(choices=STATUSES, default=0, blank=False)
+    status = models.IntegerField(choices=STATUSES, default=0, blank=False, editable=True)
 
     def __str__(self):
         return str(self.orderID)
