@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}
+    Incoming Orders
+{% endblock %}
+
+{% block content %}
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+        <th scope="col">Order #</th>
+        <th scope="col">Product</th>
+        <th scope="col">Status</th>
+        <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+    <tr>
+        <th scope="row">000001</th>
+        <td>Large Pepperoni</td>
+        <td>New </td>
+        <td><button class="btn btn-primary" type="submit">Update Status</button></td>
+    </tr>
+    <tr>
+        <th scope="row">000002</th>
+        <td>Small bread sticks</td>
+        <td>Baking </td>
+        <td><button class="btn btn-primary" type="submit">Update Status</button></td>
+    </tr>
+    <tr>
+        <th scope="row">000003</th>
+        <td>small bread sticks, large soda, medium pizza</td>
+        <td>Done</td>
+        <td><button class="btn btn-primary" type="submit">Update Status</button></td>
+    </tr>
+  </tbody>
+</table>
+
+{% endblock %}

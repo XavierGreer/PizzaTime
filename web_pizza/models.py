@@ -178,3 +178,13 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.orderID)
+
+class OrderItem(models.Model):
+    ProductOrderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
+    price = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    size = models.CharField(max_length=200,db_index=True)
+    name = models.CharField(max_length=200,db_index=True)
+    toppings = models.CharField(max_length=200,db_index=True)
+
+    def __str__(self):
+        return self.name

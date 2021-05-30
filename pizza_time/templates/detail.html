@@ -10,14 +10,58 @@
     <div class="product-detail">
         <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "image/Logo.png" %}{% endif %}">
         <h1>{{ product.name }} {{ product.category }}</h1>
-        <h3 class="price">${{ product.priceSm }}</h3>
+        <h4>
+            {% if product.priceSm >= 0.5 %}
+            Small - ${{ product.priceSm }}
+            {% elif product.priceSodaSm >= 0.5 %}
+            Small - ${{ product.priceSodaSm }}
+            {% elif product.priceSide >= 0.5 %}
+            ${{ product.priceSide }}
+            {% else %}
+            Invalid Price
+            {% endif %}
+        </h4>
+        <h4>
+            {% if product.priceMd >= 0.5 %}
+            Medium - ${{ product.priceMd }}
+            {% elif product.priceSodaLg >= 0.5 %}
+            Medium - ${{ product.priceSodaLg }}
+            {% else %}
+            {% endif %}
+        </h4>
+        <h4>
+            {% if product.priceLg >= 0.5 %}
+            Large - ${{ product.priceLg }}
+            {% elif product.priceSodaSm >= 0.5 %}
+            Large - ${{ product.priceSodaLg }}
+            {% else %}
+            {% endif %}
+        </h4>
+        {% if product.priceSm >= 0.5 %}
         <form action="{% url "cart:cart_add" product.id %}" method="post">
         {{ cart_product_form }}
+        <!--{{ cart_product_form.pizzasize }}
+        {{ cart_product_form.quantity }}-->
         {% csrf_token %}
         <input type="submit" value="Add to cart">
         </form>
+        {% elif product.priceSodaSm >= 0.5 %}
+        <form action="{% url "cart:cart_add" product.id %}" method="post">
+        {{ cart_product_form.sodasize }}
+        {{ cart_product_form.quantity }}
+        {% csrf_token %}
+        <input type="submit" value="Add to cart">
+        </form>
+        {% elif product.priceSide >= 0.5 %}
+        <form action="{% url "cart:cart_add" product.id %}" method="post">
+        {{ cart_product_form.sidesize }}
+        {{ cart_product_form.quantity }}
+        {% csrf_token %}
+        <input type="submit" value="Add to cart">
+        </form>
+        {% else %}
+        This product is currently unavailable.
+        {% endif %}
     </div>
 </center>
-
 {% endblock %}
-

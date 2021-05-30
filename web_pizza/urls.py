@@ -7,6 +7,7 @@ app_name = 'web_pizza'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('cook',views.cookorder, name='cook'),
     path('menu', views.menu, name='menu'),
     path('about', views.aboutus, name='aboutus'),
     path('<slug:category_slug>',views.menu,name='product_list_by_category'),
