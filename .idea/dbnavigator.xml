@@ -42,6 +42,8 @@
     <connection id="5d272641-e3fd-4747-8293-a05a9237ccd7" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="5d272641-e3fd-4747-8293-a05a9237ccd7" dataset="main.web_pizza_product" active-filter-id="" />
+    <filter-actions connection-id="5d272641-e3fd-4747-8293-a05a9237ccd7" dataset="main.web_pizza_pizza" active-filter-id="" />
     <filter-actions connection-id="5d272641-e3fd-4747-8293-a05a9237ccd7" dataset="main.web_pizza_topping" active-filter-id="5315c66b-3d94-43c9-915c-f12aad9dddf9">
       <filter id="5315c66b-3d94-43c9-915c-f12aad9dddf9" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="id" operator="is not null" value="" active="true" />

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pizza Time | My Store | Order Delete
+{% endblock %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <br>
+        <p>Delete Order</p>
+        <br>
+        <div class="main">
+            <form method="POST">
+                {% csrf_token %}
+                Are you want to delete this Order?
+                <input type="submit" value="Yes" />
+                <a href="/">Cancel </a>
+            </form>
+        </div>
+        <br>
+        <p><li><a href="{% url "mystore:mystore" %}"> My Store</a></li></p>
+	</div>
+{% endblock %}

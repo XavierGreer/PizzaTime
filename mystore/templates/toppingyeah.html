@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Pizza Time | My Store | Admin Results
+Pizza Time | My Store | Toppings Yeah
 {% endblock %}
 {% load static %}
 {% block content %}
@@ -9,6 +9,18 @@ Pizza Time | My Store | Admin Results
         <br>
         <p>Welcome Admin!!!!!</p>
         <br>
+        <h1>Toppings</h1>
+        <br>
+
+        <!-- Add Toppings here -->
+        <p>Please add new Toppings here.</p>
+        <form action="add_topping" method="post">
+            {% csrf_token %}
+            Add a New Topping :  <input type="text" name="topping_name"><br>
+            <input type="submit">
+        </form>
+        <br>
+
         <!-- Toppings List -->
         <div class="topping_list">
             {% for data in dataset %}
@@ -16,6 +28,7 @@ Pizza Time | My Store | Admin Results
             {% endfor %}
         </div>
         <br>
+
         <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
         <br>
 	</div>

@@ -1,97 +1,111 @@
 {% extends "base.html" %}
 
 {% block title %}
-Pizza Time | My Store | Admin Only
+Pizza Time | My Store | Admins Only
 {% endblock %}
 {% load static %}
 {% block content %}
+
+    <br>
     <div class="container">
         <br>
-        <li><a href="{% url "mystore:edit_order" %}"> Edit Order</a></li>
-         <li><a href="{% url "mystore:edit_customer" %}"> Edit Customer</a></li>
+        <p>Pizza Time Pizzeria MyStore Admin Page</p>
+        <p>Welcome {{user}}!!!!!</p>
+        <p>Add toppings, pizza, sodas, and sides as well as Lookup, Create, Edit, and Delete Orders or Customers below.</p>
+        <br>
+        <li><a href="{% url "mystore:lookup_order" %}"> Lookup Order</a></li>
+        <li><a href="{% url "mystore:create_order" %}"> Create Order</a></li>
+        <br>
+        <li><a href="{% url "mystore:lookup_customer" %}"> Lookup Customer</a></li>
+        <li><a href="{% url "mystore:create_customer" %}"> Create Customer</a></li>
+        <br>
+        <li><a href="{% url "mystore:lookup_products" %}"> Lookup Products</a></li>
+        <li><a href="{% url "mystore:toppingyeah" %}"> All Things Toppings</a></li>
+        <li><a href="{% url "mystore:pizzayeah" %}"> All Things Pizzas</a></li>
+        <li><a href="{% url "mystore:sodayeah" %}"> All Things Sodas</a></li>
+        <li><a href="{% url "mystore:sideyeah" %}"> All Things Sides</a></li>
+        <br>
         <li><a href="{% url "mystore:results" %}"> Results</a></li>
         <br>
-        <p>Admin Page for Pizza Time Pizzeria.</p>
-        <br>
-        <p>Welcome {{user}}!!!!!</p>
-        <p>Add toppings, pizza, sodas, and sides as well as Edit Orders and Customers Info below.</p>
-        <br>
-
-        <div>
-            {% for message in messages %}
-            <h0>{{message}}</h0>
-            {% endfor %}
-        </div>
-
-
-        <!-- Add Items here -->
-        <!-- First Adding Toppings here -->
-        <p>Please add new Toppings here.</p>
-        <form action="add_topping" method="post">
-            {% csrf_token %}
-            Add a New Topping : <input type="text" name="topping_name"><br>
-            <input type="submit">
-        </form>
-        <br>
-
-        <div class="result">
-            <div class="topping_result">
-                <p>{{return_t}}</p><br>
+	</div>
+<!--
+    <div class="row">
+        <div class="col">
+            <div class="col-md">
+                <div class="card text-center text-white  mb-3" id="total-orders">
+                    <div class="card-header">
+                        <h5 class="card-title">Total Orders</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title"></h3>
+                    </div>
+                </div>
             </div>
         </div>
-        <br>
 
-        <!-- Second Adding Pizzas here -->
-        <p>Please add new pizzas here.</p>
-        <p>Remember when adding a new pizza option, please add three separate entries. One for a small, one for a medium, and one for a large.</p>
-        <form action="add_pizza" method="post">
-            {% csrf_token %}
-            Add a New Pizza : <input type="text" name="pizza_name"><br>
-            Select Pizza Size : <input type="text" name="pizza_size"><br>
-            New Pizza's Price : <input type="text" name="pizzas_price"><br>
-            <input type="submit">
-        </form>
-        <br>
+        <div class="col">
+            <div class="col-md">
+                <div class="card text-center text-white  mb-3" id="orders-delivered">
+                    <div class="card-header">
+                        <h5 class="card-title">Orders Delivered</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title"></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <!-- Third Adding Sodas here -->
-        <p>Please add new sodas here.</p>
-        <p>Remember when adding a new soda option, please add two separate entries for each new soda. One for a 12 Oz and one for a 2 Liter.</p>
-        <form action="add_soda" method="post">
-            {% csrf_token %}
-            Add a New Soda : <input type="text" name="soda_name"><br>
-            Select Soda Size : <input type="text" name="soda_size"><br>
-            New Soda's Price : <input type="text" name="sodas_price"><br>
-            <input type="submit">
-        </form>
-        <br>
+        <div class="col">
+            <div class="col-md">
+                <div class="card text-center text-white  mb-3" id="orders-pending">
+                    <div class="card-header">
+                        <h5 class="card-title">Orders Pending</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title"></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <!-- Fourth Adding Sides here -->
-        <p>Please add new sides here.</p>
-        <form action="add_side" method="post">
-            {% csrf_token %}
-            Add a New Side : <input type="text" name="sides_name"><br>
-            New Side's Price : <input type="text" name="sides_price"><br>
-            <input type="submit">
-        </form>
-        <br>
+    <br>
 
-        <!-- Edit Orders and Customers Info here -->
-        <!-- First Editing Orders here
-        <p>Please edit orders here.</p>
-        <form action="edit_order" method="post">
-            {% csrf_token %}
-            Lookup By Order Number : <input type="text" name="order_number"><br>
-            <input type="submit">
-        </form>
-        <br> -->
+    <div class="row">
+        <div class="col-md-5">
+            <h5>CUSTOMERS:</h5>
+            <hr>
+            <div class="card card-body">
+                <a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
+                <table class="table table-sm">
+                    <tr>
+                        <th></th>
+                        <th>Customer</th>
+                        <th>Orders</th>
+                    </tr>
 
-        <!-- Second Editing Customers Info here
-        <p>Please edit customer info here.</p>
-        <form action="edit_customer" method="post">
-            {% csrf_token %}
-            Lookup Customer : <input type="text" name="customer"><br>
-            <input type="submit">
-        </form>
-        <br> -->
-	</div>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <h5>LAST 5 ORDERS</h5>
+            <hr>
+            <div class="card card-body">
+                <a class="btn btn-primary  btn-sm btn-block" href="">Create Order</a>
+                <table class="table table-sm">
+                    <tr>
+                        <th>Product</th>
+                        <th>Date Orderd</th>
+                        <th>Status</th>
+                        <th>Update</th>
+                        <th>Remove</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    -->
+
 {% endblock %}

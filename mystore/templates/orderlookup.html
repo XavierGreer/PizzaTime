@@ -1,19 +1,33 @@
 {% extends "base.html" %}
 
 {% block title %}
-Pizza Time | My Store | Admin Results
+Pizza Time | My Store | Order Lookup
 {% endblock %}
 {% load static %}
 {% block content %}
     <div class="container">
         <br>
-        <p>Edit Order</p>
+        <p>Lookup Order</p>
         <br>
-        <form method='POST'>
-            {% csrf_token %}
-            {{form.as_p}}<br><br><br><br><br><br><br><br><br><br><br><br>
-            <input type='submit' value='Save' />
-        </form>
+        <div class="container">
+            {% for order in orders %}
+                <div>
+                    <div>
+                        <h class="order-ID">Order ID: {{ order.orderID }}</h>
+                        <p class="order-customer">Customer ID: {{ order.customer }}</p>
+                        <p class="order-total">Total: {{ order.total }}</p>
+                        <p class="order-tax">Tax: {{ order.tax }}</p>
+                        <p class="order-discount">Discount: {{ order.discount }}</p>
+                        <p class="order-status">Status: {{ order.status }}</p>
+                        <center>
+                        <a href="edit_order/{{ order.orderID }}" class="btn btn-warning" orderID = '{{ order.orderID }}'>Edit</a>
+                        <a href="delete_order/{{ order.orderID }}" class="btn btn-danger" orderID = '{{ order.orderID }}'>Delete</a>
+                        </center>
+                        <br>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
         <br>
         <p><li><a href="{% url "mystore:mystore" %}"> My Store</a></li></p>
 	</div>

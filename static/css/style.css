@@ -3,6 +3,7 @@ body, html {
   display: flex;
   flex-direction: column;
   padding:0; margin:0;
+  background-color: #ebeff5;
 }
 
 .bgimg
@@ -201,7 +202,7 @@ form p input {
     padding:10px 12px;
     border:0;
     background:#efefef;
-    color:#666;
+    color:#665;
     border-radius:4px;
 }
 
@@ -254,4 +255,30 @@ form p input {
 .card  > .card-body{
   background-color: rgba(212,115,23, 0.1);
   border-radius: 5%;
+}
+
+.container {
+	height: 90vh;
+	width: 50%;
+	background: white;
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: left;
+	font-family: "Courier New", Courier, monospace;
+	color: black;
+	font-size: 12px;
+}
+
+.total-orders {
+	background-color: #4cb4c7;
+}
+
+.orders-delivered {
+	background-color: #7abecc;
+}
+
+.orders-pending {
+	background-color: #7CD1C0;
 }

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pizza Time | My Store | Sides Yeah
+{% endblock %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <br>
+        <p>Welcome Admin!!!!!</p>
+        <br>
+        <h1>Sides</h1>
+        <br>
+
+        <!-- Add Sides here -->
+        <p>Please add new sides here.</p>
+        <form action="add_side" method="post">
+            {% csrf_token %}
+            Add a New Side : <input type="text" name="sides_name"><br>
+            New Side's Price : <input type="text" name="sides_price"><br>
+            <input type="submit">
+        </form>
+        <br>
+
+        <!-- Sides List -->
+        <div class="side_list">
+            {% for data in dataset %}
+                <li>{{ data.name }} | {{ data.price }}</li>
+            {% endfor %}
+        </div>
+        <br>
+
+        <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
+        <br>
+	</div>
+{% endblock %}

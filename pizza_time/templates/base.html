@@ -21,17 +21,15 @@
     <script src="{% static 'Javascript/contact.js' %}"></script>
 
 
+    {% if messages %}
+    {% for message in messages %}
 
+    <script>
+        alert("{{ message }}");
+    </script>
 
-  {% if messages %}
-  {% for message in messages %}
-
-  <script>
-    alert("{{ message }}");
-  </script>
-
-  {% endfor %}
-  {% endif %}
+    {% endfor %}
+    {% endif %}
 
 
 </head>

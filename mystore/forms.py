@@ -24,39 +24,42 @@ class OrderForm(forms.ModelForm):
             'status'
         ]
 
-# class ToppingForm(forms.ModelForm):
-#     class Meta:
-#         model = Topping
-#         fields = [
-#             'name'
-#         ]
-#
-# class PizzaForm(forms.ModelForm):
-#     class Meta:
-#         model = Pizza
-#         fields = [
-#             'name',
-#             'image',
-#             'price',
-#             'size'
-#         ]
-#
-# class SodaForm(forms.ModelForm):
-#     class Meta:
-#         model = Soda
-#         fields = [
-#             'name',
-#             'image',
-#             'price',
-#             'size'
-#         ]
-#
-# class SideForm(forms.ModelForm):
-#     class Meta:
-#         model = Side
-#         fields = [
-#             'name',
-#             'image',
-#             'price'
-#         ]
+class ToppingForm(forms.ModelForm):
+    class Meta:
+        model = Topping
+        fields = [
+            'name'
+        ]
+
+class PizzaForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = [
+            'name',
+            'image',
+            'priceSm',
+            'priceMd',
+            'priceLg',
+            'sizePizza'
+        ]
+
+class SodaForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = [
+            'name',
+            'image',
+            'priceSodaSm',
+            'priceSodaLg',
+            'sizeSoda'
+        ]
+
+class SideForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = [
+            'name',
+            'image',
+            'priceSide'
+        ]
 

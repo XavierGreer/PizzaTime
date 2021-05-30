@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pizza Time | My Store | Sodas Yeah
+{% endblock %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <br>
+        <p>Welcome Admin!!!!!</p>
+        <br>
+        <h1>Sodas</h1>
+        <br>
+
+        <!-- Add Sodas here -->
+        <p>Please add new sodas here.</p>
+        <p>Remember when adding a new soda option, please add two separate entries for each new soda. One for a "12Oz" and one for a "2Liter".</p>
+        <form action="add_soda" method="post">
+            {% csrf_token %}
+            Add a New Soda : <input type="text" name="soda_name"><br>
+            Select Soda Size : <input type="text" name="soda_size"><br>
+            New Soda's Price : <input type="text" name="sodas_price"><br>
+            <input type="submit">
+        </form>
+        <br>
+
+        <!-- Sodas List -->
+        <div class="soda_list">
+            {% for data in dataset %}
+                <li>{{ data.name }} | {{ data.size }} | {{ data.price }}</li>
+            {% endfor %}
+        </div>
+        <br>
+
+        <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
+        <br>
+	</div>
+{% endblock %}

@@ -27,7 +27,7 @@ class Product(models.Model):
         ('Soda', 'Soda'),
         ('Side', 'Side'),
     ]
-    product_type = models.CharField(max_length=25, choices=TYPE_CHOICES)
+    product_type = models.CharField(max_length=25, choices=TYPE_CHOICES, default=None)
 
     # Common Fields
     name = models.CharField(max_length=200,db_index=True)
@@ -154,9 +154,9 @@ class Topping(models.Model):
         return self.name
 
 class Customer(models.Model):
-    customerID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
-    firstname = models.CharField(max_length=50, db_index=True, editable=True)
-    lastname = models.CharField(max_length=50, db_index=True, editable=True)
+    customerID = models.CharField("Customer ID", primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
+    firstname = models.CharField("First Name", max_length=50, db_index=True, editable=True)
+    lastname = models.CharField("Last Name", max_length=50, db_index=True, editable=True)
     phone = models.CharField("Phone", max_length=12, null=True, validators=[RegexValidator(r'^\d{3}(-)?\d{3}(-)?\d{4}$')], editable=True)
     email = models.EmailField("Email", max_length = 254, editable=True)
     address = models.CharField("Address line 1", max_length=1024, editable=True)
@@ -174,7 +174,7 @@ class Order(models.Model):
         (2, 'On The Way'),
         (3, 'Delivered'),
     )
-    status = models.IntegerField(choices=STATUSES, default=0, blank=False, editable=True)
+    status = models.IntegerField("Order Status", choices=STATUSES, default=0, blank=False, editable=True)
 
     def __str__(self):
         return str(self.orderID)
