@@ -49,3 +49,6 @@ class ArticleCounterRedirectView(RedirectView):
 def aboutus(request):
     return render(request, 'about.html')
 
+def cookorder(request):
+    orders = Order.objects.all
+    return render(request, 'cook.html', {'orders':orders})

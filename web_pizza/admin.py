@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Topping, Pizza, ToppingAmount, Soda, Side, Order, Customer
+from .models import Category, Product, Topping, Pizza, ToppingAmount, Soda, Side, Order, Customer, OrderItem
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -43,8 +43,6 @@ class OrderAdmin(admin.ModelAdmin):
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ['customerID', 'firstname', 'lastname', 'phone', 'email', 'address', 'zipcode']
 
-'''
-Admin test account information.
-Username: Test
-Password: test
-'''
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ['price','name','size','toppings']

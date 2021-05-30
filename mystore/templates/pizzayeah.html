@@ -68,20 +68,13 @@ Pizza Time | My Store | Pizzas Yeah
             </div>-->
 
 
-        <div class="pizza_list">
-            <h1>Pizza list</h1>
-            {% for pizza in categories %}
-                {% for pizza in products %}
-                    <li>{{ pizza.name }}></li>
-                {% endfor %}
-            {% endfor %}
-        </div>
+
 
             <div id="main" class="pizza">
                 <h1>Pizzas</h1>
-                {% for pizza in products %}
+                {% for product in products %}
                 <div class="item">
-                    <li>{{ pizza.name }}</li>
+                    <li>{{ product.name }}</li>
                     <br>
                 </div>
                 {% endfor %}

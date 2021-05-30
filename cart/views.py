@@ -25,3 +25,20 @@ def cart_detail(request):
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(initial={'quantity':item['quantity'],'override':True})
     return render(request, 'cart/detail.html',{'cart':cart})
+
+def cart_checkout(request):
+    '''cart = Cart(request)
+    order = Order.objects.all
+
+    if request.method == "POST":
+        if cart.is_valid():
+            cart.save()
+        return render(request, 'checkout.html', {order:"order"})
+    else:
+        return render(request, 'checkout.html', {order:"order"})'''
+    form = CartAddProductForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+
+    context= {'form':form}
+    return render(request, 'checkout.html', context)
