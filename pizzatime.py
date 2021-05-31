@@ -1,6 +1,6 @@
 import os
 import platform
-import sqlite3
+import subprocess
 from databaseController import DatabaseController
 import sys # use this library for creating future commend line arguments
 
@@ -10,7 +10,7 @@ def deleteDatabase():
     else:
         os.system('rm db.sqlite3')
 
-def updateDatabase():
+def updateMigration():
     os.system('python manage.py makemigrations')
     os.system('python manage.py migrate')
 
@@ -19,23 +19,29 @@ def createSuperUser():
     #                      stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     # p.stdin.write(b"test\n\ntest\ntest\ny\n")
     # p.communicate(input='test\n\ntest\ntest\ny\n')
-    # p.stdin.close()
-    # os.system(p)
+    #p.stdin.close()
+    #os.system(p)
     os.system('python manage.py createsuperuser')
+
+def deleteMigrations():
+    for i in os.listdir('web_pizza/migrations/'):
+        if i[0:2] != '__':
+            os.remove('web_pizza/migrations/' + i)
 
 def runserver():
     os.system('python manage.py runserver')
 
 def populateDatabase():
     db = DatabaseController()
-    # db.getTables()
-    # db.getTableInfo('web_pizza_category')
-    db.initializeWebPizzaProduct()
-    #db.getTableInfo('web_pizza_product')
+    db.initializeProducts()
+    db.initilizeCatagories()
+    db.initilizeToppings()
+
 
 if __name__ == "__main__":
     deleteDatabase()
-    updateDatabase()
+    deleteMigrations()
+    updateMigration()
     #createSuperUser()
     populateDatabase()
     runserver()
