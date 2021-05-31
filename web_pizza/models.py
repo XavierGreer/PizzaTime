@@ -6,7 +6,12 @@ from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 
 class Category(models.Model):
-    name = models.CharField(max_length=200,db_index=True)
+    NAME_CHOICES = [
+        ('Pizza', 'Pizza'),
+        ('Soda', 'Soda'),
+        ('Side', 'Side')
+    ]
+    name = models.CharField(max_length=200, choices=NAME_CHOICES, db_index=True)
     slug = models.SlugField(max_length=200,unique=True)
 
     class Meta:
@@ -20,13 +25,26 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('web_pizza:product_list_by_category',args=[self.slug])
 
-class Product(models.Model):
-    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
-    TYPE_CHOICES = [
+PIZZA_SIZES = (
+        (12, 'Small'),
+        (14, 'Medium'),
+        (16, 'Large'),
+    )
+
+SODA_SIZES = (
+        (1, '12 Oz'),
+        (2, '2 Liter'),
+    )
+
+TYPE_CHOICES = [
         ('Pizza', 'Pizza'),
         ('Soda', 'Soda'),
         ('Side', 'Side'),
     ]
+
+class Product(models.Model):
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
+
     product_type = models.CharField(max_length=25, choices=TYPE_CHOICES, default=None)
 
     # Common Fields
@@ -35,28 +53,17 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
+    image = models.ImageField(upload_to='products/%Y/%m/%d', default='no_img.jpg')
 
     # Pizza Fields
-    PIZZA_SIZES = (
-        (12, 'Small'),
-        (14, 'Medium'),
-        (16, 'Large'),
-    )
+
     topping = models.ManyToManyField('Topping', through='ToppingAmount')
     priceSm = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     priceMd = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     priceLg = models.DecimalField(max_digits=6, decimal_places=2, null=True)
-    sizePizza = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False)
 
     # Sodas Fields
-    SODA_SIZES = (
-        (1, '12 Oz'),
-        (2, '2 Liter'),
-    )
 
-    priceSodaSm = models.DecimalField(max_digits=6, decimal_places=2, null=True)
-    priceSodaLg = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     sizeSoda = models.IntegerField(choices=SODA_SIZES, default=1, blank=False)
 
     #Sides Fields
@@ -78,7 +85,12 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('web_pizza:product_detail',args=[self.id, self.slug])
 
+class PizzaManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(product_type='Pizza')
+
 class Pizza(Product):
+    objects = PizzaManager()
 
     class Meta:
         proxy = True
@@ -168,6 +180,7 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2, editable=True)
     tax = models.DecimalField(max_digits=4, decimal_places=2, editable=True)
     discount = models.DecimalField(max_digits=2, decimal_places=0, editable=True)
+
     STATUSES = (
         (0, 'Order Received'),
         (1, 'Baking'),
@@ -182,7 +195,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     ProductOrderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True)
-    size = models.CharField(max_length=200,db_index=True)
+    sizePizza = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False)
     name = models.CharField(max_length=200,db_index=True)
     toppings = models.CharField(max_length=200,db_index=True)
 

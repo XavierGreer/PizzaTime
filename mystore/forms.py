@@ -18,10 +18,10 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = [
             'customer',
-            'total',
+            'status',
             'tax',
             'discount',
-            'status'
+            'total'
         ]
 
 class ToppingForm(forms.ModelForm):
@@ -33,14 +33,13 @@ class ToppingForm(forms.ModelForm):
 
 class PizzaForm(forms.ModelForm):
     class Meta:
-        model = Product
+        model = Pizza
         fields = [
             'name',
             'image',
             'priceSm',
             'priceMd',
             'priceLg',
-            'sizePizza'
         ]
 
 class SodaForm(forms.ModelForm):
@@ -49,8 +48,8 @@ class SodaForm(forms.ModelForm):
         fields = [
             'name',
             'image',
-            'priceSodaSm',
-            'priceSodaLg',
+            'priceSm',
+            'priceLg',
             'sizeSoda'
         ]
 
@@ -62,4 +61,3 @@ class SideForm(forms.ModelForm):
             'image',
             'priceSide'
         ]
-

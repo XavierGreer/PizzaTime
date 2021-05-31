@@ -116,10 +116,8 @@ def toppingyeah(request, id):
     #    return render(request, 'results.html', {'result': messages}, {'user': 'Admin'})
 
 def pizzayeah(request):
-    context = {}
-    context["products"] = Category.objects.all()
-    context["products"] = Product.objects.all()
-    context["pizzas"] = Pizza.objects.all()
+    pizzas = Pizza.objects.all()
+    context = {'pizzas':pizzas}
     return render(request, "pizzayeah.html", context)
 
     '''context = {}
@@ -143,15 +141,19 @@ def pizzayeah(request):
     #         messages.info(request, {pizza_name}, ',', {pizza_size}, ', and', {pizza_price}, ' Added Successfully.')
     #         return render(request, 'results.html', {'result': messages}, {'user': 'Admin'})
 
-def sodayeah(request, id):
-    context = {}
-    obj = get_object_or_404(Side, id=id)
-    form = SodaForm(request.POST or None, instance=obj)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect("/" + id)
-    context["form"] = form
+def sodayeah(request):
+    sodas = Soda.objects.all()
+    context = {'sodas': sodas}
     return render(request, "sodayeah.html", context)
+
+    # context = {}
+    # obj = get_object_or_404(Side, id=id)
+    # form = SodaForm(request.POST or None, instance=obj)
+    # if form.is_valid():
+    #     form.save()
+    #     return HttpResponseRedirect("/" + id)
+    # context["form"] = form
+    # return render(request, "sodayeah.html", context)
 
     # if request.method == 'POST':
     #     soda_name = request.POST['soda_name']
@@ -166,15 +168,19 @@ def sodayeah(request, id):
     #         messages.info({soda_name}, ',', {soda_size}, ', and', {soda_price}, ' Added Successfully.')
     #         return render(request, 'results.html', {'result': messages}, {'user': 'Admin'})
 
-def sideyeah(request, id):
-    context = {}
+def sideyeah(request):
+    sides = Side.objects.all()
+    context = {'sides': sides}
+    return render(request, "sideyeah.html", context)
+
+    '''context = {}
     obj = get_object_or_404(Side, id=id)
     form = SideForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect("/" + id)
     context["form"] = form
-    return render(request, "sideyeah.html", context)
+    return render(request, "sideyeah.html", context)'''
 
     # if request.method == 'POST':
     #     side_name = request.POST['side_name']

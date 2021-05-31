@@ -5,14 +5,13 @@ Pizza Time | My Store | Sodas Yeah
 {% endblock %}
 {% load static %}
 {% block content %}
-    <div class="container">
+    <!--<div class="container">
         <br>
         <p>Welcome Admin!!!!!</p>
         <br>
         <h1>Sodas</h1>
         <br>
 
-        <!-- Add Sodas here -->
         <p>Please add new sodas here.</p>
         <p>Remember when adding a new soda option, please add two separate entries for each new soda. One for a "12Oz" and one for a "2Liter".</p>
         <form action="add_soda" method="post">
@@ -24,7 +23,6 @@ Pizza Time | My Store | Sodas Yeah
         </form>
         <br>
 
-        <!-- Sodas List -->
         <div class="soda_list">
             {% for data in dataset %}
                 <li>{{ data.name }} | {{ data.size }} | {{ data.price }}</li>
@@ -34,5 +32,15 @@ Pizza Time | My Store | Sodas Yeah
 
         <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
         <br>
-	</div>
+	</div>-->
+<center>
+    <div id="main" class="pizza">
+        <h1>Sodas</h1>
+        {% for soda in sodas %}
+        <li>
+            {{ soda.name }}
+        </li>
+        {% endfor %}
+    </div>
+</center>
 {% endblock %}

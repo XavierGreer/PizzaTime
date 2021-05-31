@@ -3,7 +3,7 @@ from .models import Category, Product, Topping, Pizza, ToppingAmount, Soda, Side
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name','slug']
+    list_display = ['name', 'slug']
     prepopulated_fields = {'slug':('name',)}
 
 
@@ -24,12 +24,12 @@ class ToppingAdmin(admin.ModelAdmin):
 
 @admin.register(Pizza)
 class PizzaAdmin(admin.ModelAdmin):
-    fields = ('category','name','image','available','priceSm','priceMd','priceLg')
-    inlines = [ToppingAmountInline,]
+    fields = ('category', 'name','image','available','priceSm','priceMd','priceLg')
+    inlines = [ToppingAmountInline]
 
 @admin.register(Soda)
 class SodaAdmin(admin.ModelAdmin):
-    fields = ('category','name','image','available','priceSodaSm','priceSodaLg')
+    fields = ('category','name','image','available','priceSm','priceLg')
 
 @admin.register(Side)
 class SidesAdmin(admin.ModelAdmin):
@@ -45,4 +45,4 @@ class CustomerAdmin(admin.ModelAdmin):
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ['price','name','size','toppings']
+    list_display = ['price','name','sizePizza','toppings']

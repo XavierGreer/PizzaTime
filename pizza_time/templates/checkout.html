@@ -4,11 +4,31 @@
     Pizza Time | Cart
 {% endblock %}
 {% load static %}
-
 {% block content %}
+<center>
+    {% for item in order %}
+        <h1>{{ item.orderID }}</h1>
+    {% endfor %}
 
-{% for item in order %}
-   <h1>{{ item.orderID }}</h1>
+    {% for item in cart %}
+        {% with product=item.product %}
+        <li>{{ product.name }}</li>
+        <li>{{ product.priceSm }}</li>
+        <li>{{ product.priceMd }}</li>
+        <li>{{ product.priceLg }}</li>
+        <li>{{ product.category }}</li>
+        <li>{{ product.image }}</li>
+        <li>{{ product.sizePizza }}</li>
 
-{% endfor %}
+        {% endwith %}
+    {% endfor %}
+
+
+    <form method='POST'>
+        {% csrf_token %}
+        {{form.as_p}}<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <input type='submit' value='Save'>
+    </form>
+
+</center>
 {% endblock %}

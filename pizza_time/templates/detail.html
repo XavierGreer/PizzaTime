@@ -8,51 +8,47 @@
 {% block content %}
 <center>
     <div class="product-detail">
-        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "image/Logo.png" %}{% endif %}">
-        <h1>{{ product.name }} {{ product.category }}</h1>
+        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no_img.jpg" %}{% endif %}" width="400" height="400">
+        <h1>{{ product.name }}</h1>
         <h4>
-            {% if product.priceSm >= 0.5 %}
+            {% if product.product_type == 'Pizza' %}
             Small - ${{ product.priceSm }}
-            {% elif product.priceSodaSm >= 0.5 %}
-            Small - ${{ product.priceSodaSm }}
-            {% elif product.priceSide >= 0.5 %}
+            {% elif product.product_type == 'Side' %}
             ${{ product.priceSide }}
+            {% elif product.product_type == 'Soda' %}
+            12oz - ${{ product.priceSm }}
             {% else %}
             Invalid Price
             {% endif %}
         </h4>
         <h4>
-            {% if product.priceMd >= 0.5 %}
+            {% if product.product_type == 'Pizza' %}
             Medium - ${{ product.priceMd }}
-            {% elif product.priceSodaLg >= 0.5 %}
-            Medium - ${{ product.priceSodaLg }}
             {% else %}
             {% endif %}
         </h4>
         <h4>
-            {% if product.priceLg >= 0.5 %}
+            {% if product.product_type == 'Pizza' %}
             Large - ${{ product.priceLg }}
-            {% elif product.priceSodaSm >= 0.5 %}
-            Large - ${{ product.priceSodaLg }}
+            {% elif product.product_type == 'Soda' %}
+            2-Liter - ${{ product.priceLg }}
             {% else %}
             {% endif %}
         </h4>
-        {% if product.priceSm >= 0.5 %}
+
+        {% if product.product_type == 'Pizza' %}
         <form action="{% url "cart:cart_add" product.id %}" method="post">
         {{ cart_product_form }}
-        <!--{{ cart_product_form.pizzasize }}
-        {{ cart_product_form.quantity }}-->
         {% csrf_token %}
         <input type="submit" value="Add to cart">
         </form>
-        {% elif product.priceSodaSm >= 0.5 %}
+        {% elif product.product_type == 'Soda' %}
         <form action="{% url "cart:cart_add" product.id %}" method="post">
-        {{ cart_product_form.sodasize }}
         {{ cart_product_form.quantity }}
         {% csrf_token %}
         <input type="submit" value="Add to cart">
         </form>
-        {% elif product.priceSide >= 0.5 %}
+        {% elif product.product_type == 'Side' %}
         <form action="{% url "cart:cart_add" product.id %}" method="post">
         {{ cart_product_form.sidesize }}
         {{ cart_product_form.quantity }}
@@ -62,6 +58,13 @@
         {% else %}
         This product is currently unavailable.
         {% endif %}
+
+        <li>{{ product.priceSide }} </li>
+        <li>{{ product.product_type }} </li>
+        <li>{{ product.created }}</li>
+        <li>{{ product.image }}</li>
+        <li>{{ product.category_id }}</li>
+
     </div>
 </center>
 {% endblock %}

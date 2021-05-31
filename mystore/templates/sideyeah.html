@@ -5,14 +5,13 @@ Pizza Time | My Store | Sides Yeah
 {% endblock %}
 {% load static %}
 {% block content %}
-    <div class="container">
+    <!--<div class="container">
         <br>
         <p>Welcome Admin!!!!!</p>
         <br>
         <h1>Sides</h1>
         <br>
 
-        <!-- Add Sides here -->
         <p>Please add new sides here.</p>
         <form action="add_side" method="post">
             {% csrf_token %}
@@ -22,7 +21,6 @@ Pizza Time | My Store | Sides Yeah
         </form>
         <br>
 
-        <!-- Sides List -->
         <div class="side_list">
             {% for data in dataset %}
                 <li>{{ data.name }} | {{ data.price }}</li>
@@ -32,5 +30,15 @@ Pizza Time | My Store | Sides Yeah
 
         <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
         <br>
-	</div>
+	</div>-->
+<center>
+    <div id="main" class="pizza">
+        <h1>Sides</h1>
+        {% for side in sides %}
+        <li>
+            {{ side.name }}
+        </li>
+        {% endfor %}
+    </div>
+</center>
 {% endblock %}
