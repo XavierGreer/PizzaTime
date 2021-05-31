@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Category, Product, Topping, Pizza, ToppingAmount, Soda, Side, Order, Customer
+from .models import Category, Product, Topping, Pizza, ToppingAmount, Soda, Side, Order, Customer, OrderItem
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name','slug']
+    list_display = ['name', 'slug']
     prepopulated_fields = {'slug':('name',)}
 
 
@@ -24,12 +24,12 @@ class ToppingAdmin(admin.ModelAdmin):
 
 @admin.register(Pizza)
 class PizzaAdmin(admin.ModelAdmin):
-    fields = ('category','name','image','available','priceSm','priceMd','priceLg')
-    inlines = [ToppingAmountInline,]
+    fields = ('category', 'name','image','available','priceSm','priceMd','priceLg')
+    inlines = [ToppingAmountInline]
 
 @admin.register(Soda)
 class SodaAdmin(admin.ModelAdmin):
-    fields = ('category','name','image','available','priceSodaSm','priceSodaLg')
+    fields = ('category','name','image','available','priceSm','priceLg')
 
 @admin.register(Side)
 class SidesAdmin(admin.ModelAdmin):
@@ -43,8 +43,6 @@ class OrderAdmin(admin.ModelAdmin):
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ['customerID', 'firstname', 'lastname', 'phone', 'email', 'address', 'zipcode']
 
-'''
-Admin test account information.
-Username: Test
-Password: test
-'''
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ['price','name','sizePizza','toppings']

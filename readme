@@ -1,0 +1,8 @@
+Steps for updating database and project
+
+
+Run the following commands
+1) pipenv shell
+2) pipenv update
+(if you want to create superuser account uncomment createSuperUser function call in pizzatime.py at bottom of file.)
+3) python pizzatime.py
