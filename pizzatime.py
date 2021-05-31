@@ -1,5 +1,7 @@
 import os
 import platform
+import sqlite3
+from databaseController import DatabaseController
 import sys # use this library for creating future commend line arguments
 
 def deleteDatabase():
@@ -24,8 +26,16 @@ def createSuperUser():
 def runserver():
     os.system('python manage.py runserver')
 
+def populateDatabase():
+    db = DatabaseController()
+    # db.getTables()
+    # db.getTableInfo('web_pizza_category')
+    db.initializeWebPizzaProduct()
+    #db.getTableInfo('web_pizza_product')
+
 if __name__ == "__main__":
     deleteDatabase()
     updateDatabase()
-    createSuperUser()
+    #createSuperUser()
+    populateDatabase()
     runserver()
