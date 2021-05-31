@@ -1,8 +1,10 @@
-from django.shortcuts import render,get_object_or_404,redirect
-from .cart import Cart
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 from web_pizza.models import *
-from .forms import CartAddProductForm
+from .cart import Cart
+from .forms import CartAddProductForm, checkoutForm
+
 
 @require_POST
 def cart_add(request,product_id):
@@ -36,9 +38,16 @@ def cart_checkout(request):
         return render(request, 'checkout.html', {order:"order"})
     else:
         return render(request, 'checkout.html', {order:"order"})'''
-    form = CartAddProductForm(request.POST or None)
-    if form.is_valid():
-        form.save()
 
-    context= {'form':form}
-    return render(request, 'checkout.html', context)
+    form = checkoutForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+        else:
+            return render(request, 'checkout.html', {'form': form})
+        return render(request, 'checkout.html', {'form': form})
+    else:
+        return render(request, 'checkout.html', {'form': form})
+
+    cart = Cart(request)
+    return render(request, 'checkout.html', {'cart': cart})

@@ -12,10 +12,10 @@
         <tr>
             <th scope="col">Image</th>
             <th scope="col">Product</th>
-            <th scope="col">Status</th>
             <th scope="col">Quantity</th>
             <th scope="col">Remove</th>
             <th scope="col">Unit Price</th>
+            <th scope="col">Total</th>
         </tr>
       </thead>
       <tbody class="text-center">
@@ -23,9 +23,7 @@
       {% with product=item.product %}
         <tr>
             <td>
-                <a href="{{ product.get_absolute_url }}">
-                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/Logo.png" %}{% endif %}">
-                </a>
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no_img.jpg" %}{% endif %}" width="150" height="150">
             </td>
             <td>{{ product.name }}</td>
             <td>
@@ -42,13 +40,11 @@
                 {% csrf_token %}
                 </form>
             </td>
-            <td class="num">
-                {% if item.priceSm >= 0.10 %}
-                ${{ item.priceSm }}
-                {% elif item.priceSodaSm >= 0.10 %}
-                ${{ item.priceSodaSm }}
-                {% elif item.priceSide >= 0.10 %}
-                ${{ item.priceSide }}
+            <td>
+                {% if item.product_type == 'Pizza' or 'Soda' %}
+                ${{ item.price }}
+                {% elif item.product_type == 'side' %}
+                ${{ item.price }}
                 {% else %}
                 Invalid Price
                 {% endif %}

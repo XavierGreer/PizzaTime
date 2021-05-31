@@ -143,7 +143,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "greenteamproject2021a@gmail.com"
 EMAIL_HOST_PASSWORD = "2021aGreenTeamRocks!@"
 
-#mimetypes.add_type("text/css", ".css", True)
-
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
