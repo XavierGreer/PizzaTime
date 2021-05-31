@@ -49,8 +49,7 @@ class SodaForm(forms.ModelForm):
             'name',
             'image',
             'priceSm',
-            'priceLg',
-            'sizeSoda'
+            'priceLg'
         ]
 
 class SideForm(forms.ModelForm):

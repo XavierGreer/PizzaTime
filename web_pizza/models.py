@@ -62,10 +62,6 @@ class Product(models.Model):
     priceMd = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     priceLg = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
-    # Sodas Fields
-
-    sizeSoda = models.IntegerField(choices=SODA_SIZES, default=1, blank=False)
-
     #Sides Fields
     priceSide = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
