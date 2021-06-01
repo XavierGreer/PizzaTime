@@ -1,11 +1,9 @@
 from django.shortcuts import render
-from django.template.loader import get_template
-from django.template import loader
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, HttpResponseRedirect
+from django.contrib import messages
 from django.views.generic.base import RedirectView
 from .models import *
-import user.views
+
 from cart.forms import CartAddProductForm
 
 def index(request):
@@ -30,11 +28,51 @@ def menu(request):
     context = {'cartegories':categories, 'products':products}
     return render(request, 'menu.html', context)
 
+# def product_detail(request, id, slug):
+#     cart_product_form = CartAddProductForm()
+#
+#     if request.method == 'POST':
+#         cart_product_form = CartAddProductForm()
+#         if cart_product_form.is_valid():
+#             cart_product_form.cleaned_data['size']
+#
+#             return HttpResponseRedirect('/')
+#         else:
+#             cart_product_form = CartAddProductForm()
+#
+#     product = get_object_or_404(Product, id=id, slug=slug, available=True)
+#     price = cart_product_form.fields['size']
+#
+#     return render(request, 'detail.html',
+#                   {'product':product, 'cart_product_form':cart_product_form, 'price':price})
+
+
 def product_detail(request, id, slug):
-    cart_product_form = CartAddProductForm()
+
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    return render(request, 'detail.html',
-                  {'product':product, 'cart_product_form':cart_product_form})
+    price = 0
+    #m = request.POST.get('size')
+    m = 0
+    if request.method == 'POST':
+        cart_product_form = CartAddProductForm(request.POST)
+        if cart_product_form.is_valid():
+            print(request.POST)
+            m = cart_product_form.cleaned_data.get('size')
+
+        else:
+            messages.error(request, 'The form is invalid.')
+
+        return render(request, 'detail.html',
+                      {'product': product, 'cart_product_form': cart_product_form, 'price': price, 'm': m})
+
+    else:
+        cart_product_form = CartAddProductForm()
+        m = cart_product_form.fields['size']
+        return render(request, 'detail.html',
+                      {'product': product, 'cart_product_form': cart_product_form, 'price': price, 'm': m})
+
+
+
 
 class ArticleCounterRedirectView(RedirectView):
     permanent = False

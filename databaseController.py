@@ -30,15 +30,15 @@ class DatabaseController:
                 (5, 'Pizza', 'BBQ Chicken', 'BBQChicken', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.', 'products/2021/04/19/S_PIZCR_RSF3OLf.jpg', 9.99, 14.99, 19.99, None, 1),
                 (6, 'Pizza', 'Buffalo Chicken', 'BuffaloChicken', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.', 'products/2021/04/19/S_PIZCK_InLB48q.jpg', 9.99, 14.99, 19.99, None, 1),
 
-                (7, 'Soda', 'Coke', 'Coke', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_COKE.jpg', 9.99, 14.99, 19.99, None, 1),
-                (8, 'Soda', 'Diet Coke', 'DietCoke', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_DIET.jpg', 9.99, 14.99, 19.99, None, 1),
-                (9, 'Soda', 'Orange', 'Orange', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/F_ORAN.jpg', 9.99, 14.99, 19.99, None, 1),
-                (10, 'Soda', 'Sprite', 'Sprite', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/F_SPRITE.jpg', 9.99, 14.99, 19.99, None, 1),
+                (7, 'Soda', 'Coke', 'Coke', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_COKE.jpg', 1.49, None, 2.99, None, 2),
+                (8, 'Soda', 'Diet Coke', 'DietCoke', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_DIET.jpg', 1.49, None, 2.99, None, 2),
+                (9, 'Soda', 'Orange', 'Orange', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/F_ORAN.jpg', 1.49, None, 2.99, None, 2),
+                (10, 'Soda', 'Sprite', 'Sprite', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/F_SPRITE.jpg', 1.49, None, 2.99, None, 2),
 
-                (11, 'Sides', 'Lava Cake', 'LavaCake', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_LAVA.jpg', 9.99, 14.99, 19.99, None, 1),
-                (12, 'Sides', 'Bread Sticks', 'BreadSticks', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/B_Sticks.jpg', 9.99, 14.99, 19.99, None, 1),
-                (13, 'Sides', 'Wings', 'Wings', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/C_Wings.png', 9.99, 14.99, 19.99, None, 1),
-                (14, 'Sides', 'Garlic Knots', 'GarlicKnots', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/G_Knot.jpg', 9.99, 14.99, 19.99, None, 1)
+                (11, 'Sides', 'Lava Cake', 'LavaCake', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_LAVA.jpg', None, None, None, 5.99, 3),
+                (12, 'Sides', 'Bread Sticks', 'BreadSticks', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/B_Sticks.jpg', None, None, None, 4.99, 3),
+                (13, 'Sides', 'Wings', 'Wings', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/C_Wings.png', None, None, None, 7.99, 3),
+                (14, 'Sides', 'Garlic Knots', 'GarlicKnots', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/G_Knot.jpg', None, None, None, 4.99, 3)
             ]
         cursorObj = self.dbCon.cursor()
         for product in products:

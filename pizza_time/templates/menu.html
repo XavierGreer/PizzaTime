@@ -6,7 +6,7 @@ Pizza Time | Menu
 {% load static %}
 {% block content %}
 
-<!--<div class="container-fluid" style="padding-left:13%; padding-right:13%; text-align: center;">
+<div class="container-fluid" style="padding-left:13%; padding-right:13%; text-align: center;">
     <div class="main">
         <div class="menu">
             <div class="row">
@@ -28,177 +28,69 @@ Pizza Time | Menu
             <div class="row">
                 <div class="col-xs-12">
                     <h2>Pizza</h2>
-
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                {% for product in products %}
+                {% if product.product_type == 'Pizza' %}
+                <div class="col-xs-12 col-sm-6 col-md-6 col-xl-4">
                     <div class="card  mb-4  border-0">
                         <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Custom Pizza"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/S_DX.jpg"><h5>Custom
-                                Pizza</h5></h5>
-                            <a class="btn btn-primary" href="#">Customize</a>
+                            <h5 class="card-title" style="text-align:center;">{{ product.name }}</h5>
+                            <a href="{{ product.get_absolute_url }}"><img class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no_img.jpg" %}{% endif %}"></a>
+                            <p>Small ${{ product.priceSm }}</p>
+                            <p>Medium ${{ product.priceMd }}</p>
+                            <p>Large ${{ product.priceLg }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card  mb-4  border-0">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Deluxe Pizza"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/S_DX.jpg"><h5>Deluxe
-                                Pizza</h5></h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                            <a class="btn btn-link" href="#">Customize</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card mb-4 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Meat Lovers Pizza"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/S_MX.jpg"><h5>Meat
-                                Lovers Pizza</h5></h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                            <a class="btn btn-link" href="#">Customize</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card mb-4 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Chicken Special Pizza"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/S_PIZCK.jpg"><h5>
-                                Chicken Special Pizza</h5></h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                            <a class="btn btn-link" href="#">Customize</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card mb-4 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="BBQ Chicken Pizza"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/S_PIZCR.jpg"><h5>BBQ
-                                Chicken Pizza</h5></h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                            <a class="btn btn-link" href="#">Customize</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card mb-4 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Thin Crust Supreme Pizza"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/S_PIZPV.jpg"><h5>
-                                Thin Crust Supreme Pizza</h5></h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                            <a class="btn btn-link" href="#">Customize</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card mb-4 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Pepperoni Pizza"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/S_PIZPX.jpg"><h5>Pepperoni
-                                Pizza</h5></h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                            <a class="btn btn-link" href="#">Customize</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card mb-4 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Hamburger Pizza"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/S_PZBRGR.jpg"><h5>Hamburger
-                                Pizza</h5></h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                            <a class="btn btn-link" href="#">Customize</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card mb-4 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Taco Special Pizza"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/S_PZTACO.jpg"><h5>Taco
-                                Special Pizza</h5></h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                            <a class="btn btn-link" href="#">Customize</a>
-                        </div>
-                    </div>
-                </div>
+                {% endif %}
+                {% endfor %}
             </div>
 
-            <hr class="col-sm-12" style="margin-right:6%">
             <div class="row">
                 <div class="col-xs-12">
-                    <h2>Sides</h2>
-
+                    <h2>Side</h2>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                {% for product in products %}
+                {% if product.product_type == 'Sides' %}
+                <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="card  mb-4  border-0">
                         <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Garlic Knots"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/G_Knot.jpg"><h5>Garlic
-                                Knots</h5></h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
+                            <h5 class="card-title" style="text-align:center;">{{ product.name }}</h5>
+                            <a href="{{ product.get_absolute_url }}"><img class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no_img.jpg" %}{% endif %}"></a>
+                            <p class="card-text" style="padding-top:3%">${{ product.priceSide }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card  mb-4  border-0">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Bread Sticks"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/B_Sticks.jpg"><h5>Bread
-                                Sticks</h5></h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card mb-4 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Lava Cake"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/F_LAVA.jpg"><h5>Lava Cake</h5>
-                            </h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card mb-4 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align:center;"><img alt="Chicken Wings"
-                                                                                   class="img-responsive"
-                                                                                   src="/static/images/C_Wings.png"><h5>Chicken
-                                Wings</h5></h5>
-                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-                <hr class="col-sm-12">
+                {% endif %}
+                {% endfor %}
             </div>
-        </div>
-    </div>
-</div>-->
-<center>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Soda</h2>
+                </div>
+            </div>
+            <div class="row">
+                {% for product in products %}
+                {% if product.product_type == 'Soda' %}
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="card  mb-4  border-0">
+                        <div class="card-body">
+                            <h5 class="card-title" style="text-align:center;">{{ product.name }}</h5>
+                            <a href="{{ product.get_absolute_url }}"><img class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no_img.jpg" %}{% endif %}"></a>
+                            <p class="card-text" style="padding-top:3%">12oz ${{ product.priceSm }}</p>
+                            <p class="card-text">2-Liter ${{ product.priceLg }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+<!--<center>
     <div id="main" class="menu">
         {% for product in products %}
         <div class="item">
@@ -210,6 +102,8 @@ Pizza Time | Menu
             {% endfor %}
         </div>
     </div>
-</center>
-
+</center>-->
+        </div>
+    </div>
+</div>
 {% endblock %}

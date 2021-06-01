@@ -191,7 +191,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     ProductOrderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True)
-    sizePizza = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False)
+    sizePizza = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False, )
     name = models.CharField(max_length=200,db_index=True)
     toppings = models.CharField(max_length=200,db_index=True)
 

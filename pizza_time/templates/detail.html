@@ -7,13 +7,13 @@
 
 {% block content %}
 <center>
-    <div class="product-detail">
-        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no_img.jpg" %}{% endif %}" width="400" height="400">
+    <div class="col-xs-12">
+        <img class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no_img.jpg" %}{% endif %}">
         <h1>{{ product.name }}</h1>
-        <h4>
+        <!--<h4>
             {% if product.product_type == 'Pizza' %}
             Small - ${{ product.priceSm }}
-            {% elif product.product_type == 'Side' %}
+            {% elif product.product_type == 'Sides' %}
             ${{ product.priceSide }}
             {% elif product.product_type == 'Soda' %}
             12oz - ${{ product.priceSm }}
@@ -34,37 +34,39 @@
             2-Liter - ${{ product.priceLg }}
             {% else %}
             {% endif %}
-        </h4>
+        </h4>-->
 
         {% if product.product_type == 'Pizza' %}
-        <form action="{% url "cart:cart_add" product.id %}" method="post">
+        <form action="{% url "cart:cart_add" product.id %}" method="POST">
         {{ cart_product_form }}
         {% csrf_token %}
         <input type="submit" value="Add to cart">
-        </form>
+
         {% elif product.product_type == 'Soda' %}
-        <form action="{% url "cart:cart_add" product.id %}" method="post">
         {{ cart_product_form.quantity }}
         {% csrf_token %}
         <input type="submit" value="Add to cart">
-        </form>
-        {% elif product.product_type == 'Side' %}
-        <form action="{% url "cart:cart_add" product.id %}" method="post">
-        {{ cart_product_form.sidesize }}
+
+        {% elif product.product_type == 'Sides' %}
         {{ cart_product_form.quantity }}
         {% csrf_token %}
         <input type="submit" value="Add to cart">
+
         </form>
         {% else %}
         This product is currently unavailable.
         {% endif %}
-
-        <li>{{ product.priceSide }} </li>
-        <li>{{ product.product_type }} </li>
-        <li>{{ product.created }}</li>
-        <li>{{ product.image }}</li>
-        <li>{{ product.category_id }}</li>
-
     </div>
-</center>
+
+    <h1>{% if cart_product_form.size == 'Small' %}
+            {% with price=product.priceMd %}{% endwith %}
+        {{ price }}
+        {% endif %}
+    </h1>
+
+    <h1>${{ price }}</h1>
+    <h1>{{ cart_product_form.size.value }}</h1>
+    <h1>{{ m }}</h1>
+
+    </center>
 {% endblock %}
