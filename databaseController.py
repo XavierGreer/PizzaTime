@@ -19,9 +19,31 @@ class DatabaseController:
             for row in rows:
                 print(row)
 
+    def getProductByName(self, name):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute("SELECT * FROM web_pizza_product WHERE name= ?", (name, ))
+        return cursorObj.fetchall()
+
+    def addOrderItem(self, price, size, name):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute('''INSERT INTO web_pizza_orderitem(price, sizePizza, name, toppings) VALUES(?, ?, ?, ?)''',
+                          (price, size, name, 'None'))
+        self.dbCon.commit()
+
+    def getOrderItem(self, name):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute("SELECT * FROM web_pizza_orderitem WHERE name= ?", (name, ))
+        return cursorObj.fetchall()
+
+    def getOrderItems(self):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute("SELECT * FROM web_pizza_orderitem")
+        return cursorObj.fetchall()
+
     def initializeProducts(self):
         # id, product_type, name, slug, available, created, updated, image, priceSm, priceMd, priceLg, sizePizza, priceSodaSm, priceSodaLg, sizeSoda, priceSide, category_id
         products = [
+                #0     1          2            3        4                 5                          6                         7                      8      9     10    11   12
                 (0, 'Pizza', 'Pepperoni', 'Pepperoni', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.', 'products/2021/04/13/S_PIZPX.jpg', 9.99, 14.99, 19.99, None, 1),
                 (1, 'Pizza', 'Hawaiian','Hawaiian', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.', 'products/2021/04/14/S_PIZCR.jpg', 9.99, 14.99, 19.99, None, 1),
                 (2, 'Pizza', 'Meat Lover', 'MeatLover', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.', 'products/2021/04/13/S_MX.jpg', 9.99, 14.99, 19.99, None, 1),
@@ -72,10 +94,22 @@ class DatabaseController:
                 topping)
         self.dbCon.commit()
 
+    def getPruductBySlug(self, slugName):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute("SELECT * FROM web_pizza_product WHERE slug= ?", (slugName,))
+        result = (cursorObj.fetchall())[0]
+        columns = ['id', 'product_type', 'name', 'slug', 'available', 'created', 'updated', 'image', 'priceSm',
+                   'priceMd', 'priceLg', 'priceSide', 'category_id']
+        product = {}
+        for i in range(len(columns)):
+            product[columns[i]] = result[i]
+        return product
+
 
 if __name__ == "__main__":
     db = DatabaseController()
-    db.getTables()
+    #db.getTables()
     #db.getTableInfo('web_pizza_category')
     #db.initializeWebPizzaProduct()
     #db.getTableInfo('web_pizza_product')
+    print(db.getOrderItems())

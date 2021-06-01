@@ -3,6 +3,7 @@ from django.urls import reverse
 import uuid
 from django.core.validators import RegexValidator
 from django.utils.text import slugify
+from django.forms import ModelForm
 from django.contrib.auth import get_user_model
 
 class Category(models.Model):
@@ -189,11 +190,16 @@ class Order(models.Model):
         return str(self.orderID)
 
 class OrderItem(models.Model):
-    ProductOrderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
+    # ProductOrderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True)
-    sizePizza = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False, )
-    name = models.CharField(max_length=200,db_index=True)
+    sizePizza = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False)
+    name = models.CharField(max_length=200, db_index=True)
     toppings = models.CharField(max_length=200,db_index=True)
 
     def __str__(self):
         return self.name
+
+class AddProduct(ModelForm):
+    class Meta:
+        model = OrderItem
+        fields = ['name']
