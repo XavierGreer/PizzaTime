@@ -40,7 +40,6 @@ Pizza Time | My Store | Pizzas Yeah
         <br>
     </div>-->
 
-<center>
             <!--<div class="container-fluid" style="padding-left:13%; padding-right:13%; text-align: center;">
                  <h3>Categories</h3>
                 <ul>
@@ -66,7 +65,7 @@ Pizza Time | My Store | Pizzas Yeah
                 </div>
                 {% endfor %}
             </div>-->
-
+<!--
     <div id="main" class="pizza">
         <h1>Pizzas</h1>
         {% for pizza in pizzas %}
@@ -75,5 +74,47 @@ Pizza Time | My Store | Pizzas Yeah
         </li>
         {% endfor %}
     </div>
-</center>
+-->
+    <div class="row">
+        <div class="col-md">
+            <br>
+            <center><h1>Pizzas</h1></center>
+            <br>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-4 text-right">
+            <!-- Add Pizzas here -->
+            <p>Please add new Pizzas here.</p>
+            <p>Remember when adding a new pizza option, need to add three separate entries. One for a small, one for a medium, and one for a large.</p>
+            <form action="pizzayeah" method="POST">
+                {% csrf_token %}
+                Add a New Pizza : <input type="text" name="pizza_name"><br>
+                Select Pizza Size : <input type="text" name="pizza_size"><br>
+                New Pizza's Price : <input type="text" name="pizzas_price"><br>
+                <input type="submit">
+            </form>
+        </div>
+        <div class="card card-body">
+            <div class="col-md-12">
+                <table class="table table-sm text-center">
+                    <tr>
+                        <th>Pizzas</th>
+                    </tr>
+                    <!-- Looking up Pizzas here -->
+                    {% for pizza in pizzas %}
+                    <tr>
+                        <td class="text-center">{{ forloop.counter }}. {{ pizza.name }} |
+                            <a action="pizzayeah" class="btn btn-danger btn-sm" method="POST">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <br>
 {% endblock %}

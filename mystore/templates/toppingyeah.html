@@ -5,31 +5,44 @@ Pizza Time | My Store | Toppings Yeah
 {% endblock %}
 {% load static %}
 {% block content %}
-    <div class="container">
-        <br>
-        <p>Welcome Admin!!!!!</p>
-        <br>
-        <h1>Toppings</h1>
-        <br>
-
-        <!-- Add Toppings here -->
-        <p>Please add new Toppings here.</p>
-        <form action="add_topping" method="post">
-            {% csrf_token %}
-            Add a New Topping :  <input type="text" name="topping_name"><br>
-            <input type="submit">
-        </form>
-        <br>
-
-        <!-- Toppings List -->
-        <div class="topping_list">
-            {% for data in dataset %}
-                <li>{{ data.name }}</li>
-            {% endfor %}
+    <br>
+    <div class="row">
+        <div class="col-md">
+            <br>
+            <center><h1>Toppings</h1></center>
+            <br>
         </div>
-        <br>
+    </div>
 
-        <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
-        <br>
-	</div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 text-right">
+            <!-- Add Toppings here -->
+            <p>Please add new Toppings here.</p>
+            <form action="toppingyeah" method="POST">
+                {% csrf_token %}
+                Add a New Topping :  <input type="text"><br>
+                <input type="submit">
+            </form>
+        </div>
+        <div class="card card-body">
+            <div class="col-md-12">
+                <table class="table table-sm text-center">
+                    <tr>
+                        <th>Topping Name</th>
+                    </tr>
+
+                    {% for topping in toppings %}
+                    <tr>
+                        <td class="text-center">{{ forloop.counter }}. {{topping.name }} |
+                            <a action="toppingyeah" class="btn btn-danger btn-sm" method="POST">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <br>
 {% endblock %}

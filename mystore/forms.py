@@ -19,9 +19,9 @@ class OrderForm(forms.ModelForm):
         fields = [
             'customer',
             'status',
+            'total',
             'tax',
-            'discount',
-            'total'
+            'discount'
         ]
 
 class ToppingForm(forms.ModelForm):

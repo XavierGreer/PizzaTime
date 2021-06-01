@@ -1,43 +1,27 @@
 {% extends "base.html" %}
 
 {% block title %}
-Pizza Time | My Store | Admins Only
+Pizza Time | My Store | Admins Only Dashboard
 {% endblock %}
 {% load static %}
 {% block content %}
-
     <br>
-    <div class="container">
-        <br>
-        <p>Pizza Time Pizzeria MyStore Admin Page</p>
-        <p>Welcome {{user}}!!!!!</p>
-        <p>Add toppings, pizza, sodas, and sides as well as Lookup, Create, Edit, and Delete Orders or Customers below.</p>
-        <br>
-        <li><a href="{% url "mystore:lookup_order" %}"> Lookup Order</a></li>
-        <li><a href="{% url "mystore:create_order" %}"> Create Order</a></li>
-        <br>
-        <li><a href="{% url "mystore:lookup_customer" %}"> Lookup Customer</a></li>
-        <li><a href="{% url "mystore:create_customer" %}"> Create Customer</a></li>
-        <br>
-        <li><a href="{% url "mystore:lookup_products" %}"> Lookup Products</a></li>
-        <li><a href="{% url "mystore:toppingyeah" %}"> All Things Toppings</a></li>
-        <li><a href="{% url "mystore:pizzayeah" %}"> All Things Pizzas</a></li>
-        <li><a href="{% url "mystore:sodayeah" %}"> All Things Sodas</a></li>
-        <li><a href="{% url "mystore:sideyeah" %}"> All Things Sides</a></li>
-        <br>
-        <li><a href="{% url "mystore:results" %}"> Results</a></li>
-        <br>
-	</div>
-<!--
+    <div class="row">
+        <div class="col-md">
+            <br>
+            <center><h1>MyStore Page | Welcome Admin</h1></center>
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col">
             <div class="col-md">
-                <div class="card text-center text-white  mb-3" id="total-orders">
+                <div class="card text-center text-black  mb-3" id="total-orders">
                     <div class="card-header">
                         <h5 class="card-title">Total Orders</h5>
                     </div>
                     <div class="card-body">
-                        <h3 class="card-title"></h3>
+                        <h3 class="card-title">{{ total_orders }}</h3>
                     </div>
                 </div>
             </div>
@@ -45,12 +29,12 @@ Pizza Time | My Store | Admins Only
 
         <div class="col">
             <div class="col-md">
-                <div class="card text-center text-white  mb-3" id="orders-delivered">
+                <div class="card text-center text-black  mb-3" id="orders-delivered">
                     <div class="card-header">
                         <h5 class="card-title">Orders Delivered</h5>
                     </div>
                     <div class="card-body">
-                        <h3 class="card-title"></h3>
+                        <h3 class="card-title">{{ delivered }}</h3>
                     </div>
                 </div>
             </div>
@@ -58,12 +42,12 @@ Pizza Time | My Store | Admins Only
 
         <div class="col">
             <div class="col-md">
-                <div class="card text-center text-white  mb-3" id="orders-pending">
+                <div class="card text-center text-black  mb-3" id="orders-pending">
                     <div class="card-header">
                         <h5 class="card-title">Orders Pending</h5>
                     </div>
                     <div class="card-body">
-                        <h3 class="card-title"></h3>
+                        <h3 class="card-title">{{ pending }}</h3>
                     </div>
                 </div>
             </div>
@@ -73,39 +57,72 @@ Pizza Time | My Store | Admins Only
     <br>
 
     <div class="row">
-        <div class="col-md-5">
-            <h5>CUSTOMERS:</h5>
+        <div class="col-md-6">
+            <center><h5>Customers</h5></center>
             <hr>
             <div class="card card-body">
-                <a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
+                <a class="btn btn-primary  btn-sm btn-block" href="{% url "mystore:create_customer" %}">Create Customer</a>
                 <table class="table table-sm">
                     <tr>
-                        <th></th>
-                        <th>Customer</th>
-                        <th>Orders</th>
+                        <th>Customer ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                     </tr>
+
+                    {% for customer in customers %}
+                    <tr>
+                        <td>{{ customer.customerID }}</td>
+                        <td>{{ customer.firstname }}</td>
+                        <td>{{ customer.lastname }}</td>
+                    </tr>
+                    {% endfor %}
+
 
                 </table>
             </div>
         </div>
 
-        <div class="col-md-7">
-            <h5>LAST 5 ORDERS</h5>
+        <div class="col-md-6">
+            <center><h5>Last Orders</h5></center>
             <hr>
             <div class="card card-body">
-                <a class="btn btn-primary  btn-sm btn-block" href="">Create Order</a>
+                <a class="btn btn-primary  btn-sm btn-block" href="{% url "mystore:create_order" %}">Create Order</a>
                 <table class="table table-sm">
                     <tr>
-                        <th>Product</th>
-                        <th>Date Orderd</th>
+                        <th>Order ID</th>
                         <th>Status</th>
                         <th>Update</th>
                         <th>Remove</th>
                     </tr>
+
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.orderID }}</td>
+                        <td>{{ order.status }}</td>
+                        <td><a href="update_order/{{ order.orderID }}" class="btn btn-warning" orderID = '{{ order.orderID }}'>Update</a></td>
+                        <td><a href="delete_order/{{ order.orderID }}" class="btn btn-danger" orderID = '{{ order.orderID }}'>Remove</a></td>
+                    </tr>
+                    {% endfor %}
+
                 </table>
             </div>
         </div>
     </div>
-    -->
-
+    <hr>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p>Add toppings, pizza, sodas, and sides as well as Lookup, Create, Edit, and Delete Orders or Customers below.</p>
+            <center>
+            <a href="{% url "mystore:lookup_order" %}"> Lookup Order</a> |
+            <a href="{% url "mystore:create_order" %}"> Create Order</a> |
+            <a href="{% url "mystore:lookup_customer" %}"> Lookup Customer</a> |
+            <a href="{% url "mystore:create_customer" %}"> Create Customer</a> |
+            <a href="{% url "mystore:lookup_products" %}"> Lookup Products</a> |
+            <a href="{% url "mystore:toppingyeah" %}"> All Things Toppings</a> |
+            <a href="{% url "mystore:pizzayeah" %}"> All Things Pizzas</a> |
+            <a href="{% url "mystore:sodayeah" %}"> All Things Sodas</a> |
+            <a href="{% url "mystore:sideyeah" %}"> All Things Sides</a>
+            </center>
+        </div>
+    </div>
 {% endblock %}

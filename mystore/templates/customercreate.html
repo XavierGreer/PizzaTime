@@ -1,19 +1,34 @@
 {% extends "base.html" %}
 
 {% block title %}
-Pizza Time | My Store | Customer Create
+Pizza Time | My Store | Create Customer
 {% endblock %}
 {% load static %}
 {% block content %}
-    <div class="container">
-        <br>
-        <p>Create Customer</p>
-        <form method='POST'>
-            {% csrf_token %}
-            {{form.as_p}}<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <input type='submit' value='Save'>
-        </form>
-        <br>
-        <p><li><a href="{% url "mystore:mystore" %}"> My Store</a></li></p>
-	</div>
+    <br>
+    <div class="row">
+        <div class="col-md">
+        </div>
+        <div class="col-md text-center">
+            <h1>Create Customer</h1>
+        </div>
+        <div class="col-md">
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+        </div>
+        <div class="col-md text-center">
+            <center>
+                <form method='POST'>
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type='submit' value='Save'>
+                </form>
+            </center>
+        </div>
+        <div class="col-md">
+        </div>
+    </div>
 {% endblock %}

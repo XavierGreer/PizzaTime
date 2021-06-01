@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %}
-Pizza Time | My Store | Customer Lookup
+Pizza Time | My Store | Lookup Customer
 {% endblock %}
 {% load static %}
 {% block content %}
-<!--
+    <!--
     <div class="container">
         <br>
         <p>Lookup Customer</p>
@@ -29,11 +29,9 @@ Pizza Time | My Store | Customer Lookup
                 </div>
             {% endfor %}
         </div>
-        <br>
-        <p><li><a href="{% url "mystore:mystore" %}"> My Store</a></li></p>
     </div>
-        <br>
--->
+    -->
+    <br>
         <div class="row">
             <div class="col-md">
                 <div class="card card-body">
@@ -67,10 +65,11 @@ Pizza Time | My Store | Customer Lookup
         <div class="row">
             <div class="col">
                 <div class="card card-body">
-                    <form method="get">
+                    <form method="GET">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </form>
 
-                    <button class="btn btn-primary" type="submit">Search</button>
-                  </form>
+
                 </div>
             </div>
         </div>
@@ -81,13 +80,27 @@ Pizza Time | My Store | Customer Lookup
                 <div class="card card-body">
                     <table class="table table-sm">
                         <tr>
-                            <th>Product</th>
-                            <th>Category</th>
-                            <th>Date Orderd</th>
-                            <th>Status</th>
-                            <th>Update</th>
-                            <th>Remove</th>
+                            <th>Customer ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Zipcode</th>
                         </tr>
+
+                        {% for customer in customers %}
+                            <tr>
+                                <td>{{ customer.customerID }}</td>
+                                <td>{{ customer.firstname }}</td>
+                                <td>{{ customer.lastname }}</td>
+                                <td>{{ customer.phone }}</td>
+                                <td>{{ customer.email }}</td>
+                                <td>{{ customer.address }}</td>
+                                <td>{{ customer.zipcode }}</td>
+                            </tr>
+                        {% endfor %}
+
                     </table>
                 </div>
             </div>

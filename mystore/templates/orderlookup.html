@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %}
-Pizza Time | My Store | Order Lookup
+Pizza Time | My Store | Lookup Order
 {% endblock %}
 {% load static %}
 {% block content %}
+<!--
     <div class="container">
         <br>
         <p>Lookup Order</p>
@@ -20,7 +21,7 @@ Pizza Time | My Store | Order Lookup
                         <p class="order-discount">Discount: {{ order.discount }}</p>
                         <p class="order-status">Status: {{ order.status }}</p>
                         <center>
-                        <a href="edit_order/{{ order.orderID }}" class="btn btn-warning" orderID = '{{ order.orderID }}'>Edit</a>
+                        <a href="update_order/{{ order.orderID }}" class="btn btn-warning" orderID = '{{ order.orderID }}'>Update</a>
                         <a href="delete_order/{{ order.orderID }}" class="btn btn-danger" orderID = '{{ order.orderID }}'>Delete</a>
                         </center>
                         <br>
@@ -28,7 +29,41 @@ Pizza Time | My Store | Order Lookup
                 </div>
             {% endfor %}
         </div>
-        <br>
-        <p><li><a href="{% url "mystore:mystore" %}"> My Store</a></li></p>
 	</div>
+-->
+    <br>
+    <center><h1>Order Lookup</h1></center>
+    <br>
+    <div class="row">
+        <div class="col-md">
+        </div>
+            <div class="col-md">
+                <div class="card card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer ID</th>
+                            <th>Total</th>
+                            <th>Tax</th>
+                            <th>Discount</th>
+                            <th>Status</th>
+                        </tr>
+
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{ order.orderID }}</td>
+                                <td>{{ order.customer }}</td>
+                                <td>{{ order.total }}</td>
+                                <td>{{ order.tax }}</td>
+                                <td>{{ order.discount }}</td>
+                                <td>{{ order.status }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        <div class="col-md">
+        </div>
+    </div>
+
 {% endblock %}

@@ -170,6 +170,8 @@ class Customer(models.Model):
     address = models.CharField("Address line 1", max_length=1024, editable=True)
     zipcode = models.CharField("ZIP / Postal code", max_length=12, editable=True)
 
+
+
 class Order(models.Model):
     orderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
     customer = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True, blank=True, editable=True)
