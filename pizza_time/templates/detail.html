@@ -14,6 +14,8 @@
             <label>
                 {% if product.product_type == 'Pizza' %}
                 Small - ${{ priceSm }}
+                {% elif product.product_type == 'Sides' %}
+                ${{ priceSm }}
                 {% elif product.product_type == 'Soda' %}
                 12oz - ${{ priceSm }}
                 {% else %}
@@ -29,15 +31,16 @@
                 {% if product.product_type == 'Pizza' %}
                 Medium - ${{ priceMd }}
                 {% elif product.product_type == 'Sides' %}
-                ${{ priceSide }}
                 {% elif product.product_type == 'Soda' %}
-
                 {% else %}
                 Invalid Price
                 {% endif %}
             </label>
             {% csrf_token %}
-            <input type="submit" value="Add to cart">
+            {% if product.product_type == 'Pizza' %}
+                        <input type="submit" value="Add to cart">
+            {% else %}
+            {% endif %}
         </form>
 
         <form action="{% url "cart:cart_add" name 'Large' %}" method="POST">
@@ -45,7 +48,6 @@
                 {% if product.product_type == 'Pizza' %}
                 Large - ${{ priceLg }}
                 {% elif product.product_type == 'Sides' %}
-                ${{ priceSide }}
                 {% elif product.product_type == 'Soda' %}
                 2-Liter - ${{ priceLg }}
                 {% else %}
@@ -53,7 +55,11 @@
                 {% endif %}
             </label>
             {% csrf_token %}
-            <input type="submit" value="Add to cart">
+            {% if product.product_type == 'Sides' %}
+            {% else %}
+                <input type="submit" value="Add to cart">
+            {% endif %}
+
         </form>
 
     </div>

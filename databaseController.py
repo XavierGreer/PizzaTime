@@ -57,10 +57,10 @@ class DatabaseController:
                 (9, 'Soda', 'Orange', 'Orange', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/F_ORAN.jpg', 1.49, None, 2.99, None, 2),
                 (10, 'Soda', 'Sprite', 'Sprite', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/F_SPRITE.jpg', 1.49, None, 2.99, None, 2),
 
-                (11, 'Sides', 'Lava Cake', 'LavaCake', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_LAVA.jpg', None, None, None, 5.99, 3),
-                (12, 'Sides', 'Bread Sticks', 'BreadSticks', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/B_Sticks.jpg', None, None, None, 4.99, 3),
-                (13, 'Sides', 'Wings', 'Wings', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/C_Wings.png', None, None, None, 7.99, 3),
-                (14, 'Sides', 'Garlic Knots', 'GarlicKnots', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/G_Knot.jpg', None, None, None, 4.99, 3)
+                (11, 'Sides', 'Lava Cake', 'LavaCake', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_LAVA.jpg', 5.99, None, None, 5.99, 3),
+                (12, 'Sides', 'Bread Sticks', 'BreadSticks', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/B_Sticks.jpg', 4.99, None, None, 4.99, 3),
+                (13, 'Sides', 'Wings', 'Wings', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/C_Wings.png', 7.99, None, None, 7.99, 3),
+                (14, 'Sides', 'Garlic Knots', 'GarlicKnots', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/G_Knot.jpg', 4.99, None, None, 4.99, 3)
             ]
         cursorObj = self.dbCon.cursor()
         for product in products:
