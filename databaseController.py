@@ -19,9 +19,37 @@ class DatabaseController:
             for row in rows:
                 print(row)
 
+    def getProductByName(self, name):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute("SELECT * FROM web_pizza_product WHERE name= ?", (name, ))
+        return cursorObj.fetchall()
+
+    def addOrderItem(self, price, size, name):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute('''INSERT INTO web_pizza_orderitem(ProductOrderID, price, sizePizza, name, toppings) VALUES(cursorObj.lastrowid, ?, ?, ?, ?)''',
+                          (id, price, size, name, 'None'))
+        self.dbCon.commit()
+
+    def addOrder(self, price, size, name):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute('''INSERT INTO web_pizza_orderitem() VALUES(?, ?, ?, ?)''',
+                          (price, size, name, 'None'))
+        self.dbCon.commit()
+
+    def getOrderItem(self, name):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute("SELECT * FROM web_pizza_orderitem WHERE name= ?", (name, ))
+        return cursorObj.fetchall()
+
+    def getOrderItems(self):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute("SELECT * FROM web_pizza_orderitem")
+        return cursorObj.fetchall()
+
     def initializeProducts(self):
         # id, product_type, name, slug, available, created, updated, image, priceSm, priceMd, priceLg, sizePizza, priceSodaSm, priceSodaLg, sizeSoda, priceSide, category_id
         products = [
+                #0     1          2            3        4                 5                          6                         7                      8      9     10    11   12
                 (0, 'Pizza', 'Pepperoni', 'Pepperoni', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.', 'products/2021/04/13/S_PIZPX.jpg', 9.99, 14.99, 19.99, None, 1),
                 (1, 'Pizza', 'Hawaiian','Hawaiian', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.', 'products/2021/04/14/S_PIZCR.jpg', 9.99, 14.99, 19.99, None, 1),
                 (2, 'Pizza', 'Meat Lover', 'MeatLover', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.', 'products/2021/04/13/S_MX.jpg', 9.99, 14.99, 19.99, None, 1),
@@ -30,15 +58,15 @@ class DatabaseController:
                 (5, 'Pizza', 'BBQ Chicken', 'BBQChicken', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.', 'products/2021/04/19/S_PIZCR_RSF3OLf.jpg', 9.99, 14.99, 19.99, None, 1),
                 (6, 'Pizza', 'Buffalo Chicken', 'BuffaloChicken', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.', 'products/2021/04/19/S_PIZCK_InLB48q.jpg', 9.99, 14.99, 19.99, None, 1),
 
-                (7, 'Soda', 'Coke', 'Coke', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_COKE.jpg', 9.99, 14.99, 19.99, None, 1),
-                (8, 'Soda', 'Diet Coke', 'DietCoke', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_DIET.jpg', 9.99, 14.99, 19.99, None, 1),
-                (9, 'Soda', 'Orange', 'Orange', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/F_ORAN.jpg', 9.99, 14.99, 19.99, None, 1),
-                (10, 'Soda', 'Sprite', 'Sprite', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/F_SPRITE.jpg', 9.99, 14.99, 19.99, None, 1),
+                (7, 'Soda', 'Coke', 'Coke', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_COKE.jpg', 1.49, None, 2.99, None, 2),
+                (8, 'Soda', 'Diet Coke', 'DietCoke', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_DIET.jpg', 1.49, None, 2.99, None, 2),
+                (9, 'Soda', 'Orange', 'Orange', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/F_ORAN.jpg', 1.49, None, 2.99, None, 2),
+                (10, 'Soda', 'Sprite', 'Sprite', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/F_SPRITE.jpg', 1.49, None, 2.99, None, 2),
 
-                (11, 'Sides', 'Lava Cake', 'LavaCake', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_LAVA.jpg', 9.99, 14.99, 19.99, None, 1),
-                (12, 'Sides', 'Bread Sticks', 'BreadSticks', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/B_Sticks.jpg', 9.99, 14.99, 19.99, None, 1),
-                (13, 'Sides', 'Wings', 'Wings', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/C_Wings.png', 9.99, 14.99, 19.99, None, 1),
-                (14, 'Sides', 'Garlic Knots', 'GarlicKnots', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/G_Knot.jpg', 9.99, 14.99, 19.99, None, 1)
+                (11, 'Sides', 'Lava Cake', 'LavaCake', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/14/F_LAVA.jpg', 5.99, None, None, 5.99, 3),
+                (12, 'Sides', 'Bread Sticks', 'BreadSticks', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/B_Sticks.jpg', 4.99, None, None, 4.99, 3),
+                (13, 'Sides', 'Wings', 'Wings', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/C_Wings.png', 7.99, None, None, 7.99, 3),
+                (14, 'Sides', 'Garlic Knots', 'GarlicKnots', True, 'May 30, 2021, 6:50 p.m.', 'May 30, 2021, 6:50 p.m.','products/2021/04/19/G_Knot.jpg', 4.99, None, None, 4.99, 3)
             ]
         cursorObj = self.dbCon.cursor()
         for product in products:
@@ -72,10 +100,41 @@ class DatabaseController:
                 topping)
         self.dbCon.commit()
 
+    def getPruductBySlug(self, slugName):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute("SELECT * FROM web_pizza_product WHERE slug= ?", (slugName,))
+        result = (cursorObj.fetchall())[0]
+        columns = ['id', 'product_type', 'name', 'slug', 'available', 'created', 'updated', 'image', 'priceSm',
+                   'priceMd', 'priceLg', 'priceSide', 'category_id']
+        product = {}
+        for i in range(len(columns)):
+            product[columns[i]] = result[i]
+        return product
+
+    def getOrder(self):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute("SELECT * FROM web_pizza_order")
+        return cursorObj.fetchall()
+
+    def initilizeOrders(self):
+        orders = [
+            (0, 120.43, 4.63, 0, 'New'),
+            (1, 2.43, 4.63, 0, 'Delivered'),
+            (3, 120.43, 4.63, 0, 'Cooking'),
+            (4, 3.43, 4.63, 0, 'Delivered'),
+
+        ]
+        cursorObj = self.dbCon.cursor()
+        for order in orders:
+            cursorObj.execute(
+                '''INSERT INTO web_pizza_order(id, total, tax, discount, status) VALUES(?, ?, ?, ?, ?)''',
+                order)
+        self.dbCon.commit()
 
 if __name__ == "__main__":
     db = DatabaseController()
-    db.getTables()
+    #db.getTables()
     #db.getTableInfo('web_pizza_category')
     #db.initializeWebPizzaProduct()
     #db.getTableInfo('web_pizza_product')
+    print(db.getOrderItems())

@@ -35,11 +35,11 @@ class SidesAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['orderID', 'customer', 'status', 'total', 'discount',]
+    list_display = ['customer', 'status', 'total', 'discount',]
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['customerID', 'firstname', 'lastname', 'phone', 'email', 'address', 'zipcode']
+    list_display = ['firstname', 'lastname', 'phone', 'email', 'address', 'zipcode']
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):

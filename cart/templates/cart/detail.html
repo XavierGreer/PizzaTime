@@ -10,53 +10,28 @@
     <table class="table">
       <thead class="thead-dark">
         <tr>
-            <th scope="col">Image</th>
             <th scope="col">Product</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Remove</th>
-            <th scope="col">Unit Price</th>
+            <th scope="col">Size</th>
+<!--            <th scope="col">Quantity</th>-->
+<!--            <th scope="col">Remove</th>-->
+            <th scope="col">Price</th>
             <th scope="col">Total</th>
         </tr>
       </thead>
       <tbody class="text-center">
       {% for item in cart %}
-      {% with product=item.product %}
         <tr>
-            <td>
-                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no_img.jpg" %}{% endif %}" width="150" height="150">
-            </td>
-            <td>{{ product.name }}</td>
-            <td>
-                <form action="{% url "cart:cart_add" product.id %}" method="post">
-                        {{ item.update_quantity_form.quantity }}
-                        {{ item.update_quantity_form.override }}
-                        <input type="submit" value="Update">
-                        {% csrf_token %}
-                </form>
-            </td>
-            <td>
-                <form action="{% url "cart:cart_remove" product.id %}" method="post">
-                <input type="submit" value="Remove">
-                {% csrf_token %}
-                </form>
-            </td>
-            <td>
-                {% if item.product_type == 'Pizza' or 'Soda' %}
-                ${{ item.price }}
-                {% elif item.product_type == 'side' %}
-                ${{ item.price }}
-                {% else %}
-                Invalid Price
-                {% endif %}
-            </td>
-            <td class="num">${{ item.total_price }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.size }}</td>
+            <td>{{ item.price }}</td>
+            <td></td>
         </tr>
-        {% endwith %}
-        {% endfor %}
+            {% endfor %}
         <tr>
-            <td>Total</td>
-            <td colspan="4"></td>
-            <td class="num">${{ cart.get_total_price }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>${{ cart.get_total_price }}</td>
         </tr>
       </tbody>
     </table>
