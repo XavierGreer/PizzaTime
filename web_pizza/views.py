@@ -36,5 +36,6 @@ def aboutus(request):
     return render(request, 'about.html')
 
 def cookorder(request):
-    orders = OrderItem.objects.all()
+    orders = Order.objects.all()
+    orderItems =OrderItem.objects.all()
     return render(request, 'cook.html', {'orders':orders})

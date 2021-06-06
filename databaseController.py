@@ -26,7 +26,13 @@ class DatabaseController:
 
     def addOrderItem(self, price, size, name):
         cursorObj = self.dbCon.cursor()
-        cursorObj.execute('''INSERT INTO web_pizza_orderitem(price, sizePizza, name, toppings) VALUES(?, ?, ?, ?)''',
+        cursorObj.execute('''INSERT INTO web_pizza_orderitem(ProductOrderID, price, sizePizza, name, toppings) VALUES(cursorObj.lastrowid, ?, ?, ?, ?)''',
+                          (id, price, size, name, 'None'))
+        self.dbCon.commit()
+
+    def addOrder(self, price, size, name):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute('''INSERT INTO web_pizza_orderitem() VALUES(?, ?, ?, ?)''',
                           (price, size, name, 'None'))
         self.dbCon.commit()
 
@@ -105,6 +111,25 @@ class DatabaseController:
             product[columns[i]] = result[i]
         return product
 
+    def getOrder(self):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute("SELECT * FROM web_pizza_order")
+        return cursorObj.fetchall()
+
+    def initilizeOrders(self):
+        orders = [
+            (0, 120.43, 4.63, 0, 'New'),
+            (1, 2.43, 4.63, 0, 'Delivered'),
+            (3, 120.43, 4.63, 0, 'Cooking'),
+            (4, 3.43, 4.63, 0, 'Delivered'),
+
+        ]
+        cursorObj = self.dbCon.cursor()
+        for order in orders:
+            cursorObj.execute(
+                '''INSERT INTO web_pizza_order(id, total, tax, discount, status) VALUES(?, ?, ?, ?, ?)''',
+                order)
+        self.dbCon.commit()
 
 if __name__ == "__main__":
     db = DatabaseController()

@@ -13,14 +13,13 @@ class Cart(object):
         if not cart:
             cart = self.session[settings.CART_SESSION_ID]=[]
         self.cart = cart
-        # self.item = {}
+        self.order = False
         self.total = 0
         # self.quantity = 0
 
     def add(self, product, size, name):
         db = DatabaseController()
         prod = db.getPruductBySlug(name)
-        # addedProd = db.getOrderItem(name)
         price = 0
         if prod.get('category') == 'Pizza' or 'Soda':
             if size == 'Small':
@@ -32,6 +31,10 @@ class Cart(object):
         elif prod.get('category') == 'Sides':
             if size == 'Small':
                 price = prod.get('priceSide')
+
+        if self.order == False:
+            self.order = True
+            db.addOrder()
 
         db.addOrderItem(price, size, prod.get('name'))
 
