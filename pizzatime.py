@@ -36,6 +36,7 @@ def populateDatabase():
     db.initializeProducts()
     db.initilizeCatagories()
     db.initilizeToppings()
+    db.initilizeOrders()
 
 
 if __name__ == "__main__":

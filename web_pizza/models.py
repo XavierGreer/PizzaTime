@@ -3,6 +3,7 @@ from django.urls import reverse
 import uuid
 from django.core.validators import RegexValidator
 from django.utils.text import slugify
+from django.forms import ModelForm
 from django.contrib.auth import get_user_model
 
 class Category(models.Model):
@@ -173,11 +174,11 @@ class Customer(models.Model):
 
 
 class Order(models.Model):
-    orderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
+    # orderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
     customer = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True, blank=True, editable=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, editable=True)
-    tax = models.DecimalField(max_digits=4, decimal_places=2, editable=True)
-    discount = models.DecimalField(max_digits=2, decimal_places=0, editable=True)
+    tax = models.DecimalField(max_digits=4, decimal_places=2, editable=True, default=4.63)
+    discount = models.DecimalField(max_digits=2, decimal_places=0, editable=True, default=0)
 
     STATUSES = (
         (0, 'Order Received'),
@@ -191,11 +192,16 @@ class Order(models.Model):
         return str(self.orderID)
 
 class OrderItem(models.Model):
-    ProductOrderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
+    ProductOrderID = models.ForeignKey(Category, related_name='Order', on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     sizePizza = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False)
-    name = models.CharField(max_length=200,db_index=True)
+    name = models.CharField(max_length=200, db_index=True)
     toppings = models.CharField(max_length=200,db_index=True)
 
     def __str__(self):
         return self.name
+
+class AddProduct(ModelForm):
+    class Meta:
+        model = OrderItem
+        fields = ['name']

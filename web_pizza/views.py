@@ -1,27 +1,12 @@
 from django.shortcuts import render
-from django.template.loader import get_template
-from django.template import loader
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, HttpResponseRedirect
+from databaseController import DatabaseController
+from django.contrib import messages
 from django.views.generic.base import RedirectView
 from .models import *
-import user.views
-from cart.forms import CartAddProductForm
 
 def index(request):
-    #template = loader.get_template('base.html')  # getting our template
-    #return HttpResponse(template.render())  # rendering the template in HttpResponse
     return render(request, 'home.html')
-
-"""def menu(request, category_slug=None):
-    category = None
-    categories = Category.objects.all()
-    products = Product.objects.filter(available=True)
-    context = {'category':category,'cartegories':categories,'products':products}
-    if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        products = products.filter(category=category)
-    return render(request,'menu.html', context)"""
 
 def menu(request):
     category = None
@@ -31,10 +16,11 @@ def menu(request):
     return render(request, 'menu.html', context)
 
 def product_detail(request, id, slug):
-    cart_product_form = CartAddProductForm()
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
+    db = DatabaseController()
+    name = db.getProductByName(product.name)
     return render(request, 'detail.html',
-                  {'product':product, 'cart_product_form':cart_product_form})
+              {'product':product, 'name':name[0][3], 'priceSm':name[0][8], 'priceMd':name[0][9], 'priceLg':name[0][10], 'idNum':name[0][0]})
 
 class ArticleCounterRedirectView(RedirectView):
     permanent = False
@@ -50,5 +36,6 @@ def aboutus(request):
     return render(request, 'about.html')
 
 def cookorder(request):
-    orders = Order.objects.all
+    orders = Order.objects.all()
+    orderItems =OrderItem.objects.all()
     return render(request, 'cook.html', {'orders':orders})
