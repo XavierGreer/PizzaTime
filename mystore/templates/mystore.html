@@ -57,13 +57,14 @@ Pizza Time | My Store | Admins Only Dashboard
     <br>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <center><h5>Customers</h5></center>
             <hr>
             <div class="card card-body">
-                <a class="btn btn-primary  btn-sm btn-block" href="{% url "mystore:create_customer" %}">Create Customer</a>
+                <a class="btn btn-primary  btn-sm btn-block" href="{% url 'mystore:create_customer' %}">Create Customer</a>
                 <table class="table table-sm">
                     <tr>
+                        <th>View</th>
                         <th>Customer ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
@@ -71,6 +72,7 @@ Pizza Time | My Store | Admins Only Dashboard
 
                     {% for customer in customers %}
                     <tr>
+                        <td><a class="btn btn-sm btn-info" href="{% url 'mystore:lookup_customer_byID' customer.pk %}">View</a></td>
                         <td>{{ customer.customerID }}</td>
                         <td>{{ customer.firstname }}</td>
                         <td>{{ customer.lastname }}</td>
@@ -82,13 +84,14 @@ Pizza Time | My Store | Admins Only Dashboard
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-7">
             <center><h5>Last Orders</h5></center>
             <hr>
             <div class="card card-body">
-                <a class="btn btn-primary  btn-sm btn-block" href="{% url "mystore:create_order" %}">Create Order</a>
+                <a class="btn btn-primary  btn-sm btn-block" href="{% url 'mystore:create_order' %}">Create Order</a>
                 <table class="table table-sm">
                     <tr>
+                        <th>Customer</th>
                         <th>Order ID</th>
                         <th>Status</th>
                         <th>Update</th>
@@ -97,10 +100,11 @@ Pizza Time | My Store | Admins Only Dashboard
 
                     {% for order in orders %}
                     <tr>
+                        <td>{{ order.customer }}</td>
                         <td>{{ order.orderID }}</td>
                         <td>{{ order.status }}</td>
-                        <td><a href="update_order/{{ order.orderID }}" class="btn btn-warning" orderID = '{{ order.orderID }}'>Update</a></td>
-                        <td><a href="delete_order/{{ order.orderID }}" class="btn btn-danger" orderID = '{{ order.orderID }}'>Remove</a></td>
+                        <td><a href="{% url 'mystore:update_order' order.pk %}" class="btn btn-info">Update</a></td>
+                        <td><a href="{% url 'mystore:delete_order' order.pk %}" class="btn btn-danger">Remove</a></td>
                     </tr>
                     {% endfor %}
 
