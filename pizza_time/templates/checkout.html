@@ -6,12 +6,7 @@
 {% load static %}
 {% block content %}
 <center>
-
-    <form method='POST'>
-        {% csrf_token %}
-        {{form.as_p}}<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <input type='submit' value='Save'>
-    </form>
+    <p>Your order has been placed</p>
 
 </center>
 {% endblock %}

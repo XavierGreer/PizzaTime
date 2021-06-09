@@ -24,16 +24,16 @@ class DatabaseController:
         cursorObj.execute("SELECT * FROM web_pizza_product WHERE name= ?", (name, ))
         return cursorObj.fetchall()
 
-    def addOrderItem(self, price, size, name):
+    def addOrderItem(self, id, price, size, name):
         cursorObj = self.dbCon.cursor()
-        cursorObj.execute('''INSERT INTO web_pizza_orderitem(ProductOrderID, price, sizePizza, name, toppings) VALUES(cursorObj.lastrowid, ?, ?, ?, ?)''',
+        cursorObj.execute('''INSERT INTO web_pizza_orderitem(ProductOrderid, price, sizePizza, name, toppings) VALUES(?, ?, ?, ?, ?)''',
                           (id, price, size, name, 'None'))
         self.dbCon.commit()
 
-    def addOrder(self, price, size, name):
+    def addOrder(self, total):
         cursorObj = self.dbCon.cursor()
-        cursorObj.execute('''INSERT INTO web_pizza_orderitem() VALUES(?, ?, ?, ?)''',
-                          (price, size, name, 'None'))
+        cursorObj.execute('''INSERT INTO web_pizza_order(total, tax, discount, status) VALUES(?, ?, ?, ?)''',
+                          (total, 4.63, 0, 'Order Received'))
         self.dbCon.commit()
 
     def getOrderItem(self, name):
@@ -116,12 +116,14 @@ class DatabaseController:
         cursorObj.execute("SELECT * FROM web_pizza_order")
         return cursorObj.fetchall()
 
+    def getOrderOne(self, id):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute("SELECT * FROM web_pizza_order WHERE id= ?", (id,))
+        return cursorObj.fetchall()
+
     def initilizeOrders(self):
         orders = [
-            (0, 120.43, 4.63, 0, 'New'),
-            (1, 2.43, 4.63, 0, 'Delivered'),
-            (3, 120.43, 4.63, 0, 'Cooking'),
-            (4, 3.43, 4.63, 0, 'Delivered'),
+            (0, 120.43, 4.63, 0, 'Order Received'),
 
         ]
         cursorObj = self.dbCon.cursor()
@@ -130,6 +132,12 @@ class DatabaseController:
                 '''INSERT INTO web_pizza_order(id, total, tax, discount, status) VALUES(?, ?, ?, ?, ?)''',
                 order)
         self.dbCon.commit()
+
+    def updateStatus(self, id, status):
+        cursorObj = self.dbCon.cursor()
+        cursorObj.execute('''UPDATE web_pizza_order SET status=? WHERE id=?''', (status, id))
+        self.dbCon.commit()
+
 
 if __name__ == "__main__":
     db = DatabaseController()

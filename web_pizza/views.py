@@ -38,4 +38,4 @@ def aboutus(request):
 def cookorder(request):
     orders = Order.objects.all()
     orderItems =OrderItem.objects.all()
-    return render(request, 'cook.html', {'orders':orders})
+    return render(request, 'cook.html', {'orders':orders, 'orderItems':orderItems})

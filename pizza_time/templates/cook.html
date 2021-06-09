@@ -10,22 +10,24 @@
     <tr>
         <th scope="col">Order #</th>
         <th scope="col">Product</th>
-        <th scope="col">Comments</th>
         <th scope="col">Status</th>
+        <th scope="col">Update</th>
     </tr>
   </thead>
   <tbody class="text-center">
     {% for order in orders %}
         <tr>
             <th scope="row">{{ order.id }}</th>
-            {% if orderItems.id == order.id %}
-                {% for items in orderItems %}
-                    <td>{{ items.name }}</td>
-                    <td>{{ items.comments }}</td>
-                    <td>{{ items.comments }}</td>
-                    <td><button class="btn btn-primary" type="submit">Update Status</button></td>
-                {% endfor %}
-            {% endif %}
+            <td>{% for items in orderItems %}
+                    {% if items.ProductOrderID == order.id %}
+                    {{ items.sizePizza }} {{ items }} ,
+                    {% endif %}
+                {% endfor %}</td>
+            <td>{{ order.status }}</td>
+            <td><a href="{% url "cart:cart_update" order.id 'Order Received' %}">Order Received</a><br>
+                <a href="{% url "cart:cart_update" order.id 'Baking' %}">Baking</a><br>
+                <a href="{% url "cart:cart_update" order.id 'On The Way' %}">On The Way</a><br>
+                <a href="{% url "cart:cart_update" order.id 'Delivered' %}">Delivered</a></td>
         </tr>
     {% endfor %}
   </tbody>

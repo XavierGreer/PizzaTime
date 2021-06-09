@@ -190,7 +190,7 @@ class Order(models.Model):
         return str(self.orderID)
 
 class OrderItem(models.Model):
-    ProductOrderID = models.ForeignKey(Category, related_name='Order', on_delete=models.CASCADE)
+    ProductOrderID = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     sizePizza = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False)
     name = models.CharField(max_length=200, db_index=True)
