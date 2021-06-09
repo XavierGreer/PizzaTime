@@ -11,6 +11,7 @@
         <img class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no_img.jpg" %}{% endif %}">
         <h1>{{ product.name }}</h1>
         <form action="{% url "cart:cart_add" name 'Small' %}" method="POST">
+        <label>{{ quantity }}</label>
             <label>
                 {% if product.product_type == 'Pizza' %}
                 Small - ${{ priceSm }}
@@ -28,8 +29,9 @@
 
         <form action="{% url "cart:cart_add" name 'Medium' %}" method="POST">
             <label>
+
                 {% if product.product_type == 'Pizza' %}
-                Medium - ${{ priceMd }}
+                <label>{{ quantity }}</label>Medium - ${{ priceMd }}
                 {% elif product.product_type == 'Sides' %}
                 {% elif product.product_type == 'Soda' %}
                 {% else %}
@@ -46,10 +48,10 @@
         <form action="{% url "cart:cart_add" name 'Large' %}" method="POST">
             <label>
                 {% if product.product_type == 'Pizza' %}
-                Large - ${{ priceLg }}
+                <label>{{ quantity }}</label>Large - ${{ priceLg }}
                 {% elif product.product_type == 'Sides' %}
                 {% elif product.product_type == 'Soda' %}
-                2-Liter - ${{ priceLg }}
+                <label>{{ quantity }}</label>2-Liter - ${{ priceLg }}
                 {% else %}
                 Invalid Price
                 {% endif %}
@@ -59,9 +61,25 @@
             {% else %}
                 <input type="submit" value="Add to cart">
             {% endif %}
-
         </form>
 
+        {% if product.product_type == 'Pizza' %}
+        <div>
+            <center>
+                <form>
+                    <div class="row">
+                    {% for field in toppings %}
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                            <label size="30"><h4>{{ field.name }}</h4></label><br>
+                            <label>{{ field }}</label><br>
+                        </div>
+                    {% endfor %}
+                    {% csrf_token %}
+                </form>
+            </center>
+        </div>
+        {% else %}
+        {% endif %}
     </div>
 </center>
 {% endblock %}

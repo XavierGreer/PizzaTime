@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from databaseController import DatabaseController
+from cart.forms import toppings, productQuantity
 from django.contrib import messages
 from django.views.generic.base import RedirectView
 from .models import *
@@ -18,9 +19,11 @@ def menu(request):
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
     db = DatabaseController()
+    formToppings = toppings
+    formQuantity = productQuantity
     name = db.getProductByName(product.name)
     return render(request, 'detail.html',
-              {'product':product, 'name':name[0][3], 'priceSm':name[0][8], 'priceMd':name[0][9], 'priceLg':name[0][10], 'idNum':name[0][0]})
+              {'product':product, 'name':name[0][3], 'priceSm':name[0][8], 'priceMd':name[0][9], 'priceLg':name[0][10], 'idNum':name[0][0], 'toppings':formToppings, 'quantity':formQuantity})
 
 class ArticleCounterRedirectView(RedirectView):
     permanent = False
