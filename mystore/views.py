@@ -28,7 +28,17 @@ def delete_product(request, pk):
     if request.method == "POST":
         obj.delete()
         messages.success(request, ('Product Deleted Successfully'))
-        return render(request, 'mystore.html')
+        return redirect('mystore:mystore')
+    else:
+        return render(request, 'productdelete.html', context)
+
+def delete_topping(request, name):
+    context = {}
+    obj = get_object_or_404(Topping, name=name)
+    if request.method == "POST":
+        obj.delete()
+        messages.success(request, ('Topping Deleted Successfully'))
+        return redirect('mystore:mystore')
     else:
         return render(request, 'productdelete.html', context)
 
@@ -44,7 +54,7 @@ def update_product(request, pk):
                 messages.success(request, ('There was an error updating the Order. Please try again...'))
                 return render(request, 'productupdate.html', context)
             messages.success(request, ('Product Updated Successfully'))
-            return render(request, 'mystore.html')
+            return redirect('mystore:mystore')
     return render(request, 'productupdate.html', context)
 
 def create_order(request):
@@ -57,7 +67,7 @@ def create_order(request):
                 messages.success(request, ('There was an error creating the Order. Please try again...'))
                 return render(request, 'ordercreate.html', context)
             messages.success(request, ('Order Created Successfully'))
-            return render(request, 'mystore.html')
+            return redirect('mystore:mystore')
     context = {'form': form}
     return render(request, 'ordercreate.html', context)
 
@@ -101,7 +111,7 @@ def update_order(request, pk):
                 messages.success(request, ('There was an error updating the Order. Please try again...'))
                 return render(request, 'orderupdate.html', context)
             messages.success(request, ('Order Updated Successfully'))
-            return render(request, 'mystore.html')
+            return redirect('mystore:mystore')
     return render(request, 'orderupdate.html', context)
 
     '''try:
@@ -126,26 +136,27 @@ def update_order(request, pk):
     #    return render(request, 'mystore.html', {'user': 'Admin'})
     # return render(request, 'orderupdate.html', {'order_form': order_form, 'orders':orders})
 
-def delete_order(request, pk):
-    context = {}
-    obj = get_object_or_404(Order, id=pk)
+def delete_order(request, orderID):
+    context ={}
+    obj = get_object_or_404(Order, orderID=orderID)
     if request.method == "POST":
         obj.delete()
         messages.success(request, ('Order Deleted Successfully'))
-        return render(request, 'mystore.html')
+        return redirect('mystore:mystore')
     else:
         return render(request, 'orderdelete.html', context)
 
-
-    # context ={}
-    # orders = Order.objects.all()
-    # obj = get_object_or_404(Order, orderID=orderID)
+    # context = {}
+    # obj = get_object_or_404(Order, pk=pk)
     # if request.method == "POST":
-    #     obj.delete()
+    #     obj.delete(pk)
     #     messages.success(request, ('Order Deleted Successfully'))
-    #     return render(request, 'mystore.html', {'orders':orders})
+    #     return redirect('mystore:mystore')
     # else:
-    #     return render(request, 'orderdelete.html', context, {'orders':orders})
+    #     return render(request, 'orderdelete.html', context)
+
+
+
 
 def lookup_order(request):
     orders = Order.objects.all()
@@ -224,7 +235,7 @@ def delete_customer(request, pk):
     if request.method == "POST":
         obj.delete()
         messages.success(request, ('Customer Deleted Successfully'))
-        return render(request, 'mystore.html')
+        return redirect('mystore:mystore')
     else:
         return render(request, 'customerdelete.html', context)
 

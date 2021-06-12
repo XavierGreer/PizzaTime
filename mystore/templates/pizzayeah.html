@@ -19,7 +19,6 @@ Pizza Time | My Store | Pizzas Yeah
 				<div class="col-md-3 text-right">
 					<!-- Add Pizzas here -->
 					<p>Please add a new Pizza here.</p>
-					<p>Remember when adding a new pizza option, need to add three separate entries. One for a small, one for a medium, and one for a large.</p>
 					<form action="pizzayeah" method="POST" enctype=""multipart/form-data">
 							{% csrf_token %}
 							{{form.as_p}}

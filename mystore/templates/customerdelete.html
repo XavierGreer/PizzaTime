@@ -10,7 +10,7 @@ Pizza Time | My Store | Delete Customer
         <p>Delete Customer</p>
         <br>
         <div class="main">
-            <form action="delete_customer" method="POST">
+            <form method="POST">
                 {% csrf_token %}
                 Are you want to delete this Customer?
                 <input type="submit" value="Yes" />

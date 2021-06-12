@@ -5,32 +5,6 @@ Pizza Time | My Store | Lookup Order
 {% endblock %}
 {% load static %}
 {% block content %}
-<!--
-    <div class="container">
-        <br>
-        <p>Lookup Order</p>
-        <br>
-        <div class="container">
-            {% for order in orders %}
-                <div>
-                    <div>
-                        <h class="order-ID">Order ID: {{ order.orderID }}</h>
-                        <p class="order-customer">Customer ID: {{ order.customer }}</p>
-                        <p class="order-total">Total: {{ order.total }}</p>
-                        <p class="order-tax">Tax: {{ order.tax }}</p>
-                        <p class="order-discount">Discount: {{ order.discount }}</p>
-                        <p class="order-status">Status: {{ order.status }}</p>
-                        <center>
-                        <a href="update_order/{{ order.orderID }}" class="btn btn-warning" orderID = '{{ order.orderID }}'>Update</a>
-                        <a href="delete_order/{{ order.orderID }}" class="btn btn-danger" orderID = '{{ order.orderID }}'>Delete</a>
-                        </center>
-                        <br>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-	</div>
--->
     <br>
     <center><h1>Order Lookup</h1></center>
     <br>

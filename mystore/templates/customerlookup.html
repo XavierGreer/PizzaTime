@@ -5,32 +5,6 @@ Pizza Time | My Store | Lookup Customer
 {% endblock %}
 {% load static %}
 {% block content %}
-    <!--
-    <div class="container">
-        <br>
-        <p>Lookup Customer</p>
-        <br>
-        <div>
-            {% for customer in customers %}
-                <div>
-                    <div>
-                        <h5 class="customer-ID">Customer ID: {{ customer.customerID }}</h5>
-                        <p class="customer-firstname">First Name: {{ customer.firstname }}</p>
-                        <p class="customer-lastname">Last Name: {{ customer.lastname }}</p>
-                        <p class="customer-phone">Phone: {{ customer.phone }}</p>
-                        <p class="customer-email">Email: {{ customer.email }}</p>
-                        <p class="customer-address">Address: {{ customer.address }}</p>
-                        <p class="customer-zipcode">Zip / Postal code: {{ customer.zipcode }}</p>
-                        <center>
-                        <a href="update_customer/{{ customer.customerID }}" class="btn btn-warning" customerID = '{{ customer.customerID }}'>Update</a>
-                        <a href="delete_customer/{{ customer.customerID }}" class="btn btn-danger" customerID = '{{ customer.customerID }}'>Delete</a>
-                        </center>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-    -->
     <br>
         <div class="row">
             <div class="col-md">
