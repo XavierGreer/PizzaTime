@@ -23,7 +23,7 @@ def product_detail(request, id, slug):
     formQuantity = productQuantity
     name = db.getProductByName(product.name)
     return render(request, 'detail.html',
-              {'product':product, 'name':name[0][3], 'priceSm':name[0][8], 'priceMd':name[0][9], 'priceLg':name[0][10], 'idNum':name[0][0], 'toppings':formToppings, 'quantity':formQuantity})
+              {'product':product, 'name':name[0][3], 'priceSm':name[0][8], 'priceMd':name[0][9], 'priceLg':name[0][10], 'idNum':name[0][0], 'toppings':formToppings, 'quantity':formQuantity })
 
 class ArticleCounterRedirectView(RedirectView):
     permanent = False
