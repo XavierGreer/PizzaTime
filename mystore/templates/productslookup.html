@@ -5,7 +5,6 @@ Pizza Time | My Store | Lookup Products
 {% endblock %}
 {% load static %}
 {% block content %}
-
 		<br>
 		<div class="row">
 			<div class="col-md">
@@ -22,7 +21,6 @@ Pizza Time | My Store | Lookup Products
 							<th>Large Price</th>
 							<th>Side Price</th>
 						</tr>
-
 						{% for product in products %}
                             <tr>
                                 <td>{{ product.product_type }}</td>
@@ -33,69 +31,74 @@ Pizza Time | My Store | Lookup Products
                                 <td>{{ product.priceSide }}</td>
                             </tr>
                         {% endfor %}
-
 					</table>
 				</div>
 			</div>
 		</div>
-			<div class="row">
-				<div class="col-md-4 text-center">
-					<table class="table">
-						<h5>Pizzas</h5>
+		<br>
+		<div class="row">
+			<div class="col-md-4 text-center">
+				<table class="table">
+					<h5>Pizzas</h5>
+					<tr>
+						<th>Name</th>
+						<th>Small Price</th>
+						<th>Medium Price</th>
+						<th>Large Price</th>
+						<th>Update</th>
+						<th>Delete</th>
+					</tr>
+					{% for pizza in pizzas %}
+                        <tr>
+                            <td>{{ pizza.name }}</td>
+                            <td>{{ pizza.priceSm }}</td>
+							<td>{{ pizza.priceMd }}</td>
+							<td>{{ pizza.priceLg }}</td>
+							<td><a class="btn btn-sm btn-info" href="">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+				</table>
+			</div>
+			<div class="col-md-4 text-center">
+				<table class="table">
+					<h5>Sodas</h5>
+					<tr>
+						<th>Name</th>
+						<th>Small Price</th>
+						<th>Large Price</th>
+						<th>Update</th>
+						<th>Delete</th>
+					</tr>
+					{% for soda in sodas %}
 						<tr>
-							<th>Name</th>
-							<th>Small Price</th>
-							<th>Medium Price</th>
-							<th>Large Price</th>
+							<td>{{ soda.name }}</td>
+							<td>{{ soda.priceSm }}</td>
+							<td>{{ soda.priceLg }}</td>
+							<td><a class="btn btn-sm btn-info" href="">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
 						</tr>
-
-						{% for pizza in pizzas %}
-                            <tr>
-                                <td>{{ pizza.name }}</td>
-                                <td>{{ pizza.priceSm }}</td>
-								<td>{{ pizza.priceMd }}</td>
-								<td>{{ pizza.priceLg }}</td>
-                            </tr>
-                        {% endfor %}
-
-					</table>
-				</div>
-				<div class="col-md-4 text-center">
-					<table class="table">
-						<h5>Sodas</h5>
+					{% endfor %}
+				</table>
+			</div>
+			<div class="col-md-4 text-center">
+				<table class="table">
+					<h5>Sides</h5>
+					<tr>
+						<th>Name</th>
+						<th>Side Price</th>
+						<th>Update</th>
+						<th>Delete</th>
+					</tr>
+					{% for side in sides %}
 						<tr>
-							<th>Name</th>
-							<th>Small Price</th>
-							<th>Large Price</th>
+							<td>{{ side.name }}</td>
+							<td>{{ side.priceSide }}</td>
+							<td><a class="btn btn-sm btn-info" href="">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
 						</tr>
-
-						{% for soda in sodas %}
-                            <tr>
-                                <td>{{ soda.name }}</td>
-                                <td>{{ soda.priceSm }}</td>
-								<td>{{ soda.priceLg }}</td>
-                            </tr>
-                        {% endfor %}
-					</table>
-				</div>
-				<div class="col-md-4 text-center">
-					<table class="table">
-						<h5>Sides</h5>
-						<tr>
-							<th>Name</th>
-							<th>Side Price</th>
-						</tr>
-
-						{% for side in sides %}
-                            <tr>
-                                <td>{{ side.name }}</td>
-                                <td>{{ side.priceSide }}</td>
-                            </tr>
-                        {% endfor %}
-					</table>
-				</div>
+					{% endfor %}
+				</table>
 			</div>
 		</div>
-
-
 {% endblock %}

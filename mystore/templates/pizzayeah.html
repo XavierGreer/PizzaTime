@@ -5,116 +5,52 @@ Pizza Time | My Store | Pizzas Yeah
 {% endblock %}
 {% load static %}
 {% block content %}
-    <!--
-    <div class="container">
-        <br>
-        <p>Welcome Admin!!!!!</p>
-        <br>
-        <h1>Pizzas</h1>
-        <br>
-
-
-        <p>Please add new pizzas here.</p>
-        <p>Remember when adding a new pizza option, please add three separate entries. One for a small, one for a medium, and one for a large.</p>
-        <form action="add_pizza" method="post">
-            {% csrf_token %}
-            Add a New Pizza : <input type="text" name="pizza_name"><br>
-            Select Pizza Size : <input type="text" name="pizza_size"><br>
-            New Pizza's Price : <input type="text" name="pizzas_price"><br>
-            <input type="submit">
-        </form>
-        <br>-->
-
-        <!-- Pizzas List -->
-        <!--<div class="pizza_list">
-            <h1>Pizza list</h1>
-            {% for pizza in categories %}
-                {% for pizza in products %}
-                    <li>{{ pizza.name }}></li>
-                {% endfor %}
-            {% endfor %}
-        </div>
-        <br>-->
-        <!--
-        <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
-        <br>
-    </div>-->
-
-            <!--<div class="container-fluid" style="padding-left:13%; padding-right:13%; text-align: center;">
-                 <h3>Categories</h3>
-                <ul>
-                    <li {% if not category %}class="selected"{% endif %}>
-                        <a href="{% url "mystore:pizzayeah" %}">All</a>
-                    </li>
-                    {% for c in categories %}
-                    <li {% if not category.slug == c.slug %}class="selected"{% endif %}>
-                        <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="container-fluid" style="padding-left:13%; padding-right:13%; text-align: left;">
-                <h1>{% if category %}{{ category.name }}{% else %}All{% endif %}</h1>
-                {% for pizza in products %}
-                <div class="item">
-                    <a href="{{ product.get_absolute_url }}">
-                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/Logo.png" %}{% endif %}">
-                    </a>
-                    <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-                    <br>
-                </div>
-                {% endfor %}
-            </div>-->
-<!--
-    <div id="main" class="pizza">
-        <h1>Pizzas</h1>
-        {% for pizza in pizzas %}
-        <li>
-            {{ pizza.name }}
-        </li>
-        {% endfor %}
-    </div>
--->
-    <div class="row">
-        <div class="col-md">
-            <br>
-            <center><h1>Pizzas</h1></center>
-            <br>
-        </div>
-    </div>
-
-    <br>
-    <div class="row">
-        <div class="col-md-4 text-right">
-            <!-- Add Pizzas here -->
-            <p>Please add new Pizzas here.</p>
-            <p>Remember when adding a new pizza option, need to add three separate entries. One for a small, one for a medium, and one for a large.</p>
-            <form action="pizzayeah" method="POST">
-                {% csrf_token %}
-                Add a New Pizza : <input type="text" name="pizza_name"><br>
-                Select Pizza Size : <input type="text" name="pizza_size"><br>
-                New Pizza's Price : <input type="text" name="pizzas_price"><br>
-                <input type="submit">
-            </form>
-        </div>
-        <div class="card card-body">
-            <div class="col-md-12">
-                <table class="table table-sm text-center">
-                    <tr>
-                        <th>Pizzas</th>
-                    </tr>
-                    <!-- Looking up Pizzas here -->
-                    {% for pizza in pizzas %}
-                    <tr>
-                        <td class="text-center">{{ forloop.counter }}. {{ pizza.name }} |
-                            <a action="pizzayeah" class="btn btn-danger btn-sm" method="POST">Delete</a></td>
-                    </tr>
-                    {% endfor %}
-                </table>
+        <div class="row">
+            <div class="col-md">
+                <br>
+                <center><h1>Pizzas</h1></center>
+                <br>
             </div>
         </div>
-        <div class="col-md-4">
+        <br>
+        <div class="row">
+				<div class="col-md-2">
+				</div>
+				<div class="col-md-3 text-right">
+					<!-- Add Pizzas here -->
+					<p>Please add a new Pizza here.</p>
+					<p>Remember when adding a new pizza option, need to add three separate entries. One for a small, one for a medium, and one for a large.</p>
+					<form action="pizzayeah" method="POST" enctype=""multipart/form-data">
+							{% csrf_token %}
+							{{form.as_p}}
+						<input type="submit">
+					</form>
+				</div>
+				<div class="col-md-5 text-center">
+					<table class="table">
+						<h5>Pizzas</h5>
+						<tr>
+							<th>Name</th>
+							<th>Small Price</th>
+							<th>Medium Price</th>
+							<th>Large Price</th>
+							<th>Update</th>
+							<th>Delete</th>
+						</tr>
+
+						{% for pizza in pizzas %}
+                            <tr>
+                                <td>{{ pizza.name }}</td>
+                                <td>{{ pizza.priceSm }}</td>
+								<td>{{ pizza.priceMd }}</td>
+								<td>{{ pizza.priceLg }}</td>
+								<td><a class="btn btn-sm btn-info" href="">Update</a></td>
+                                <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+					</table>
+				</div>
+                <div class="col-md-2">
+				</div>
         </div>
-    </div>
-    <br>
 {% endblock %}

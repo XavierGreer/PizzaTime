@@ -5,80 +5,46 @@ Pizza Time | My Store | Sides Yeah
 {% endblock %}
 {% load static %}
 {% block content %}
-    <!--<div class="container">
-        <br>
-        <p>Welcome Admin!!!!!</p>
-        <br>
-        <h1>Sides</h1>
-        <br>
-
-        <p>Please add new sides here.</p>
-        <form action="add_side" method="post">
-            {% csrf_token %}
-            Add a New Side : <input type="text" name="sides_name"><br>
-            New Side's Price : <input type="text" name="sides_price"><br>
-            <input type="submit">
-        </form>
-        <br>
-
-        <div class="side_list">
-            {% for data in dataset %}
-                <li>{{ data.name }} | {{ data.price }}</li>
-            {% endfor %}
-        </div>
-        <br>
-
-        <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
-        <br>
-	</div>-->
-<!--<center>
-    <div id="main" class="pizza">
-        <h1>Sides</h1>
-        {% for side in sides %}
-        <li>
-            {{ side.name }}
-        </li>
-        {% endfor %}
-    </div>
-</center>-->
-
     <div class="row">
         <div class="col-md">
             <br>
-            <center><h1>Sodas</h1></center>
+            <center><h1>Sides</h1></center>
             <br>
         </div>
     </div>
-
     <br>
     <div class="row">
-        <div class="col-md-4 text-right">
+        <div class="col-md-2">
+		</div>
+        <div class="col-md-3 text-right">
             <!-- Add Sides here -->
-            <p>Please add new sides here.</p>
-            <form action="sideyeah" method="post">
-                {% csrf_token %}
-                Add a New Side : <input type="text" name="sides_name"><br>
-                New Side's Price : <input type="text" name="sides_price"><br>
+            <p>Please add new Sides here.</p>
+            <form action="sideyeah" method="POST" enctype=""multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
                 <input type="submit">
             </form>
         </div>
-        <div class="card card-body">
-            <div class="col-md-12">
-                <table class="table table-sm text-center">
-                    <tr>
-                        <th>Sides</th>
-                    </tr>
-                    <!-- Looking up Sides here -->
-                    {% for side in sides %}
-                    <tr>
-                        <td class="text-center">{{ forloop.counter }}. {{ side.name }} |
-                            <a action="sideyeah" class="btn btn-danger btn-sm" method="POST">Delete</a></td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-5 text-center">
+			<table class="table">
+				<h5>Sides</h5>
+				<tr>
+					<th>Name</th>
+					<th>Side Price</th>
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+				{% for side in sides %}
+					<tr>
+						<td>{{ side.name }}</td>
+						<td>{{ side.priceSide }}</td>
+						<td><a class="btn btn-sm btn-info" href="">Update</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+        <div class="col-md-2">
         </div>
     </div>
     <br>

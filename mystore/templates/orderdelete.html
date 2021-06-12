@@ -10,11 +10,11 @@ Pizza Time | My Store | Delete Order
         <p>Delete Order</p>
         <br>
         <div class="main">
-            <form method="POST">
+            <form action="delete_order" method="POST">
                 {% csrf_token %}
                 Are you want to delete this Order?
                 <input type="submit" value="Yes" />
-                <a href="/">Cancel </a>
+                <a href="{% url "mystore:mystore" %}">Cancel</a>
             </form>
         </div>
 	</div>

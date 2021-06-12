@@ -22,6 +22,31 @@ def lookup_products(request):
     sides = Side.objects.all()
     return render(request, 'productslookup.html', {'products': products, 'pizzas': pizzas, 'sodas': sodas, 'sides': sides})
 
+def delete_product(request, pk):
+    context = {}
+    obj = get_object_or_404(Product, id=pk)
+    if request.method == "POST":
+        obj.delete()
+        messages.success(request, ('Product Deleted Successfully'))
+        return render(request, 'mystore.html')
+    else:
+        return render(request, 'productdelete.html', context)
+
+def update_product(request, pk):
+    product = Product.objects.get(id=pk)
+    products = Product.objects.all()
+    context = {'product': product, 'products': products}
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            if form.isnot_valid():
+                messages.success(request, ('There was an error updating the Order. Please try again...'))
+                return render(request, 'productupdate.html', context)
+            messages.success(request, ('Product Updated Successfully'))
+            return render(request, 'mystore.html')
+    return render(request, 'productupdate.html', context)
+
 def create_order(request):
     form = OrderForm()
     if request.method == "POST":
@@ -32,7 +57,7 @@ def create_order(request):
                 messages.success(request, ('There was an error creating the Order. Please try again...'))
                 return render(request, 'ordercreate.html', context)
             messages.success(request, ('Order Created Successfully'))
-            return redirct('/')
+            return render(request, 'mystore.html')
     context = {'form': form}
     return render(request, 'ordercreate.html', context)
 
@@ -67,7 +92,7 @@ def create_order(request):
 def update_order(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
-
+    context = {'form': form}
     if request.method == "POST":
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
@@ -76,9 +101,7 @@ def update_order(request, pk):
                 messages.success(request, ('There was an error updating the Order. Please try again...'))
                 return render(request, 'orderupdate.html', context)
             messages.success(request, ('Order Updated Successfully'))
-            return redirct('/')
-
-    context = {'form': form}
+            return render(request, 'mystore.html')
     return render(request, 'orderupdate.html', context)
 
     '''try:
@@ -227,9 +250,9 @@ def toppingyeah(request):
             form.save()
         messages.success(request, ('Topping Created Successfully'))
         toppings = Topping.objects.all()
-        return render(request, "toppingyeah.html", {'toppings': toppings})
+        return render(request, "toppingyeah.html", {'toppings': toppings, 'form': form})
     else:
-        return render(request, "toppingyeah.html", {'toppings': toppings})
+        return render(request, "toppingyeah.html", {'toppings': toppings, 'form': form})
 
 '''def toppingyeah(request, id):
     context = {}
@@ -251,9 +274,9 @@ def pizzayeah(request):
             form.save()
         messages.success(request, ('Pizza Created Successfully'))
         pizzas = Pizza.objects.all()
-        return render(request, "pizzayeah.html", {'pizzas': pizzas})
+        return render(request, "pizzayeah.html", {'pizzas': pizzas, 'form': form})
     else:
-        return render(request, "pizzayeah.html", {'pizzas': pizzas})
+        return render(request, "pizzayeah.html", {'pizzas': pizzas, 'form': form})
 
     '''context = {}
     obj = get_object_or_404(Side, id=id)
@@ -272,9 +295,9 @@ def sodayeah(request):
             form.save()
         messages.success(request, ('Soda Created Successfully'))
         sodas = Soda.objects.all()
-        return render(request, "sodayeah.html", {'sodas': sodas})
+        return render(request, "sodayeah.html", {'sodas': sodas, 'form': form})
     else:
-        return render(request, "sodayeah.html", {'sodas': sodas})
+        return render(request, "sodayeah.html", {'sodas': sodas, 'form': form})
 
     '''context = {}
     obj = get_object_or_404(Side, id=id)
@@ -293,9 +316,9 @@ def sideyeah(request):
             form.save()
         messages.success(request, ('Side Created Successfully'))
         sides = Side.objects.all()
-        return render(request, "sideyeah.html", {'sides': sides})
+        return render(request, "sideyeah.html", {'sides': sides, 'form': form})
     else:
-        return render(request, "sideyeah.html", {'sides': sides})
+        return render(request, "sideyeah.html", {'sides': sides, 'form': form})
 
     '''context = {}
     obj = get_object_or_404(Side, id=id)

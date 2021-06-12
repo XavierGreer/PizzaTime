@@ -21,9 +21,9 @@ Pizza Time | My Store | Update Customer
         </div>
         <div class="col-md text-center">
             <center>
-                <form method='POST'>
-                    {% csrf_token %}
-                    {{form.as_p}}
+                <form action="update_customer"method='POST'>
+                        {% csrf_token %}
+                        {{form.as_p}}
                     <input type='submit' value='Submit'>
                 </form>
             </center>
