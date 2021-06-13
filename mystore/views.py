@@ -121,8 +121,8 @@ def create_order(request):
         return render(request, "ordersyeah.html", {'orders': orders, 'form': form})
     return render(request, "ordersyeah.html", {'orders': orders, 'form': form})
 
-def update_order(request, orderID):
-    order = Order.objects.get(orderID=orderID)
+def update_order(request, id):
+    order = Order.objects.get(id=id)
     form = OrderForm(instance=order)
     context = {'form': form}
     if request.method == "POST":

@@ -175,7 +175,7 @@ class Customer(models.Model):
         return str(self.firstname + ' ' + self.lastname)
 
 class Order(models.Model):
-    orderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
+    # orderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
     customer = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True, blank=True, editable=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, editable=True)
     tax = models.DecimalField(max_digits=4, decimal_places=2, editable=True, default=4.63)

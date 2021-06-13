@@ -123,7 +123,8 @@ class DatabaseController:
 
     def initilizeOrders(self):
         orders = [
-            (0, 120.43, 4.63, 0, 'Order Received'),
+            # (0, 120.43, 4.63, 0, 'Order Received'),
+            # (1, 120.43, 4.63, 0, 'Order Received'),
 
         ]
         cursorObj = self.dbCon.cursor()

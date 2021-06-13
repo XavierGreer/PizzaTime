@@ -19,7 +19,7 @@ Pizza Time | My Store | Sodas Yeah
         <div class="col-md-3 text-right">
             <!-- Add Sodas here -->
             <p>Please add new Sodas here.</p>
-            <form action="sodayeah" method="POST" enctype=""multipart/form-data">
+            <form action="sodayeah" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{form.as_p}}
                 <input type="submit">

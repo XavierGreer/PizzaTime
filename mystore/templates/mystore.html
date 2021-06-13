@@ -129,10 +129,10 @@ Pizza Time | My Store | Admins Only Dashboard
                     {% for order in orders %}
                     <tr>
                         <td>{{ order.customer }}</td>
-                        <td>{{ order.orderID }}</td>
+                        <td>{{ order.id }}</td>
                         <td>{{ order.status }}</td>
-                        <td><a href="{% url 'mystore:update_order' order.orderID %}" class="btn btn-info">Update</a></td>
-                        <td><a href="{% url 'mystore:delete_order' order.orderID %}" class="btn btn-danger">Delete</a></td>
+                        <td><a href="{% url 'mystore:update_order' order.id %}" class="btn btn-info">Update</a></td>
+                        <td><a href="{% url 'mystore:delete_order' order.id %}" class="btn btn-danger">Delete</a></td>
                     </tr>
                     {% endfor %}
 
