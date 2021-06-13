@@ -63,23 +63,23 @@
             {% endif %}
         </form>
 
-        {% if product.product_type == 'Pizza' %}
-        <div>
-            <center>
-                <form>
-                    <div class="row">
-                    {% for field in toppings %}
-                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                            <label size="30"><h4>{{ field.name }}</h4></label><br>
-                            <label>{{ field }}</label><br>
-                        </div>
-                    {% endfor %}
-                    {% csrf_token %}
-                </form>
-            </center>
-        </div>
-        {% else %}
-        {% endif %}
+<!--        {% if product.product_type == 'Pizza' %}-->
+<!--        <div>-->
+<!--            <center>-->
+<!--                <form>-->
+<!--                    <div class="row">-->
+<!--                    {% for field in toppings %}-->
+<!--                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">-->
+<!--                            <label size="30"><h4>{{ field.name }}</h4></label><br>-->
+<!--                            <label>{{ field }}</label><br>-->
+<!--                        </div>-->
+<!--                    {% endfor %}-->
+<!--                    {% csrf_token %}-->
+<!--                </form>-->
+<!--            </center>-->
+<!--        </div>-->
+<!--        {% else %}-->
+<!--        {% endif %}-->
     </div>
 </center>
 {% endblock %}

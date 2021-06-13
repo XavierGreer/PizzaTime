@@ -44,11 +44,10 @@ class Cart(object):
     def save(self):
         self.session.modified = True
 
-    def remove(self,product):
-        product_id = str(product.id)
-        if product_id in self.cart:
-            del self.cart[product_id]
-            self.save()
+    def remove(self, product):
+        product_id = product[0][1]
+        del self.cart[product_id-1]
+        self.save()
 
     def __iter__(self):
         for item in self.cart:
