@@ -1,49 +1,42 @@
 {% extends "base.html" %}
+
 {% block title %}
     Pizza Time Pizzeria | Contact Us
 {% endblock %}
 {% load static %}
+<link rel="stylesheet" href="{{ STATIC_URL }} contact.css">
 {% block content %}
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="../../static/css/contact.css" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    </head>
-    <body>
-        <div class="bgimg">
-            <div class="container">
-                <div id="form-main">
-                    <div id="form-div">
-                        <form class="montform" id="reused_form" >
-                            <p class="name">
-                                <input name="name" type="text" class="feedback-input" required placeholder="Name" id="name" />
-                            </p>
-                            <p class="email">
-                                <input name="email" type="email" required class="feedback-input" id="email" placeholder="Email" />
-                            </p>
-                            <p class="text">
-                                <textarea name="message" class="feedback-input" id="comment" placeholder="Message"></textarea>
-                            </p>
-                            <div class="submit">
-                                <button type="submit" class="button-red">SUBMIT</button>
-                                <div class="ease"></div>
-                            </div>
-                        </form>
-                        <div id="error_message" style="width:100%; height:100%; display:none; ">
-                            <h4>
-                                Error
-                            </h4>
-                            Sorry there was an error sending your form.
-                        </div>
-                        <div id="success_message" style="width:100%; height:100%; display:none; "> <h2>Success! Your Message was Sent Successfully.</h2> </div>
+<div class="bgimg" style="height:100vh;">
+
+    <div class="containerabout">
+        <div id="form-main">
+            <div id="form-div">
+                <h1 class="text-center">Contact Us</h1>
+                <form class="montform" id="reused_form" >
+                    <p class="name">
+                        <input name="name" type="text" class="feedback-input" required placeholder="Name" id="name" />
+                    </p>
+                    <p class="email">
+                        <input name="email" type="email" required class="feedback-input" id="email" placeholder="Email" />
+                    </p>
+                    <p class="text">
+                        <textarea name="message" class="feedback-input" id="comment" placeholder="Message"></textarea>
+                    </p>
+                    <div class="submit">
+                        <button type="submit" class="button-red">SUBMIT</button>
+                        <div class="ease"></div>
                     </div>
-                </div>
+                </form>
+                    <div id="error_message" style="width:100%; height:100%; display:none; ">
+                        <h4>
+                            Error
+                        </h4>
+                            Sorry there was an error sending your form.
+                    </div>
+                <div id="success_message" style="width:100%; height:100%; display:none; "> <h2>Success! Your Message was Sent Successfully.</h2> </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+
+</div>
 {% endblock %}

@@ -6,202 +6,240 @@ from .forms import CustomerForm, OrderForm, SideForm, SodaForm, PizzaForm, Toppi
 from databaseController import DatabaseController
 
 def mystore(request):
-    # category = None
-    # categories = Category.objects.all()
-    # products = Product.objects.all()
-    # context = {'cartegories': categories, 'products': products}
     orders = Order.objects.all()
-    return render(request, 'mystore.html', {'user': 'Admin', 'orders':orders})
+    customers = Customer.objects.all()
+    total_customers = customers.count()
+    total_orders = orders.count()
+    delivered = orders.filter(status='Delivered').count()
+    received = orders.filter(status='Order Received').count()
+    baking = orders.filter(status='Baking').count()
+    ontheway = orders.filter(status='On The Way').count()
+
+    return render(request, 'mystore.html', {'orders': orders, 'customers': customers, 'total_customers': total_customers,
+                                            'total_orders': total_orders, 'delivered': delivered, 'received': received,
+                                            'baking': baking, 'ontheway': ontheway})
 
 def lookup_products(request):
-    orders = Order.objects.all()
-    return render(request, 'productslookup.html', {'orders':orders})
+    products = Product.objects.all()
+    pizzas = Pizza.objects.all()
+    sodas = Soda.objects.all()
+    sides = Side.objects.all()
+    return render(request, 'productslookup.html', {'products': products, 'pizzas': pizzas, 'sodas': sodas, 'sides': sides})
 
-def results(request):
+def delete_soda(request, pk):
     context = {}
-    orders = Order.objects.all()
-    context["dataset"] = Topping.objects.all()
-    return render(request, 'results.html', context, {'orders':orders})
+    obj = get_object_or_404(Soda, pk=pk)
+    if request.method == "POST":
+        obj.delete()
+        messages.success(request, ('Soda Deleted Successfully'))
+        return redirect('mystore:mystore')
+    return render(request, 'productdelete.html', context)
+
+def delete_side(request, pk):
+    context = {}
+    obj = get_object_or_404(Side, pk=pk)
+    if request.method == "POST":
+        obj.delete()
+        messages.success(request, ('Side Deleted Successfully'))
+        return redirect('mystore:mystore')
+    return render(request, 'productdelete.html', context)
+
+def delete_pizza(request, pk):
+    context = {}
+    obj = get_object_or_404(Pizza, pk=pk)
+    if request.method == "POST":
+        obj.delete()
+        messages.success(request, ('Pizza Deleted Successfully'))
+        return redirect('mystore:mystore')
+    return render(request, 'productdelete.html', context)
+
+def delete_topping(request, pk):
+    context = {}
+    obj = get_object_or_404(Topping, pk=pk)
+    if request.method == "POST":
+        obj.delete()
+        messages.success(request, ('Topping Deleted Successfully'))
+        return redirect('mystore:mystore')
+    return render(request, 'productdelete.html', context)
+
+def update_soda(request, pk):
+    soda = Soda.objects.get(pk=pk)
+    form = SodaForm(instance=soda)
+    context = {'form': form}
+    if request.method == "POST":
+        form = SodaForm(request.POST, instance=soda)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Soda Updated Successfully'))
+            return redirect('mystore:mystore')
+    return render(request, 'productupdate.html', context)
+
+def update_side(request, pk):
+    side = Side.objects.get(pk=pk)
+    form = SideForm(instance=side)
+    context = {'form': form}
+    if request.method == "POST":
+        form = SideForm(request.POST, instance=side)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Side Updated Successfully'))
+            return redirect('mystore:mystore')
+    return render(request, 'productupdate.html', context)
+
+def update_pizza(request, pk):
+    pizza = Pizza.objects.get(pk=pk)
+    form = PizzaForm(instance=pizza)
+    context = {'form': form}
+    if request.method == "POST":
+        form = PizzaForm(request.POST, instance=pizza)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Pizza Updated Successfully'))
+            return redirect('mystore:mystore')
+    return render(request, 'productupdate.html', context)
+
+def update_topping(request, pk):
+    topping = Topping.objects.get(pk=pk)
+    form = ToppingForm(instance=topping)
+    context = {'form': form}
+    if request.method == "POST":
+        form = ToppingForm(request.POST, instance=topping)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Topping Updated Successfully'))
+            return redirect('mystore:mystore')
+    return render(request, 'productupdate.html', context)
 
 def create_order(request):
-    form = OrderForm(request.POST or None)
     orders = Order.objects.all()
+    form = OrderForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
             form.save()
-        else:
-            messages.success(request, ('There was an error creating the Order. Please try again...'))
-            return render(request, 'ordercreate.html', {'form': form, 'orders':orders})
         messages.success(request, ('Order Created Successfully'))
-        return render(request, 'ordercreate.html', {'form': form, 'orders':orders})
-    else:
-        return render(request, 'ordercreate.html', {'form': form, 'orders':orders})
+        orders = Order.objects.all()
+        return render(request, "ordersyeah.html", {'orders': orders, 'form': form})
+    return render(request, "ordersyeah.html", {'orders': orders, 'form': form})
 
 def update_order(request, orderID):
-    orderID = (orderID)
-    orders = Order.objects.all()
-    try:
-        order_select = Order.objects.get(id=orderID)
-    except Order.DoesNotExist:
-        return render(request, 'mystore.html', {'user': 'Admin', 'orders':orders})
-    order_form = OrderForm(request.POST or None, instance = order_select)
-    if order_form.is_valid():
-       order_form.save()
-       return render(request, 'mystore.html', {'user': 'Admin'})
-    return render(request, 'orderupdate.html', {'order_form': order_form, 'orders':orders})
+    order = Order.objects.get(orderID=orderID)
+    form = OrderForm(instance=order)
+    context = {'form': form}
+    if request.method == "POST":
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Order Updated Successfully'))
+            return redirect('mystore:mystore')
+    return render(request, 'orderupdate.html', context)
 
 def delete_order(request, orderID):
-    context ={}
-    orders = Order.objects.all()
+    context = {}
     obj = get_object_or_404(Order, orderID=orderID)
     if request.method == "POST":
         obj.delete()
         messages.success(request, ('Order Deleted Successfully'))
-        return render(request, 'mystore.html', {'user': 'Admin', 'orders':orders})
+        return redirect('mystore:mystore')
     else:
-        return render(request, 'orderdelete.html', context, {'orders':orders})
+        return render(request, 'orderdelete.html', context)
 
 def lookup_order(request):
-    context = {}
     orders = Order.objects.all()
-    context["orders"] = Order.objects.all()
-    return render(request, 'orderlookup.html', context, {'orders':orders})
+    form = OrderForm()
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Order Created Successfully'))
+            return redirect('mystore:mystore')
+    context = {'form': form, 'orders': orders}
+    return render(request, 'ordersyeah.html', context)
 
 def create_customer(request):
+    customers = Customer.objects.all()
     form = CustomerForm(request.POST or None)
-    orders = Order.objects.all()
     if request.method == "POST":
+        form = CustomerForm(request.POST)
         if form.is_valid():
             form.save()
         messages.success(request, ('Customer Created Successfully'))
-        return render(request, 'customercreate.html', {'form': form, 'orders':orders})
-    else:
-        return render(request, 'customercreate.html', {'form': form, 'orders':orders})
+        return redirect('mystore:mystore')
+    return render(request, "customercreate.html", {'customers': customers, 'form': form})
 
-def update_customer(request, customerID):
-    customerID = (customerID)
-    orders = Order.objects.all()
-    try:
-        customer_select = Customer.objects.get(id=customerID)
-    except Customer.DoesNotExist:
-        return render(request, 'mystore.html', {'user': 'Admin'})
-    customer_form = CustomerForm(request.POST or None, instance=customer_select)
-    if customer_form.is_valid():
-        customer_form.save()
-        return render(request, 'mystore.html', {'user': 'Admin'})
-    return render(request, 'customerupdate.html', {'customer_form': customer_form, 'orders':orders})
-
-def delete_customer(request, customerID):
+def delete_customer(request, pk):
     context = {}
-    orders = Order.objects.all()
-    obj = get_object_or_404(Customer, customerID=customerID)
+    obj = get_object_or_404(Customer, pk=pk)
     if request.method == "POST":
         obj.delete()
         messages.success(request, ('Customer Deleted Successfully'))
-        return render(request, 'mystore.html', {'user': 'Admin'})
+        return redirect('mystore:mystore')
     else:
-        return render(request, 'customerdelete.html', context, {'orders':orders})
+        return render(request, 'customerdelete.html', context)
 
 def lookup_customer(request):
-    context = {}
-    context["customers"] = Customer.objects.all()
-    orders = Order.objects.all()
-    return render(request, 'customerlookup.html', context, {'orders':orders})
+    customers = Customer.objects.all()
+    form = CustomerForm(request.POST or None)
+    if request.method == "POST":
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            form.save()
+        messages.success(request, ('Customer Created Successfully'))
+        return redirect('mystore:mystore')
+    context = {'customers': customers, 'form': form}
+    return render(request, "customersyeah.html", context)
 
-def toppingyeah(request, id):
-    context = {}
-    context["dataset"] = Topping.objects.all()
-    orders = Order.objects.all()
-    obj = get_object_or_404(Side, id=id)
-    form = ToppingForm(request.POST or None, instance=obj)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect("/" + id)
-    context["form"] = form
-    return render(request, "toppingyeah.html", context, {'orders':orders})
+def update_customer(request, pk):
+    customer = Customer.objects.get(pk=pk)
+    form = CustomerForm(instance=customer)
+    context = {'form': form}
+    if request.method == "POST":
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Customer Updated Successfully'))
+            return redirect('mystore:mystore')
+    return render(request, 'customerupdate.html', context)
 
-    # if request.method == 'POST':
-    #     topping_name = request.POST['topping_name']
-    #
-    # else:
-    #    messages.info({topping_name}, ' Added Successfully.')
-    #    return render(request, 'results.html', {'result': messages}, {'user': 'Admin'})
+def toppingyeah(request):
+    toppings = Topping.objects.all()
+    form = ToppingForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+        messages.success(request, ('Topping Created Successfully'))
+        toppings = Topping.objects.all()
+        return render(request, "toppingyeah.html", {'toppings': toppings, 'form': form})
+    return render(request, "toppingyeah.html", {'toppings': toppings, 'form': form})
 
 def pizzayeah(request):
     pizzas = Pizza.objects.all()
-    orders = Order.objects.all()
-    context = {'pizzas':pizzas}
-    return render(request, "pizzayeah.html", context, {'orders':orders})
-
-    '''context = {}
-    obj = get_object_or_404(Side, id=id)
-    form = PizzaForm(request.POST or None, instance=obj)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect("/" + id)
-    context["form"] = form
-    return render(request, "pizzayeah.html", context)'''
-
-    # if request.method == 'POST':
-    #     pizza_name = request.POST['pizza_name']
-    #     pizza_size = request.POST['pizza_size']
-    #     pizza_price = request.POST['pizza_price']
-    #
-    #     if pizza_size=='Small' or 'Medium' or 'Large':
-    #         messages.info(request, 'Pizza Size needs to be either Small, Medium, or Large')
-    #         return redirect('mystore')
-    #     else:
-    #         messages.info(request, {pizza_name}, ',', {pizza_size}, ', and', {pizza_price}, ' Added Successfully.')
-    #         return render(request, 'results.html', {'result': messages}, {'user': 'Admin'})
+    form = PizzaForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+        messages.success(request, ('Pizza Created Successfully'))
+        pizzas = Pizza.objects.all()
+        return render(request, "pizzayeah.html", {'pizzas': pizzas, 'form': form})
+    return render(request, "pizzayeah.html", {'pizzas': pizzas, 'form': form})
 
 def sodayeah(request):
     sodas = Soda.objects.all()
-    orders = Order.objects.all()
-    context = {'sodas': sodas}
-    return render(request, "sodayeah.html", context, {'orders':orders})
-
-    # context = {}
-    # obj = get_object_or_404(Side, id=id)
-    # form = SodaForm(request.POST or None, instance=obj)
-    # if form.is_valid():
-    #     form.save()
-    #     return HttpResponseRedirect("/" + id)
-    # context["form"] = form
-    # return render(request, "sodayeah.html", context)
-
-    # if request.method == 'POST':
-    #     soda_name = request.POST['soda_name']
-    #     soda_size = request.POST['soda_size']
-    #     soda_price = request.POST['soda_price']
-    #
-    #     if soda_size == '12 Oz' or '2 Litter':
-    #         messages.info(request, 'Soda Size needs to be either 12 Oz or 2 Litter')
-    #         return redirect('mystore')
-    #
-    #     else:
-    #         messages.info({soda_name}, ',', {soda_size}, ', and', {soda_price}, ' Added Successfully.')
-    #         return render(request, 'results.html', {'result': messages}, {'user': 'Admin'})
+    form = SodaForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+        messages.success(request, ('Soda Created Successfully'))
+        sodas = Soda.objects.all()
+        return render(request, "sodayeah.html", {'sodas': sodas, 'form': form})
+    return render(request, "sodayeah.html", {'sodas': sodas, 'form': form})
 
 def sideyeah(request):
     sides = Side.objects.all()
-    orders = Order.objects.all()
-    context = {'sides': sides}
-    return render(request, "sideyeah.html", context, {'orders':orders})
-
-    '''context = {}
-    obj = get_object_or_404(Side, id=id)
-    form = SideForm(request.POST or None, instance=obj)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect("/" + id)
-    context["form"] = form
-    return render(request, "sideyeah.html", context)'''
-
-    # if request.method == 'POST':
-    #     side_name = request.POST['side_name']
-    #     side_price = request.POST['side_price']
-    #
-    # else:
-    #     messages.info(request, {side_name}, ' and', {side_price}, ' Added Successfully.')
-    #     return render(request, 'results.html', {'result': messages}, context)
-
+    form = SideForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+        messages.success(request, ('Side Created Successfully'))
+        sides = Side.objects.all()
+        return render(request, "sideyeah.html", {'sides': sides, 'form': form})
+    return render(request, "sideyeah.html", {'sides': sides, 'form': form})

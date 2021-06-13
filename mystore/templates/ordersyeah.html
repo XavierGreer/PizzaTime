@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pizza Time | My Store | All Things Orders
+{% endblock %}
+{% load static %}
+{% block content %}
+    <br>
+    <center><h1>Order Lookup</h1></center>
+    <br>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-3 text-center">
+            <center>
+                <form action="create_order" method='POST'>
+                        {% csrf_token %}
+                        {{form.as_p}}
+                    <input type='submit' value='Submit'>
+                </form>
+            </center>
+        </div>
+        <div class="col-md-5">
+            <div class="card card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer ID</th>
+                        <th>Total</th>
+                        <th>Tax</th>
+                        <th>Discount</th>
+                        <th>Status</th>
+                        <th>Update</th>
+                        <th>Remove</th>
+                    </tr>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.orderID }}</td>
+                            <td>{{ order.customer }}</td>
+                            <td>{{ order.total }}</td>
+                            <td>{{ order.tax }}</td>
+                            <td>{{ order.discount }}</td>
+                            <td>{{ order.status }}</td>
+                            <td><a href="{% url 'mystore:update_order' order.orderID %}" class="btn btn-info">Update</a></td>
+                            <td><a href="{% url 'mystore:delete_order' order.orderID %}" class="btn btn-danger">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+
+{% endblock %}

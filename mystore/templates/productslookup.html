@@ -1,29 +1,104 @@
 {% extends "base.html" %}
 
 {% block title %}
-Pizza Time | My Store | Products Lookup
+Pizza Time | My Store | Lookup Products
 {% endblock %}
 {% load static %}
 {% block content %}
-
 		<br>
 		<div class="row">
 			<div class="col-md">
 				<div class="card card-body">
-					<h5>Products</h5>
+					<h1>Products</h1>
 				</div>
-				<div class="card card-body">
+				<div class="card card-lg">
 					<table class="table">
 						<tr>
-							<th>Product</th>
-							<th>Category</th>
-							<th>Price</th>
+							<th>Product Type</th>
+							<th>Name</th>
+							<th>Small Price</th>
+							<th>Medium Price</th>
+							<th>Large Price</th>
+							<th>Side Price</th>
 						</tr>
-
+						{% for product in products %}
+                            <tr>
+                                <td>{{ product.product_type }}</td>
+                                <td>{{ product.name }}</td>
+								<td>{{ product.priceSm }}</td>
+								<td>{{ product.priceMd }}</td>
+								<td>{{ product.priceLg }}</td>
+                                <td>{{ product.priceSide }}</td>
+                            </tr>
+                        {% endfor %}
 					</table>
 				</div>
 			</div>
-
 		</div>
-
+		<br>
+		<div class="row">
+			<div class="col-md-4 text-center">
+				<table class="table">
+					<h5>Pizzas</h5>
+					<tr>
+						<th>Name</th>
+						<th>Small Price</th>
+						<th>Medium Price</th>
+						<th>Large Price</th>
+						<th>Update</th>
+						<th>Delete</th>
+					</tr>
+					{% for pizza in pizzas %}
+                        <tr>
+                            <td>{{ pizza.name }}</td>
+                            <td>{{ pizza.priceSm }}</td>
+							<td>{{ pizza.priceMd }}</td>
+							<td>{{ pizza.priceLg }}</td>
+							<td><a class="btn btn-sm btn-info" href="{% url 'mystore:update_pizza' pizza.pk %}">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'mystore:delete_pizza' pizza.pk %}">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+				</table>
+			</div>
+			<div class="col-md-4 text-center">
+				<table class="table">
+					<h5>Sodas</h5>
+					<tr>
+						<th>Name</th>
+						<th>Small Price</th>
+						<th>Large Price</th>
+						<th>Update</th>
+						<th>Delete</th>
+					</tr>
+					{% for soda in sodas %}
+						<tr>
+							<td>{{ soda.name }}</td>
+							<td>{{ soda.priceSm }}</td>
+							<td>{{ soda.priceLg }}</td>
+							<td><a class="btn btn-sm btn-info" href="{% url 'mystore:update_soda' soda.pk %}">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'mystore:delete_soda' soda.pk %}">Delete</a></td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+			<div class="col-md-4 text-center">
+				<table class="table">
+					<h5>Sides</h5>
+					<tr>
+						<th>Name</th>
+						<th>Side Price</th>
+						<th>Update</th>
+						<th>Delete</th>
+					</tr>
+					{% for side in sides %}
+						<tr>
+							<td>{{ side.name }}</td>
+							<td>{{ side.priceSide }}</td>
+							<td><a class="btn btn-sm btn-info" href="{% url 'mystore:update_side' side.pk %}">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'mystore:delete_side' side.pk %}">Delete</a></td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
 {% endblock %}

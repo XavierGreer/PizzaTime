@@ -62,14 +62,14 @@
                 </li>
                 <ul class="nav navbar-nav navbar-right">
 
-            {% if user.is_authenticated %}
-            <li><a href="{% url "logout" %}">&nbsp; Logout</a></li>
-            {% else %}
-            <li><a href="{% url "register" %}">&nbsp; Sign up</a></li>
-            <li><a href="{% url "login" %}">&nbsp; Log in</a></li>
-            {% endif %}
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url "logout" %}">&nbsp; Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url "register" %}">&nbsp; Sign up</a></li>
+                    <li><a href="{% url "login" %}">&nbsp; Log in</a></li>
+                    {% endif %}
 
-          </ul>
+                </ul>
             </div>
         </div>
     </nav>

@@ -5,31 +5,46 @@ Pizza Time | My Store | Toppings Yeah
 {% endblock %}
 {% load static %}
 {% block content %}
-    <div class="container">
-        <br>
-        <p>Welcome Admin!!!!!</p>
-        <br>
-        <h1>Toppings</h1>
-        <br>
-
-        <!-- Add Toppings here -->
-        <p>Please add new Toppings here.</p>
-        <form action="add_topping" method="post">
-            {% csrf_token %}
-            Add a New Topping :  <input type="text" name="topping_name"><br>
-            <input type="submit">
-        </form>
-        <br>
-
-        <!-- Toppings List -->
-        <div class="topping_list">
-            {% for data in dataset %}
-                <li>{{ data.name }}</li>
-            {% endfor %}
+    <br>
+    <div class="row">
+        <div class="col-md">
+            <br>
+            <center><h1>Toppings</h1></center>
+            <br>
         </div>
-        <br>
-
-        <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
-        <br>
-	</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-2">
+		</div>
+        <div class="col-md-3 text-right">
+            <!-- Add Toppings here -->
+            <p>Please add new Toppings here.</p>
+            <form action="toppingyeah" method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                <input type="submit">
+            </form>
+        </div>
+        <div class="col-md-5 text-center">
+			<table class="table">
+				<h5>Toppings</h5>
+				<tr>
+					<th>Name</th>
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+				{% for topping in toppings %}
+					<tr>
+						<td>{{ topping.name }}</td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'mystore:update_topping' topping.pk %}">Update</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="{% url 'mystore:delete_topping' topping.pk %}">Delete</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <br>
 {% endblock %}

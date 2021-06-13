@@ -5,42 +5,49 @@ Pizza Time | My Store | Sodas Yeah
 {% endblock %}
 {% load static %}
 {% block content %}
-    <!--<div class="container">
-        <br>
-        <p>Welcome Admin!!!!!</p>
-        <br>
-        <h1>Sodas</h1>
-        <br>
-
-        <p>Please add new sodas here.</p>
-        <p>Remember when adding a new soda option, please add two separate entries for each new soda. One for a "12Oz" and one for a "2Liter".</p>
-        <form action="add_soda" method="post">
-            {% csrf_token %}
-            Add a New Soda : <input type="text" name="soda_name"><br>
-            Select Soda Size : <input type="text" name="soda_size"><br>
-            New Soda's Price : <input type="text" name="sodas_price"><br>
-            <input type="submit">
-        </form>
-        <br>
-
-        <div class="soda_list">
-            {% for data in dataset %}
-                <li>{{ data.name }} | {{ data.size }} | {{ data.price }}</li>
-            {% endfor %}
+    <div class="row">
+        <div class="col-md">
+            <br>
+            <center><h1>Sodas</h1></center>
+            <br>
         </div>
-        <br>
-
-        <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
-        <br>
-	</div>-->
-<center>
-    <div id="main" class="pizza">
-        <h1>Sodas</h1>
-        {% for soda in sodas %}
-        <li>
-            {{ soda.name }}
-        </li>
-        {% endfor %}
     </div>
-</center>
+    <br>
+    <div class="row">
+        <div class="col-md-2">
+		</div>
+        <div class="col-md-3 text-right">
+            <!-- Add Sodas here -->
+            <p>Please add new Sodas here.</p>
+            <form action="sodayeah" method="POST" enctype=""multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                <input type="submit">
+            </form>
+        </div>
+        <div class="col-md-5 text-center">
+			<table class="table">
+				<h5>Sodas</h5>
+				<tr>
+					<th>Name</th>
+					<th>Small Price</th>
+					<th>Large Price</th>
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+				{% for soda in sodas %}
+					<tr>
+						<td>{{ soda.name }}</td>
+						<td>{{ soda.priceSm }}</td>
+                        <td>{{ soda.priceLg }}</td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'mystore:update_soda' soda.pk %}">Update</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="{% url 'mystore:delete_soda' soda.pk %}">Delete</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <br>
 {% endblock %}

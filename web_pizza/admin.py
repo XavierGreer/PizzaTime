@@ -6,14 +6,12 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug':('name',)}
 
-
-
-'''@admin.register(Product)
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name','slug','available']
     list_filter = ['available']
     list_editable = ['available']
-    prepopulated_fields = {'slug': ('name',)}'''
+    prepopulated_fields = {'slug': ('name',)}
 
 class ToppingAmountInline(admin.TabularInline):
     model = ToppingAmount

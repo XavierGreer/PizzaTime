@@ -1,96 +1,26 @@
 {% extends "base.html" %}
 
 {% block title %}
-Pizza Time | My Store | Customer Lookup
+Pizza Time | My Store | Update Customer
 {% endblock %}
 {% load static %}
 {% block content %}
-<!--
-    <div class="container">
-        <br>
-        <p>Lookup Customer</p>
-        <br>
-        <div>
-            {% for customer in customers %}
-                <div>
-                    <div>
-                        <h5 class="customer-ID">Customer ID: {{ customer.customerID }}</h5>
-                        <p class="customer-firstname">First Name: {{ customer.firstname }}</p>
-                        <p class="customer-lastname">Last Name: {{ customer.lastname }}</p>
-                        <p class="customer-phone">Phone: {{ customer.phone }}</p>
-                        <p class="customer-email">Email: {{ customer.email }}</p>
-                        <p class="customer-address">Address: {{ customer.address }}</p>
-                        <p class="customer-zipcode">Zip / Postal code: {{ customer.zipcode }}</p>
-                        <center>
-                        <a href="update_customer/{{ customer.customerID }}" class="btn btn-warning" customerID = '{{ customer.customerID }}'>Update</a>
-                        <a href="delete_customer/{{ customer.customerID }}" class="btn btn-danger" customerID = '{{ customer.customerID }}'>Delete</a>
-                        </center>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <br>
-        <p><li><a href="{% url "mystore:mystore" %}"> My Store</a></li></p>
-    </div>
-        <br>
--->
+    <br>
         <div class="row">
             <div class="col-md">
-                <div class="card card-body">
-                    <h5>Customer:</h5>
-                    <hr>
-                    <a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a>
-                    <a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Customer</a>
-                </div>
             </div>
-
-            <div class="col-md">
-                <div class="card card-body">
-                    <h5>Contact Information</h5>
-                    <hr>
-                    <p>Email: </p>
-                    <p>Phone: </p>
-                </div>
+            <div class="col-md text-center">
+            <center>
+                <h1>Update Customer</h1>
+                <br>
+                <form action="update_customer" method='POST'>
+                        {% csrf_token %}
+                        {{form.as_p}}
+                    <input type='submit' value='Submit'>
+                </form>
+            </center>
             </div>
-
             <div class="col-md">
-                <div class="card card-body">
-                    <h5>Total Orders</h5>
-                    <hr>
-                    <h1 style="text-align: center;padding: 10px"></h1>
-                </div>
             </div>
         </div>
-
-
-        <br>
-        <div class="row">
-            <div class="col">
-                <div class="card card-body">
-                    <form method="get">
-
-                    <button class="btn btn-primary" type="submit">Search</button>
-                  </form>
-                </div>
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md">
-                <div class="card card-body">
-                    <table class="table table-sm">
-                        <tr>
-                            <th>Product</th>
-                            <th>Category</th>
-                            <th>Date Orderd</th>
-                            <th>Status</th>
-                            <th>Update</th>
-                            <th>Remove</th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-
 {% endblock %}

@@ -171,20 +171,23 @@ class Customer(models.Model):
     address = models.CharField("Address line 1", max_length=1024, editable=True)
     zipcode = models.CharField("ZIP / Postal code", max_length=12, editable=True)
 
+    def __str__(self):
+        return str(self.firstname + ' ' + self.lastname)
+
 class Order(models.Model):
-    # orderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
+    orderID = models.CharField(primary_key=True, default=uuid.uuid4().hex[:5].upper(), max_length=100, editable=False)
     customer = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True, blank=True, editable=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, editable=True)
     tax = models.DecimalField(max_digits=4, decimal_places=2, editable=True, default=4.63)
     discount = models.DecimalField(max_digits=2, decimal_places=0, editable=True, default=0)
 
     STATUSES = (
-        (0, 'Order Received'),
-        (1, 'Baking'),
-        (2, 'On The Way'),
-        (3, 'Delivered'),
+        ('Order Received', 'Order Received'),
+        ('Baking', 'Baking'),
+        ('On The Way', 'On The Way'),
+        ('Delivered', 'Delivered'),
     )
-    status = models.IntegerField("Order Status", choices=STATUSES, default=0, blank=False, editable=True)
+    status = models.CharField("Order Status", choices=STATUSES, max_length=100, default='Order Received', blank=False, editable=True)
 
     def __str__(self):
         return str(self.orderID)
@@ -193,7 +196,7 @@ class OrderItem(models.Model):
     ProductOrderID = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     sizePizza = models.IntegerField(choices=PIZZA_SIZES, default=12, blank=False)
-    name = models.CharField(max_length=200, db_index=True)
+    name = models.CharField(max_length=200,db_index=True)
     toppings = models.CharField(max_length=200,db_index=True)
 
     def __str__(self):

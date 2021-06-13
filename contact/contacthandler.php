@@ -21,6 +21,6 @@ $validator->field('message')->maxLength(6000);
 
 
 
-$pp->sendEmailTo('someone@gmail.com'); // ← Contact email here // This needs to be changed before publishing
+$pp->sendEmailTo('greenteamproject2021a@gmail.com'); // ← Contact email here // This needs to be changed before publishing
 
 echo $pp->process($_POST);
