@@ -54,8 +54,8 @@ Pizza Time | My Store | Lookup Products
                             <td>{{ pizza.priceSm }}</td>
 							<td>{{ pizza.priceMd }}</td>
 							<td>{{ pizza.priceLg }}</td>
-							<td><a class="btn btn-sm btn-info" href="">Update</a></td>
-                            <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+							<td><a class="btn btn-sm btn-info" href="{% url 'mystore:update_pizza' pizza.pk %}">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'mystore:delete_pizza' pizza.pk %}">Delete</a></td>
                         </tr>
                     {% endfor %}
 				</table>
@@ -75,8 +75,8 @@ Pizza Time | My Store | Lookup Products
 							<td>{{ soda.name }}</td>
 							<td>{{ soda.priceSm }}</td>
 							<td>{{ soda.priceLg }}</td>
-							<td><a class="btn btn-sm btn-info" href="">Update</a></td>
-                            <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+							<td><a class="btn btn-sm btn-info" href="{% url 'mystore:update_soda' soda.pk %}">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'mystore:delete_soda' soda.pk %}">Delete</a></td>
 						</tr>
 					{% endfor %}
 				</table>
@@ -94,8 +94,8 @@ Pizza Time | My Store | Lookup Products
 						<tr>
 							<td>{{ side.name }}</td>
 							<td>{{ side.priceSide }}</td>
-							<td><a class="btn btn-sm btn-info" href="">Update</a></td>
-                            <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+							<td><a class="btn btn-sm btn-info" href="{% url 'mystore:update_side' side.pk %}">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'mystore:delete_side' side.pk %}">Delete</a></td>
 						</tr>
 					{% endfor %}
 				</table>

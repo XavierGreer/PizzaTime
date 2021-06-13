@@ -37,7 +37,7 @@ Pizza Time | My Store | Toppings Yeah
 				{% for topping in toppings %}
 					<tr>
 						<td>{{ topping.name }}</td>
-						<td><a class="btn btn-sm btn-info" href="">Update</a></td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'mystore:update_topping' topping.pk %}">Update</a></td>
                         <td><a class="btn btn-sm btn-danger" href="{% url 'mystore:delete_topping' topping.pk %}">Delete</a></td>
 					</tr>
 				{% endfor %}

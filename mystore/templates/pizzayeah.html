@@ -43,8 +43,8 @@ Pizza Time | My Store | Pizzas Yeah
                                 <td>{{ pizza.priceSm }}</td>
 								<td>{{ pizza.priceMd }}</td>
 								<td>{{ pizza.priceLg }}</td>
-								<td><a class="btn btn-sm btn-info" href="">Update</a></td>
-                                <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+								<td><a class="btn btn-sm btn-info" href="{% url 'mystore:update_pizza' pizza.pk %}">Update</a></td>
+                                <td><a class="btn btn-sm btn-danger" href="{% url 'mystore:delete_pizza' pizza.pk %}">Delete</a></td>
                             </tr>
                         {% endfor %}
 					</table>

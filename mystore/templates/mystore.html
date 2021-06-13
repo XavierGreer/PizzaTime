@@ -16,7 +16,7 @@ Pizza Time | My Store | Admins Only Dashboard
     <div class="row">
         <div class="col">
             <div class="col-md">
-                <div class="card text-center text-black  mb-3" id="total-orders">
+                <div class="card text-center text-black  mb-2" id="total-orders">
                     <div class="card-header">
                         <h5 class="card-title">Total Orders</h5>
                     </div>
@@ -29,7 +29,7 @@ Pizza Time | My Store | Admins Only Dashboard
 
         <div class="col">
             <div class="col-md">
-                <div class="card text-center text-black  mb-3" id="orders-delivered">
+                <div class="card text-center text-black  mb-2" id="orders-delivered">
                     <div class="card-header">
                         <h5 class="card-title">Orders Delivered</h5>
                     </div>
@@ -42,12 +42,38 @@ Pizza Time | My Store | Admins Only Dashboard
 
         <div class="col">
             <div class="col-md">
-                <div class="card text-center text-black  mb-3" id="orders-pending">
+                <div class="card text-center text-black  mb-2" id="orders-ontheway">
                     <div class="card-header">
-                        <h5 class="card-title">Orders Pending</h5>
+                        <h5 class="card-title">Orders On The Way</h5>
                     </div>
                     <div class="card-body">
-                        <h3 class="card-title">{{ pending }}</h3>
+                        <h3 class="card-title">{{ ontheway }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="col-md">
+                <div class="card text-center text-black  mb-2" id="orders-baking">
+                    <div class="card-header">
+                        <h5 class="card-title">Orders Baking</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{ baking }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="col-md">
+                <div class="card text-center text-black  mb-2" id="orders-received">
+                    <div class="card-header">
+                        <h5 class="card-title">Orders Received</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{ received }}</h3>
                     </div>
                 </div>
             </div>
@@ -64,18 +90,20 @@ Pizza Time | My Store | Admins Only Dashboard
                 <a class="btn btn-primary  btn-sm btn-block" href="{% url 'mystore:create_customer' %}">Create Customer</a>
                 <table class="table table-sm">
                     <tr>
-                        <th>View</th>
                         <th>Customer ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
+                        <th>Update</th>
+                        <th>Delete</th>
                     </tr>
 
                     {% for customer in customers %}
                     <tr>
-                        <td><a class="btn btn-sm btn-info" href="{% url 'mystore:lookup_customer_byID' customer.pk %}">View</a></td>
                         <td>{{ customer.customerID }}</td>
                         <td>{{ customer.firstname }}</td>
                         <td>{{ customer.lastname }}</td>
+                        <td><a href="{% url 'mystore:update_customer' customer.pk %}" class="btn btn-info">Update</a></td>
+                        <td><a href="{% url 'mystore:delete_customer' customer.pk %}" class="btn btn-danger">Delete</a></td>
                     </tr>
                     {% endfor %}
 
@@ -95,7 +123,7 @@ Pizza Time | My Store | Admins Only Dashboard
                         <th>Order ID</th>
                         <th>Status</th>
                         <th>Update</th>
-                        <th>Remove</th>
+                        <th>Delete</th>
                     </tr>
 
                     {% for order in orders %}
@@ -103,8 +131,8 @@ Pizza Time | My Store | Admins Only Dashboard
                         <td>{{ order.customer }}</td>
                         <td>{{ order.orderID }}</td>
                         <td>{{ order.status }}</td>
-                        <td><a href="{% url 'mystore:update_order' order.pk %}" class="btn btn-info">Update</a></td>
-                        <td><a href="{% url 'mystore:delete_order' order.orderID %}" class="btn btn-danger">Remove</a></td>
+                        <td><a href="{% url 'mystore:update_order' order.orderID %}" class="btn btn-info">Update</a></td>
+                        <td><a href="{% url 'mystore:delete_order' order.orderID %}" class="btn btn-danger">Delete</a></td>
                     </tr>
                     {% endfor %}
 
@@ -115,13 +143,11 @@ Pizza Time | My Store | Admins Only Dashboard
     <hr>
     <div class="row">
         <div class="col-md-12 text-center">
-            <p>Add toppings, pizza, sodas, and sides as well as Lookup, Create, Edit, and Delete Orders or Customers below.</p>
+            <p>Add Toppings, Pizzas, Sodas, and Sides as well as Lookup, Create, Edit, and Delete Orders and Customers below.</p>
             <center>
-            <a href="{% url "mystore:lookup_order" %}"> Lookup Order</a> |
-            <a href="{% url "mystore:create_order" %}"> Create Order</a> |
-            <a href="{% url "mystore:lookup_customer" %}"> Lookup Customer</a> |
-            <a href="{% url "mystore:create_customer" %}"> Create Customer</a> |
-            <a href="{% url "mystore:lookup_products" %}"> Lookup Products</a> |
+            <a href="{% url "mystore:lookup_order" %}"> All Things Orders</a> |
+            <a href="{% url "mystore:lookup_customer" %}"> All Things Customers</a> |
+            <a href="{% url "mystore:lookup_products" %}"> All Things Products</a> |
             <a href="{% url "mystore:toppingyeah" %}"> All Things Toppings</a> |
             <a href="{% url "mystore:pizzayeah" %}"> All Things Pizzas</a> |
             <a href="{% url "mystore:sodayeah" %}"> All Things Sodas</a> |

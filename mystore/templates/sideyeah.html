@@ -38,8 +38,8 @@ Pizza Time | My Store | Sides Yeah
 					<tr>
 						<td>{{ side.name }}</td>
 						<td>{{ side.priceSide }}</td>
-						<td><a class="btn btn-sm btn-info" href="">Update</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'mystore:update_side' side.pk %}">Update</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="{% url 'mystore:delete_side' side.pk %}">Delete</a></td>
 					</tr>
 				{% endfor %}
 			</table>
