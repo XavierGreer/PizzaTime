@@ -84,8 +84,7 @@
                 <ul style="list-style-type:none;">
                     <li><a href="{% url "pizza:aboutus" %}"> About Us</a></li>
                     <li><a href="{% url "contact:contact" %}"> Contact Us</a></li>
-                    <li><a href="{% url "mystore:mystore" %}"> My Store</a></li>
-                    <li> Copyright</li>
+                    <!--<li><a href="{% url "mystore:mystore" %}"> My Store</a></li>-->
                 </ul>
             </div>
             <div class="col-sm-12 col-md-4 col-lg-2" style="padding-top:2%; padding-bottom:2%;">
@@ -93,14 +92,14 @@
                     <div class="col-6 text-center" style="width:100%">
                         <div style="width:100%">
                             <div class="footerlink" style="width:100%">
-                                <a href="" class="icon"><i class="fa fa-twitter-square fa-3x" aria-hidden="true" style="width:100%"></i></a>
+
                             </div>
                         </div>
                     </div>
                    <div class="col-6 text-center" style="width:100%">
                       <div style="width:100%">
                             <div class="footerlink" style="width:100%;">
-                                <a href="" target="_blank" class="icon"><i class="fa fa-facebook-square fa-3x" aria-hidden="true" style="width:100%"></i></a>
+                                <a class="navbar-brand" href="{% url "pizza:index" %}"><img src="/static/images/Logo.png" alt="Responsive image" width="180" height="70"></a>
                             </div>
                         </div>
                     </div>
