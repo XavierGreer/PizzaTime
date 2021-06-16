@@ -178,14 +178,7 @@ def delete_customer(request, pk):
 
 def lookup_customer(request):
     customers = Customer.objects.all()
-    form = CustomerForm(request.POST or None)
-    if request.method == "POST":
-        form = CustomerForm(request.POST)
-        if form.is_valid():
-            form.save()
-        messages.success(request, ('Customer Created Successfully'))
-        return redirect('mystore:mystore')
-    context = {'customers': customers, 'form': form}
+    context = {'customers': customers}
     return render(request, "customersyeah.html", context)
 
 def update_customer(request, pk):
