@@ -15,7 +15,7 @@
             <label>
                 {% if product.product_type == 'Pizza' %}
                 Small - ${{ priceSm }}
-                {% elif product.product_type == 'Sides' %}
+                {% elif product.product_type == 'Side' %}
                 ${{ priceSm }}
                 {% elif product.product_type == 'Soda' %}
                 12oz - ${{ priceSm }}
@@ -32,7 +32,7 @@
 
                 {% if product.product_type == 'Pizza' %}
                 <label>{{ quantity }}</label>Medium - ${{ priceMd }}
-                {% elif product.product_type == 'Sides' %}
+                {% elif product.product_type == 'Side' %}
                 {% elif product.product_type == 'Soda' %}
                 {% else %}
                 Invalid Price
@@ -49,7 +49,7 @@
             <label>
                 {% if product.product_type == 'Pizza' %}
                 <label>{{ quantity }}</label>Large - ${{ priceLg }}
-                {% elif product.product_type == 'Sides' %}
+                {% elif product.product_type == 'Side' %}
                 {% elif product.product_type == 'Soda' %}
                 <label>{{ quantity }}</label>2-Liter - ${{ priceLg }}
                 {% else %}
@@ -57,7 +57,7 @@
                 {% endif %}
             </label>
             {% csrf_token %}
-            {% if product.product_type == 'Sides' %}
+            {% if product.product_type == 'Side' %}
             {% else %}
                 <input type="submit" value="Add to cart">
             {% endif %}

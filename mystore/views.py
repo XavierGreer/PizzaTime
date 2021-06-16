@@ -133,9 +133,9 @@ def update_order(request, id):
             return redirect('mystore:mystore')
     return render(request, 'orderupdate.html', context)
 
-def delete_order(request, orderID):
+def delete_order(request, id):
     context = {}
-    obj = get_object_or_404(Order, orderID=orderID)
+    obj = get_object_or_404(Order, id=id)
     if request.method == "POST":
         obj.delete()
         messages.success(request, ('Order Deleted Successfully'))
