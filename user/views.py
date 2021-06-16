@@ -26,7 +26,7 @@ def register(request):
 			html_content = htmly.render(d)
 			msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
 			msg.attach_alternative(html_content, "text/html")
-			msg.send()
+			# msg.send()
 			messages.success(request, f'Your account has been created. You are now able to log in.')
 			return redirect('login')
 	else:

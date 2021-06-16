@@ -13,7 +13,7 @@ Pizza Time | My Store | All Things Customer
             <center>
                 <h1>Create Customer</h1>
                 <br>
-                <form action="create_customer" method='POST'>
+                <form method='POST'>
                         {% csrf_token %}
                         {{form.as_p}}
                     <input type='submit' value='Submit'>
