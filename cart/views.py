@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 from web_pizza.models import *
+from mystore.forms import CustomerForm
 from cart.forms import *
 from .cart import Cart
 from databaseController import DatabaseController
@@ -45,7 +46,8 @@ def cart_remove(request, name):
 
 def cart_detail(request):
     cart = Cart(request)
-    return render(request, 'cart/detail.html', {'cart':cart})
+    form = customerInfo()
+    return render(request, 'cart/detail.html', {'cart':cart, 'form':form})
 
 def cart_checkout(request):
     cart = Cart(request)

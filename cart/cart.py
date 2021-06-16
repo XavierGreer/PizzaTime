@@ -71,6 +71,7 @@ class Cart(object):
         if self.order == False:
             self.order = True
             db.addOrder(self.get_total_price())
+
         self.clear()
 
     def update(self, id, status):

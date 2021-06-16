@@ -35,9 +35,7 @@ def register(request):
 
 def Login(request):
 	if request.method == 'POST':
-
 		# AuthenticationForm_can_also_be_used__
-
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(request, username = username, password = password)

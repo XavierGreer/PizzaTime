@@ -11,7 +11,7 @@
         <img class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no_img.jpg" %}{% endif %}">
         <h1>{{ product.name }}</h1>
         <form action="{% url "cart:cart_add" name 'Small' %}" method="POST">
-        <label>{{ quantity }}</label>
+        <!--<label>{{ quantity }}</label>-->
             <label>
                 {% if product.product_type == 'Pizza' %}
                 Small - ${{ priceSm }}
@@ -31,7 +31,7 @@
             <label>
 
                 {% if product.product_type == 'Pizza' %}
-                <label>{{ quantity }}</label>Medium - ${{ priceMd }}
+                <!--<label>{{ quantity }}</label>-->Medium - ${{ priceMd }}
                 {% elif product.product_type == 'Side' %}
                 {% elif product.product_type == 'Soda' %}
                 {% else %}
@@ -48,10 +48,10 @@
         <form action="{% url "cart:cart_add" name 'Large' %}" method="POST">
             <label>
                 {% if product.product_type == 'Pizza' %}
-                <label>{{ quantity }}</label>Large - ${{ priceLg }}
+                <!--<label>{{ quantity }}</label>-->Large - ${{ priceLg }}
                 {% elif product.product_type == 'Side' %}
                 {% elif product.product_type == 'Soda' %}
-                <label>{{ quantity }}</label>2-Liter - ${{ priceLg }}
+                <!--<label>{{ quantity }}</label>-->2-Liter - ${{ priceLg }}
                 {% else %}
                 Invalid Price
                 {% endif %}

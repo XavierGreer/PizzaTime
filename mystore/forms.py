@@ -13,6 +13,7 @@ class CustomerForm(forms.ModelForm):
             'address',
             'zipcode'
         ]
+
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order

@@ -1,5 +1,4 @@
 from django import forms
-from web_pizza.models import *
 
 PRODUCT_QUANTITY_CHOICES = [(i,str(i)) for i in range(1,10)]
 class productQuantity(forms.Form):
@@ -29,3 +28,7 @@ class toppings(forms.Form):
     Anchovies = forms.MultipleChoiceField(choices=CHOICES, widget=forms.RadioSelect, initial= 'None')
     Tomatoes = forms.MultipleChoiceField(choices=CHOICES, widget=forms.RadioSelect, initial= 'None')
     SunDried_Tomatoes = forms.MultipleChoiceField(choices=CHOICES, widget=forms.RadioSelect, initial= 'None')
+
+class customerInfo(forms.Form):
+    name = forms.CharField(label='Name', required=True)
+    number = forms.CharField(label='Name', required=True)
